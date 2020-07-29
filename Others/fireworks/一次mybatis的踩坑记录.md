@@ -66,30 +66,47 @@ xml文件存在的路径是`com\atguigu\eduService\mapper\xml\EduChapterMapper.x
 
 而这里的`configuration.hasStatement(statementId)`执行结果为false，也就是说根本找不到！那么最终确信确实是一开始扫描xml的时候没有扫描到。
 
-发现问题之后，我便开始有针对性地查找资料，最终通过配置mappersLocation和pom.xml解决：
+发现问题之后，我便开始有针对性地查找资料，最终通过配置mappersLocation和pom.xml解决。
 
-```yml
-mybatis-plus:
-  mapper-locations:
-    - classpath*:com/atguigu/**/mapper/xml/*.xml
-```
+---
 
-```xml
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
-```
+ps：头一天找了许久的问题解决，第二天视频老师就说到了原因，于是，再补充一下。
+
+> maven默认加载机制造成，maven加载默认只会把java目录下的.java类型文件进行编译，因此xml文件就不会加载了，因为target中根本就没有xml！！！
+
+解决方法有如下三种：
+
+- 直接将xml文件复制到编译之后的target目录中。
+
+- 可以把xml文件放到resourses目录下。
+
+- 通过配置实现
+
+  - 配置pom.xml
+
+  ```xml
+      <build>
+          <resources>
+              <resource>
+                  <directory>src/main/java</directory>
+                  <includes>
+                      <include>**/*.xml</include>
+                  </includes>
+                  <filtering>false</filtering>
+              </resource>
+          </resources>
+      </build>
+  ```
+
+  - 配置application.yml
+
+  ```yml
+  mybatis-plus:
+    mapper-locations:
+      - classpath:com/atguigu/**/mapper/xml/*.xml
+  ```
+
+第二种和第三种都是比较推荐的，如果目录结构本身已经确定，那么就推荐第三种。
 
 这个过程中，还搜索到了这个问题相关的解决方案：https://www.cnblogs.com/yw-ah/p/10197493.html
 
