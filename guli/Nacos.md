@@ -115,3 +115,54 @@ public class EduVideoController {
 }
 ```
 
+# Hystrix熔断
+
+添加熔断器依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+```
+
+开启熔断机制
+
+```yml
+# 开启熔断机制
+feign:
+  httpclient:
+    enabled: true
+```
+
+创建interface实现类
+
+```java
+/**
+ * 在调用服务失败,执行里面定义的方法
+ *
+ * @author Summerday
+ */
+@Component
+public class VodClientImpl implements VodClient {
+
+    @Override
+    public Result removeVideo(String videoSourceId) {
+        return Result.error().message("删除视频失败");
+    }
+
+    @Override
+    public Result removeVideoList(List<String> videoIdList) {
+        return Result.error().message("删除视频失败");
+    }
+}
+```
+
+在client接口@FeignClient注解上加上fallback属性，指定实现类。
+
+```java
+`@FeignClient(value = "service-vod",fallback = VodClientImpl.class)`
+```
+
+# Ribbon负载均衡
+

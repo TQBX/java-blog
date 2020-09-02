@@ -123,7 +123,7 @@ pom.xml到入依赖：
 ```yml
 spring:
   redis:
-    host: 121.199.16.31
+    host: 127.0.0.1
     password: 123456
 ```
 
