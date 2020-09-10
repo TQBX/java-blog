@@ -1,0 +1,103 @@
+## [303. 区域和检索 - 数组不可变](https://leetcode-cn.com/problems/range-sum-query-immutable/)
+
+给定一个整数数组  *nums*，求出数组从索引 *i* 到 *j* (*i* ≤ *j*) 范围内元素的总和，包含 *i, j* 两点。
+
+**示例：**
+
+```
+给定 nums = [-2, 0, 3, -5, 2, -1]，求和函数为 sumRange()
+
+sumRange(0, 2) -> 1
+sumRange(2, 5) -> -1
+sumRange(0, 5) -> -3
+```
+
+**说明:**
+
+1. 你可以假设数组不可变。
+2. 会多次调用 *sumRange* 方法。
+
+思考：
+
+### 前缀和
+
+假设数组$arr = [a_1,a_2,a_3,a_4,a_5]$，$sumRange(2,3)$代表第三个数到第四个数的和，也就是前四个数与前两个数的差。假设$s(k)$代表前k个数的差：$sumRange(2,3) = sum(4) - sum(2)$
+
+同时：$sum(k) = sum(k - 1) + nums[k]$，因为sum的k表示在第几个，nums的k表示下标。
+
+```java
+class NumArray {
+
+    int[] res; 
+    public NumArray(int[] nums) {
+
+        res = new int[nums.length + 1];
+        
+        for(int i = 0;i < nums.length; i ++){
+            res[i + 1] = res[i] + nums[i];
+        }
+    }
+    
+    public int sumRange(int i, int j) {
+        ++i; ++j;
+        return res[j] - res[i - 1];
+    }
+}
+```
+
+## [304. 二维区域和检索 - 矩阵不可变](https://leetcode-cn.com/problems/range-sum-query-2d-immutable/)
+
+给定一个二维矩阵，计算其子矩形范围内元素的总和，该子矩阵的左上角为 (*row*1, *col*1) ，右下角为 (*row*2, *col*2)。
+
+![Range Sum Query 2D](https://assets.leetcode-cn.com/aliyun-lc-upload/images/304.png)
+上图子矩阵左上角 (row1, col1) = **(2, 1)** ，右下角(row2, col2) = **(4, 3)，**该子矩形内元素的总和为 8。
+
+**示例:**
+
+```
+给定 matrix = [
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5]
+]
+
+sumRegion(2, 1, 4, 3) -> 8
+sumRegion(1, 1, 2, 2) -> 11
+sumRegion(1, 2, 2, 4) -> 12
+```
+
+**说明:**
+
+1. 你可以假设矩阵不可变。
+2. 会多次调用 *sumRegion* 方法*。*
+3. 你可以假设 *row*1 ≤ *row*2 且 *col*1 ≤ *col*2。
+
+### 二维矩阵的前缀和
+
+![image-20200910103517031](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200910103517031.png)
+
+```java
+class NumMatrix {
+    //s[i][j]表示第i行第j列的和
+
+    int[][] s;
+    public NumMatrix(int[][] matrix) {
+        if(matrix == null|| matrix.length == 0) return;
+        int m = matrix.length , n = matrix[0].length;
+
+        s = new int[m + 1][n + 1];
+
+        for(int i = 0; i < m; i++)
+            for(int j = 0; j < n; j++)
+                s[i + 1][j + 1] = s[i][j + 1] + s[i + 1][j] - s[i][j]+ matrix[i][j];
+
+    }
+    
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        return s[row2 + 1][col2 + 1] - s[row1][col2+1] - s[row2+1][col1] + s[row1][col1];
+    }
+}
+```
+
