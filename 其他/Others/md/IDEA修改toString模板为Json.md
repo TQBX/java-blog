@@ -1,14 +1,14 @@
 Alt+Insert，选择toString()。
 
-![image-20200415211631710](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415211631710.png)
+![image-20200415211631710](../pic/image-20200415211631710.png)
 
 点击settings。
 
-![image-20200415211741553](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415211741553.png)
+![image-20200415211741553](../pic/image-20200415211741553.png)
 
 点击Templates，点击加号。
 
-![image-20200415211822794](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415211822794.png)
+![image-20200415211822794](../pic/image-20200415211822794.png)
 
 将下面的代码复制进自己创建的模板即可。
 
