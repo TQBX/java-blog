@@ -66,7 +66,7 @@ springmvc.xml配置
 
 # 二、初始化
 
-![DispatcherServlet](E:\1JavaBlog\frameworks\springmvc\pic\DispatcherServlet.png)
+![DispatcherServlet](../pic/DispatcherServlet.png)
 
 DispatcherServlet的启动与Servlet的启动过程紧密联系，我们通过以上继承图就可以发现。
 
@@ -323,7 +323,7 @@ private void initLocaleResolver(ApplicationContext context) {
 
 `org.springframework.web.servlet.DispatcherServlet`同级目录下的`DispatcherServlet.properties`文件中规定了几大组件初始化的默认策略。
 
-![image-20200504152507850](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200504152507850.png)
+![image-20200504152507850](../pic/image-20200504152507850.png)
 
 ### handler映射信息解析
 
@@ -370,11 +370,11 @@ handlerMappings存在的意义在于为HTTP请求找到对应的控制器Control
 
 HandlerMapping在SpringMVC扮演着相当重要的角色，我们说，它可以为HTTP请求找到 对应的Controller控制器，于是，我们来好好研究一下，这里面到底藏着什么玩意。
 
-![image-20200504154801763](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200504154801763.png)
+![image-20200504154801763](../pic/image-20200504154801763.png)
 
 HandlerMapping是一个接口，其中包含一个getHandler方法，能够通过该方法获得与HTTP请求对应的handlerExecutionChain，而这个handlerExecutionChain对象中持有handler和interceptorList，以及和设置拦截器相关的方法。可以判断是同通过这些配置的拦截器对handler对象提供的功能进行了一波增强。
 
-![](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200504160311683.png)
+![](../pic/image-20200504160311683.png)
 
 ### RequestMappingHandlerMapping
 
@@ -443,11 +443,11 @@ protected void detectHandlerMethods(final Object handler) {
 
 mapping对象的属性：
 
-![image-20200504172052436](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200504172052436.png)
+![image-20200504172052436](../pic/image-20200504172052436.png)
 
 methods对象中存储的元素：
 
-![image-20200504170639253](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200504170639253.png)
+![image-20200504170639253](../pic/image-20200504170639253.png)
 
 注册方法在AbstractHandlerMethodMapping中实现：
 
@@ -856,7 +856,7 @@ private NamedValueInfo updateNamedValueInfo(MethodParameter parameter, NamedValu
 
 resolveName方法：
 
-![image-20200508214338359](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200508214338359.png)
+![image-20200508214338359](../pic/image-20200508214338359.png)
 
 参数解析的过程：
 
@@ -874,9 +874,9 @@ resolveName方法：
 
 在解析参数的时候，就已经通过MapMethodProcessor参数处理器初始化了一个BindingAwareModelMap。
 
-![image-20200509101125298](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200509101125298.png)
+![image-20200509101125298](../pic/image-20200509101125298.png)
 
-![image-20200509101209863](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200509101209863.png)
+![image-20200509101209863](../pic/image-20200509101209863.png)
 
 当然其实这里重点还是参数解析，至于数据为什么封装进map，就很简单了，无非是反射执行方法的时候，通过put将数据存入，当然最后的数据也就存在于ModelAndViewContainer中。
 
@@ -1045,7 +1045,7 @@ UrlBasedViewResolver的createView方法：
 
 最后返回的视图对象：
 
-![image-20200509110930393](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200509110930393.png)
+![image-20200509110930393](../pic/image-20200509110930393.png)
 
 >  视图解析器 viewResolver --实例化 --> view（无状态的，不会有线程安全问题）
 
@@ -1117,7 +1117,7 @@ protected void exposeModelAsRequestAttributes(Map<String, Object> model,HttpServ
 
 视图解析器（实现ViewResolver接口）：将逻辑视图解析为具体的视图对象。
 
-![image-20200506192115248](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200506192115248.png)
+![image-20200506192115248](../pic/image-20200506192115248.png)
 
 每个视图解析器都实现了Ordered接口，并开放order属性，order越小优先级越高。
 
@@ -1127,7 +1127,7 @@ protected void exposeModelAsRequestAttributes(Map<String, Object> model,HttpServ
 
 视图（实现View接口）：渲染模型数据，将模型数据以某种形式展现给用户。
 
-![image-20200506192330201](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200506192330201.png)
+![image-20200506192330201](../pic/image-20200506192330201.png)
 
 最终采取的视图对象对模型数据进行渲染render，处理器并不关心，处理器关心生产模型的数据，实现解耦。
 
