@@ -6,7 +6,7 @@
 
 Spring容器的启动流程如下，这是我在看源码过程中自己总结的流程图，如有错误，还望评论区指点：
 
-![](../流程.png)
+![](../img/流程.png)
 
 接下来附上源码：
 
@@ -150,7 +150,7 @@ protected void doClose() {
 
 # Bean 的生命周期
 
-![](../bean.png)
+![](../img/bean.png)
 
 在了解Bean的生命周期之前，我们必须要明确SpringBean和我们通常说的对象有什么区别？
 
@@ -213,7 +213,7 @@ public void preInstantiateSingletons() throws BeansException {
 
 这部分篇幅过长，我直接放上总结的流程图：
 
-![](../doGetBEAN.png)
+![](../img/doGetBEAN.png)
 
 ### createBean
 

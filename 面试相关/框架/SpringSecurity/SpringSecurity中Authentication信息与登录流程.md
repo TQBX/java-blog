@@ -4,7 +4,7 @@
 
 # Authentication
 
-![](../Authentication.png)
+![](../img/Authentication.png)
 
 使用SpringSecurity可以在任何地方注入Authentication进而获取到当前登录的用户信息，可谓十分强大。
 

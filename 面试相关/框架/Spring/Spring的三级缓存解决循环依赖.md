@@ -54,7 +54,7 @@ public class A {
 
 在讨论Spring如何解决循环依赖之前，我们需要清除SpringBean的创建流程，之前的那篇文章讨论了容器的启动销毁与对象完整的生命周期，这里将其中涉及循环依赖的主要部分再做一个说明：
 
-![](../docreateBean.png)
+![](../img/docreateBean.png)
 
 - `createBeanInstance`：实例化，其实也就是调用对象的**构造方法**或者工厂方法实例化对象
 - `populateBean`：填充属性，这一步主要是对bean的依赖属性进行注入(`@Autowired`)

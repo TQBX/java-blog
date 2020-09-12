@@ -87,7 +87,7 @@ AOP为`Aspect Oriented Programming`的缩写，意为：**面向切面编程**�
 
 Spring的Aop又是在哪完成的对目标对象的代理呢？我们大概也能够想到，其实就是在执行回调的时候。按照惯例，先复习一下，从getBean开始到返回Bean经历了什么：
 
-![](../docreateBean.png)
+![](../img/docreateBean.png)
 
 
 
@@ -99,7 +99,7 @@ Spring的Aop又是在哪完成的对目标对象的代理呢？我们大概也�
 
 
 
-![](../aop.png)
+![](../img/aop.png)
 
 ### AnnotationAwareAspectJAutoProxyCreator的注册
 
