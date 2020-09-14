@@ -15,6 +15,8 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 - 自动配置Spring，根据类路径下的类，jar自动配置bean。
 - 提供了应用监控的功能。
 - 无代码生成和XML配置。
+- SpringBoot提供命令行接口工具CLI，用于开发和测试SpringBoot应用程序，如Java和Groovy。
+- SpringBoot提供了多种插件，可以使用内置工具【maven，gradle】开发和测试SpringBoot应用程序。
 
 # SpringBoot的两种配置文件
 
@@ -24,6 +26,16 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 - application.yml或application.propertiees
   - 常用，用于SpringBoot的自动化配置。
   - 一般用于定义单个应用级别。
+
+# 什么是SpringBoot Starters
+
+是一系列依赖关系的集合，由于Starters的存在，项目间的依赖关系变的更加简单。
+
+例如：
+
+> - 在没有Spring Boot Starters之前，我们开发REST服务或Web应用程序时; 我们需要使用像Spring MVC，Tomcat和Jackson这样的库，这些依赖我们需要手动一个一个添加。
+>
+> - 有了 Spring Boot Starters 我们只需要一个只需添加一个**spring-boot-starter-web**一个依赖就可以了，这个依赖包含的字依赖中包含了我们开发REST 服务需要的所有依赖。
 
 # SpringBoot常用的starter
 
@@ -38,9 +50,11 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 
 核心注解是@SpringBootApplication 由以下三种组成
 
-- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。
-- @EnableAutoConfiguration：打开自动配置的功能。
-- @ComponentScan：Spring组件扫描。
+- @SpringBootConfiguration【其实就相当于@Configuration】：组合了 @Configuration 注解，实现配置文件的功能。
+- @EnableAutoConfiguration：打开**自动配置**的功能。
+- @ComponentScan：Spring组件扫描。扫描被@Component标注的bean，注解默认会扫描该类所在的包下的所有的类。
+
+
 
 # SpringBoot启动流程
 
@@ -55,3 +69,12 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
   - @EnableAutoConfiguration找到META-INF/spring.factories（需要创建的bean在里面）配置文件
   - 读取每个starter中的spring.factories文件
 
+# 什么是@Conditional
+
+根据特定条件来控制bean的创建行为。
+
+# SpringBoot支持哪些嵌入式web容器
+
+- Tomcat
+- Jetty
+- Undertow
