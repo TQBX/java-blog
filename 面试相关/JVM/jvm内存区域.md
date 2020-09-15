@@ -42,6 +42,8 @@ JDK1.8之后方法区【HotSpot的永久代】被彻底移除【JDK1.7就已经�
 
 大部分情况下：对象都会首先在Eden区分类，再一次新生代垃圾回收后，如果对象还存活，则会进入from或to，之后就在from和to之间来回倒腾，且对象的年龄+1，年龄增加到一定程度【阈值默认15岁，阈值可通过参数`-XX:MaxTenuringThreshold`设置】，就会被晋升到老年代中。
 
+> **Sets the maximum tenuring threshold for use in adaptive GC sizing. The largest value is 15. The default value is 15 for the parallel (throughput) collector, and 6 for the CMS collector.默认晋升年龄并不都是15，这个是要区分垃圾收集器的，CMS就是6.**
+
 **动态年龄计算**
 
 > “Hotspot遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了survivor区的一半时，取这个年龄和MaxTenuringThreshold中更小的一个值，作为新的晋升年龄阈值”。
