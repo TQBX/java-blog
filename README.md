@@ -4,11 +4,8 @@
 
 - [Java基础](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80)
   - [Java数组详解【for-each，Arrays】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84)
-  
   - [Java流程控制【if-else，while，for，break，continue】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6)
-  
   - [Java反射](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E5%8F%8D%E5%B0%84/Java%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6.md)
-  
   - [面向对象](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
     
     - 三大特性：
@@ -40,22 +37,34 @@
       - [ 浅谈Java中接口与抽象类的异同](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%BC%82%E5%90%8C.md)
     
     - Object类：[Java之Object类](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E4%B9%8BObject%E7%B1%BB.md)
-    
   - 异常
   
     - [ Java面向对象之异常【一】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%BC%82%E5%B8%B8%E3%80%90%E4%B8%80%E3%80%91.md)
     - [ Java面向对象之异常【二】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%BC%82%E5%B8%B8%E3%80%90%E4%BA%8C%E3%80%91.md)
-  
   - [IO](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/IO)
+    - [ 小白学Java：File类](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/IO/md/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9AFile%E7%B1%BB.md)
+    - [ 小白学Java：I/O流](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/IO/md/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9AIO%E6%B5%81.md)
+    - [ 小白学Java：RandomAccessFile](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/IO/md/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9ARandomAccessFile.md)
+  - 枚举：[Java：枚举类也就这么回事](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E6%9E%9A%E4%B8%BE%E7%B1%BB/md/Java%EF%BC%9A%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B9%9F%E5%B0%B1%E8%BF%99%E4%B9%88%E5%9B%9E%E4%BA%8B.md)
+  - JDBC：[JDBC学习笔记](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/JDBC/md)
 - [JavaWeb](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB)
   - [前端部分：HTML + CSS + JS + JQuery + Ajax](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%89%8D%E7%AB%AF)
   - [后端部分：Servlet 、Cookie、session、tomcat、request的api、Filter和Listener ](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%90%8E%E7%AB%AF)
 - 集合源码
   
-  - [ArrayList、LinkedList、Vector、Iterator、HashMap](https://gitee.com/tqbx/JavaBlog/tree/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md)
+  - [Java小白的源码学习系列：ArrayList](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/ArrayList%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)
+  - [Java小白的源码学习系列：LinkedList ](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/LinkedList%20%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)
+  - [Java小白的源码学习系列：Vector](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/Vector%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)
+  - [Java小白的源码学习系列：HashMap](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/Hashmap%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)
+  - [小白学Java：奇怪的RandomAccess](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%A5%87%E6%80%AA%E7%9A%84RandomAccess.md)
+  - [小白学Java：迭代器原来是这么回事](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8E%9F%E6%9D%A5%E6%98%AF%E8%BF%99%E4%B9%88%E5%9B%9E%E4%BA%8B.md)
 - [JVM系列](https://gitee.com/tqbx/JavaBlog/tree/master/JVM%E7%B3%BB%E5%88%97)
+  - [JVM内存区域](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/jvm%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md)
+  - [四种引用类型的特点](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E7%82%B9.md)
+  - [垃圾收集器与内存分配策略](https://gitee.com/tqbx/JavaBlog/blob/master/JVM%E7%B3%BB%E5%88%97/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5.md)
+  - 类文件结构
+  - [虚拟机类加载机制](https://gitee.com/tqbx/JavaBlog/blob/master/JVM%E7%B3%BB%E5%88%97/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.md)
 - Java并发编程
-  - 
   - [【Java并发编程】常见基础问题整理](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.md)
   - [【Java并发编程】线程的六种状态及转化](https://gitee.com/tqbx/JavaBlog/blob/master/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91/md/Java%EF%BC%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%AD%E7%A7%8D%E7%8A%B6%E6%80%81%E5%8F%8A%E8%BD%AC%E6%8D%A2.md)
   - [【Java并发编程】谈谈控制线程的几种办法](https://gitee.com/tqbx/JavaBlog/blob/master/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91/md/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95.md)
