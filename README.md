@@ -3,12 +3,55 @@
 之前文档结构过于混乱，故抽空进行了一波重构。为方便定位，特整理成目录，如下：
 
 - [Java基础](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80)
+  - [Java数组详解【for-each，Arrays】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84)
+  
+  - [Java流程控制【if-else，while，for，break，continue】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6)
+  
+  - [Java反射](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E5%8F%8D%E5%B0%84/Java%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6.md)
+  
   - [面向对象](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
+    
+    - 三大特性：
+      - 封装
+        - [Java封装及访问权限控制](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%B0%81%E8%A3%85%E5%8F%8A%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89.md)
+        - [ Java封装与访问权限控制（二）](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%B0%81%E8%A3%85%E5%8F%8A%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%EF%BC%88%E4%BA%8C%EF%BC%89.md)
+      - 继承
+        - [Java面向对象之继承](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%A7%E6%89%BF.md)
+      - 多态
+        - 动态绑定：[ Java多态之动态绑定](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%A4%9A%E6%80%81%E4%B9%8B%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A.md)
+        - 向上转型：[Java多态之向上转型](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%A4%9A%E6%80%81%E4%B9%8B%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B.md)
+        - 向下转型：[ Java多态之向下转型](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%A4%9A%E6%80%81%E4%B9%8B%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B.md)
+    - 构造器
+      - [ Java面向对象之构造器](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%9E%84%E9%80%A0%E5%99%A8.md)
+      - [ Java继承之再谈构造器](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E7%BB%A7%E6%89%BF%E4%B9%8B%E5%86%8D%E8%B0%88%E6%9E%84%E9%80%A0%E5%99%A8.md)
+    - [this](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%85%B3%E9%94%AE%E5%AD%97%E4%B9%8Bthis.md)与[super](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E4%B9%8Bsuper%E5%85%B3%E9%94%AE%E5%AD%97.md)
+    - final：[Java关键字之final详解](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%85%B3%E9%94%AE%E5%AD%97%E4%B9%8Bfinal%E8%AF%A6%E8%A7%A3.md)
+    - 重载与重写
+      - [ Java方法之重载](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E6%96%B9%E6%B3%95%E4%B9%8B%E9%87%8D%E8%BD%BD.md)
+      - [Java继承之方法重写](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99.md)
+    - 内部类：[ 小白学Java：内部类](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%86%85%E9%83%A8%E7%B1%BB.md)
+    - 泛型：[小白学Java：泛型详解](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3.md)
+    - 包装类：[小白学Java：包装类](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB.md)
+    - 抽象类：[ Java之抽象类与抽象方法](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E4%B9%8B%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95.md)
+    - 接口
+      - [Java接口【一】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%8E%A5%E5%8F%A3%EF%BC%88%E4%B8%80%EF%BC%89.md)
+      - [Java接口【二】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E6%8E%A5%E5%8F%A3%EF%BC%88%E4%BA%8C%EF%BC%89.md)
+      - [浅谈Jdk1.8接口的默认和静态方法](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E6%B5%85%E8%B0%88Java%E7%9A%84%E9%BB%98%E8%AE%A4%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95.md)
+      - [ 浅谈Java中接口与抽象类的异同](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%BC%82%E5%90%8C.md)
+    
+    - Object类：[Java之Object类](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E4%B9%8BObject%E7%B1%BB.md)
+    
+  - 异常
+  
+    - [ Java面向对象之异常【一】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%BC%82%E5%B8%B8%E3%80%90%E4%B8%80%E3%80%91.md)
+    - [ Java面向对象之异常【二】](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E5%BC%82%E5%B8%B8%E3%80%90%E4%BA%8C%E3%80%91.md)
+  
   - [IO](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/IO)
 - [JavaWeb](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB)
   - [前端部分：HTML + CSS + JS + JQuery + Ajax](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%89%8D%E7%AB%AF)
   - [后端部分：Servlet 、Cookie、session、tomcat、request的api、Filter和Listener ](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%90%8E%E7%AB%AF)
 - 集合源码
+  
   - [ArrayList、LinkedList、Vector、Iterator、HashMap](https://gitee.com/tqbx/JavaBlog/tree/master/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97/md)
 - [JVM系列](https://gitee.com/tqbx/JavaBlog/tree/master/JVM%E7%B3%BB%E5%88%97)
 - Java并发编程
@@ -28,6 +71,7 @@
   - [Springboot](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/springboot)
   - [mybatis](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/mybatis)
 - 算法与数据结构
+  
   - [力扣刷题系列](https://gitee.com/tqbx/JavaBlog/tree/master/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97)：包括二分专题、前缀和、剑指offer、动态规划、广搜深搜、链表、字符串等专题
 - [Linux](https://gitee.com/tqbx/JavaBlog/tree/master/linux%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97)
 
