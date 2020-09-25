@@ -74,6 +74,8 @@
   - [【Java并发编程】线程池相关知识点整理](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9.md)
   - [【Java并发编程】synchronized相关面试题总结](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/synchronized.md)
   - [【Java并发编程】从CPU缓存模型到JMM来理解volatile关键字](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/volatile%E5%85%B3%E9%94%AE%E5%AD%97.md)
+  - [【Java并发编程】并发操作原子类Atomic以及CAS的ABA问题](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/Atomic%E5%8E%9F%E5%AD%90%E7%B1%BB.md)
+  - [【Java并发编程】常见工具类总结：CountDownLatch，CyclicBarrier，Semphore，Exchanger](https://gitee.com/tqbx/JavaBlog/blob/master/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/Java%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB.md)
 - 框架系列
   - [Spring](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/Spring/md)
   - [SpringMVC](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/springmvc/md)
