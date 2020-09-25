@@ -122,16 +122,16 @@ public class CyclicBarrierTest {
 
 但是，**如果将屏障数量改为3，此时主线程和子线程会永远等待，因为没有第三个线程达到屏障**了。
 
-
-
-# CyclicBarrier和CountDownLatch的区别 
+## CyclicBarrier和CountDownLatch的区别 
 
 - CountDownLatch的计数器只能使用一次，而CyclicBarrier的计数器可以使用reset()方法重置，因此CyclicBarrier能够处理更为复杂的业务场景。
 - CyclicBarrier还提供了其他有用的方法，如`getNumberWaiting`方法可以获得CyclicBarrier阻塞的线程数量。`isBroken()`方法用来了解阻塞的线程是否被中断。
 
 # Phaser 的实现
 
-Phaser可以替代CountDownLatch 和CyclicBarrier，但比两者更加强大，可以动态调整需要的线程个数，可以通过构造函数传入父Phaser实现层次Phaser
+Phaser可以替代CountDownLatch 和CyclicBarrier，但比两者更加强大，可以**动态调整需要的线程个数**，可以通过构造函数传入父Phaser实现层次Phaser。
+
+参考：[https://segmentfault.com/a/1190000015979879](https://segmentfault.com/a/1190000015979879)
 
 # Semaphore 
 
@@ -168,3 +168,41 @@ public class SemaphoreTest {
 用于**进行线程间的数据交换**，它提供一个同步点，在这个同步点两个线程可以交换彼此的数据。
 
 如果第一个线程先执行exchange()方法，它会一直等待第二个线程也执行exchange方法，当都达到同步点时，这两个线程可以交换数据。
+
+```java
+public class ExchangerTest {
+
+    private static final Exchanger<String> exgr = new Exchanger<>();
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+
+    public static void main(String[] args) {
+        threadPool.execute(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                String A = "银行流水A";
+                exgr.exchange(A);
+            }
+        });
+        threadPool.execute(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                String B = "银行流水B";
+                String A = exgr.exchange(B);
+                System.out.println("A 和 B 的数据是否一致 :"
+                        + A.equals(B) + " A录入的数据为 :" + A + " B录入的数据为 :" + B);
+            }
+        });
+        threadPool.shutdown();
+    }
+}
+```
+
+
+
+**参考**
+
+- 《Java并发编程的艺术》 方腾飞
+
+- [https://segmentfault.com/a/1190000015979879](https://segmentfault.com/a/1190000015979879)
