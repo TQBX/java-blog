@@ -36,32 +36,41 @@ spring:
 ```
 
 3. 在templates目录下放置`.ftl`文件，意为`freemarker templates layer`。
-4. 公共布局模板的定义,`<#nested >`标签定义个性的地方,引入时填充自定义代码
+4. 编写Controller，将模型存入request中：
 
 ```html
-<#-- 定义宏 -->
-<#macro layout title>
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8">
-            <title>${title}</title>
-        </head>
-        <body>
-            <#include "/inc/header.ftl"/><#--引入公共部分的内容-->
-            <#nested > <#--此处内容可以自定义-->
-            <#include "/inc/footer.ftl"/>
-		<#--省略公共部分内容-->
-</#macro>
+@Controller
+public class TestController{
+
+    @GetMapping("test")
+    public String test(HttpServletRequest request){
+        List<User> users = new LinkedList<>();
+        for(int i = 0; i < 10; i ++){
+            User user = new User();
+            user.setId((long)i);
+            user.setUsername("name = " + i);
+            users.add(user);
+        }
+        request.setAttribute("users",users);
+
+        return "test";
+    }
+}
 ```
 
-5. 引入公共模板及插入自定义的代码
+5. 简单使用FreeMarker的标签指令：
 
 ```html
-<#include "/inc/layout.ftl"/><#-- 这里引入公共模板layout.ftl-->
-<@layout "博客分类"> <#-- 这里对应<#macro layout title> 博客分类就是传入的title参数-->
-	<#-- 这里定义特色内容 -->
-</@layout>
+<#list users>
+    <p>Users:
+    <ul>
+        <#items as user>
+            <li>${user.id}--${user.username}<br>
+            </#items>
+    </ul>
+<#else>
+    <p>no users!
+</#list>
 ```
 
 # 模板一览
@@ -153,3 +162,104 @@ All Rights Reserved.
 ```
 
 ## 内建函数
+
+内建函数很像子变量(如果了解Java术语的话，也可以说像方法)， 它们并不是数据模型中的东西，是 FreeMarker 在数值上添加的。 为了清晰子变量是哪部分，使用 `?`(问号)代替 `.`(点)来访问它们。
+
+所有内建函数参考：http://freemarker.foofun.cn/ref_builtins.html
+
+## 处理不存在的变量
+
+一个不存在的变量和一个是`null`值的变量， 对于FreeMarker来说是一样的。
+
+不论在哪里引用变量，都可以指定一个默认值来避免变量丢失这种情况， 通过在变量名后面跟着一个 `!`(叹号，译者注)和默认值。 就像下面的这个例子，当 `user` 不存在于数据模型时, 模板将会将 `user` 的值表示为字符串 `"visitor"`。(当 `user` 存在时， 模板就会表现出 `${user}` 的值)：
+
+```html
+<h1>Welcome ${user!"visitor"}!</h1>
+```
+
+也可以在变量名后面通过放置 `??` 来询问一个变量是否存在。将它和 `if` 指令合并， 那么如果 `user` 变量不存在的话将会忽略整个问候的代码段：
+
+```html
+<#if user??><h1>Welcome ${user}!</h1></#if>
+```
+
+# 自定义指令
+
+## 使用macro定义宏
+
+- 未带参数宏调用
+
+```html
+<#macro greet>
+  <font size="+2">Hello Joe!</font>
+</#macro>
+
+<#--未带参数宏调用-->
+    <@greet></@greet>
+```
+
+- 带参数宏调用
+
+```html
+<#macro greet_2 person>
+    <font size="+2">Hello ${person}!</font>
+</#macro>
+<#--带参数宏调用-->
+    <@greet_2 person="天乔巴夏"/>
+```
+
+- 嵌套调用
+
+```html
+<#macro nest_test>
+    <#nested >
+</#macro>
+<#--嵌套调用-->    
+    <@nest_test>
+        hyh
+        </@nest_test>
+```
+
+## 使用TemplateDirectiveModel扩展。
+
+这部分可以参考我发在码云上的代码：https://gitee.com/tqbx/springboot-samples-learn/tree/master/spring-boot-freemarker。
+
+```java
+    @Override
+    public void execute(DirectiveHandler handler) throws Exception {
+        // 获取参数
+        String username = handler.getString("username");
+        String city = handler.getString("city");
+        // 处理参数
+        String template = "{}来自{}.";
+        String format = StrUtil.format(template, username, city);
+        // 传回去
+        handler.put("result",format).render();
+    }
+
+```
+
+```java
+@Configuration
+public class FreeMarkerConfig {
+
+    @Autowired
+    StringTemplate stringTemplate;
+    @Autowired
+    private freemarker.template.Configuration configuration;
+
+
+    @PostConstruct
+    public void setUp() {
+        configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
+        configuration.setSharedVariable("strstr", stringTemplate);
+    }
+}
+```
+
+```html
+<@strstr username="hyh" city="杭州">
+    ${result}
+    </@strstr>
+```
+
