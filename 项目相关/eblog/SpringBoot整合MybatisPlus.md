@@ -1,5 +1,9 @@
 [TOC]
 
+> 官方文档：https://mybatis.plus/
+>
+> 官方样例地址：https://gitee.com/baomidou/mybatis-plus-samples
+
 # 零、MybatisPlus特性：
 
 - 无侵入，损耗小，强大的CRUD操作。
@@ -215,7 +219,7 @@ mybatis-plus:
       ......  
 ```
 
-## mapperLocations
+mapperLocations
 
 - 类型：`String[]`
 - 默认值：`["classpath*:/mapper/**/*.xml"]`
@@ -268,203 +272,21 @@ public class ServiceTest {
 }
 ```
 
-# 逻辑删除功能
+# 十二、逻辑删除功能
 
-只对自动注入的sql起效:
+博客地址：[MybatisPlus的逻辑删除功能使用！](https://www.cnblogs.com/summerday152/p/13874936.html)
 
-- 插入: 不作限制
-- 查找: 追加where条件过滤掉已删除数据,且使用 wrapper.entity 生成的where条件会忽略该字段
-- 更新: 追加where条件防止更新到已删除数据,且使用 wrapper.entity 生成的where条件会忽略该字段
-- 删除: 转变为 更新
+# 十三、自动填充
 
-注：
+博客地址：[MybatisPlus的自动填充功能使用！](https://www.cnblogs.com/summerday152/p/13878176.html)
 
-- 逻辑删除是为了方便数据恢复和保护数据本身价值等等的一种方案，但实际就是删除。
+# 十四、乐观锁插件
 
-- 如果你需要频繁查出来看就不应使用逻辑删除，而是以一个状态去表示。
+博客地址：[MybatisPlus的乐观锁插件使用！](https://www.cnblogs.com/summerday152/p/13878102.html)
 
-## 逻辑删除的配置
+# 十五、SQL分析打印
 
-- 步骤一：配置yml，全局配置，3.3.0版本之后，配置`logic-delete-field`后可以忽略不配置步骤2。
-
-```yml
-mybatis-plus:
-  global-config:
-    db-config:
-      logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
-```
-
-- 步骤二：加上逻辑删除的注解，局部配置。
-
-```java
-    // 逻辑删除字段
-    @TableLogic
-    private Integer deleted;
-```
-
-## 逻辑删除的测试
-
-```java
-@Test
-void logicDelete(){
-    //UPDATE user SET deleted=1 WHERE deleted=0 AND (name = ?)
-    boolean remove = userService.remove(
-        new QueryWrapper<User>().eq("name", "summer"));
-    System.out.println(remove);
-
-}
-@Test
-void select(){
-    //SELECT id,name,deleted FROM user WHERE deleted=0
-    List<User> list = userService.list(
-        new QueryWrapper<User>().select("id","name","deleted"));
-    System.out.println(list);
-}
-@Test
-public void updateById(){
-    //UPDATE user SET age=? WHERE id=? AND deleted=0
-    User user = new User();
-    user.setId(1320008348799713282L);
-    user.setAge(20);
-    boolean b = userService.updateById(user);
-    System.out.println(b);
-}
-```
-
-## 查询中排除标识字段
-
-使用注解标识需要排除的字段：
-
-```java
-    @TableField(select = false)
-    private Integer deleted;
-```
-
-# 自动填充
-
-- 在指定字段标注注解，生成器策略部分也可以配置。
-
-```java
-    // 创建时间
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
-
-    // 更新时间
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
-```
-
-```java
-public enum FieldFill {
-    /**
-     * 默认不处理
-     */
-    DEFAULT,
-    /**
-     * 插入填充字段
-     */
-    INSERT,
-    /**
-     * 更新填充字段
-     */
-    UPDATE,
-    /**
-     * 插入和更新填充字段
-     */
-    INSERT_UPDATE
-}
-```
-
-- 实现元对象处理接口：`com.baomidou.mybatisplus.core.handlers.MetaObjectHandler`
-
-```java
-
-@Slf4j
-@Component
-public class MyMetaObjectHandler implements MetaObjectHandler {
-
-    // fieldName 指的是实体类的属性名,而不是数据库的字段名
-    @Override
-    public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
-        this.strictInsertFill(
-            metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(
-            metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-    }
-
-    @Override
-    public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
-        this.strictUpdateFill(
-            // 起始版本 3.3.0(推荐)
-            metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        // 或者
-        this.strictUpdateFill(
-            // 起始版本 3.3.3(推荐)
-            metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class); 
-    }
-}
-```
-
-# 乐观锁插件
-
-> 乐观锁适用于**读多写少**的场景。
-
-乐观锁的实现机制：
-
-1. 取出记录时，获取当前version
-2. 更新时，带上这个version
-3. 执行更新时， set version = newVersion where version = oldVersion
-4. 如果version不对，就更新失败
-
-使用方法：
-
-- 在字段上加上@Version注解。
-
-```java
-    // 版本号
-    @Version
-    private Integer version;
-```
-
-> - **支持的数据类型只有:int,Integer,long,Long,Date,Timestamp,LocalDateTime**
-> - 整数类型下 `newVersion = oldVersion + 1`
-> - `newVersion` 会回写到 `entity` 中
-> - 仅支持 `updateById(id)` 与 `update(entity, wrapper)` 方法
-> - **在 `update(entity, wrapper)` 方法下, `wrapper` 不能复用!!!**
-
-- 配置乐观锁插件
-
-```java
-    @Bean
-    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInterceptor();
-    }
-```
-
-- 测试，为更新的实体设置期望的版本号：
-
-```java
-    @Test
-    void update() {
-        //PDATE user SET name=?, update_time=?, version=? WHERE id=? 
-        // AND version=? AND deleted=0
-        int version = 2;
-        User user = new User();
-        user.setId(1320037517763842049L);
-        user.setName("sm2");
-        user.setVersion(version);//期望的版本号
-        boolean b = userService.updateById(user);
-        System.out.println(b);
-    }
-```
-
-# 六、SQL分析打印
-
-地址: [执行 SQL 分析打印](https://mybatis.plus/guide/p6spy.html)
+地址: [执行 SQL 分析打印](https://mybatis.plus/guide/p6spy.html)，该插件有性能损耗，不建议生产环境使用。
 
 1. 引入maven依赖
 
@@ -481,8 +303,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 ```yml
 spring:
   datasource:
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy://localhost:3306/eblog?serverTimezone=GMT%2B8
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver #p6spy 提供的驱动类
+    url: jdbc:p6spy:mysql://localhost:3306/eblog?serverTimezone=GMT%2B8 #url 前缀为 jdbc:p6spy
     ...
 ```
 
@@ -525,3 +347,61 @@ outagedetectioninterval=2
 ```
 
 配置`mybatis-plus.configuration.log-impl`为`org.apache.ibatis.logging.stdout.StdOutImpl`
+
+# 十六、多租户的使用
+
+博客地址：[MybatisPlus的多租户插件使用！](https://www.cnblogs.com/summerday152/p/13878077.html)
+
+# 十七、动态表名
+
+添加配置 DynamicTableNameInnerInterceptor
+
+```java
+@Configuration
+@MapperScan("com.baomidou.mybatisplus.samples.dytablename.mapper")
+public class MybatisPlusConfig {
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();
+        HashMap<String, TableNameHandler> map = new HashMap<String, TableNameHandler>(2) {{
+            put("user", (sql, tableName) -> {
+                String year = "_2018";
+                int random = new Random().nextInt(10);
+                if (random % 2 == 1) {
+                    year = "_2019";
+                }
+                return tableName + year;
+            });
+        }};
+        dynamicTableNameInnerInterceptor.setTableNameHandlerMap(map);
+        interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
+        return interceptor;
+    }
+}
+```
+
+测试随机访问user_2018和user_2019
+
+```java
+@SpringBootTest
+class SampleTest {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Test
+    void test() {
+        // 自己去观察打印 SQL 目前随机访问 user_2018  user_2019 表
+        for (int i = 0; i < 6; i++) {
+            User user = userMapper.selectById(1);
+            System.err.println(user.getName());
+        }
+    }
+}
+```
+
+# 十八、sql注入器
+
+博客地址：[MybatisPlus的sql注入器使用！](https://www.cnblogs.com/summerday152/p/13878050.html)
