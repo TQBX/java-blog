@@ -7,6 +7,7 @@
 - 介绍SpringBoot默认的异常处理机制。
 - 如何定义错误页面。
 - 如何自定义异常数据。
+- 如何自定义视图解析。
 - 介绍@ControllerAdvice注解处理异常。
 
 ## 一、SpringBoot默认的异常处理机制
@@ -108,28 +109,12 @@ src/
     </head>
     <body>
         <h1>5xx</h1>
-        <table border="1">
-            <tr>
-                <td>path</td>
-                <td th:text="${path}"></td>
-            </tr>
-            <tr>
-                <td>error</td>
-                <td th:text="${error}"></td>
-            </tr>
-            <tr>
-                <td>message</td>
-                <td th:text="${message}"></td>
-            </tr>
-            <tr>
-                <td>timestamp</td>
-                <td th:text="${timestamp}"></td>
-            </tr>
-            <tr>
-                <td>status</td>
-                <td th:text="${status}"></td>
-            </tr>
-        </table>
+        <p th:text="'error -->'+ ${error}"></p>
+        <p th:text="'status -->' + ${status}"></p>
+        <p th:text="'timestamp -->' + ${timestamp}"></p>
+        <p th:text="'message -->' + ${message}"></p>
+        <p th:text="'path -->' +${path}"></p>
+        <p th:text="'trace -->' + ${trace}"></p>
     </body>
 </html>
 ```
@@ -142,7 +127,294 @@ src/
 
 ## 三、自定义异常数据
 
+默认的数据主要是以下几个，这些数据定义在`org.springframework.boot.web.servlet.error.DefaultErrorAttributes`中，数据的定义在`getErrorAttributes`方法中。
+
 ![](img/sb2.png)
+
+DefaultErrorAttributes类在`org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration`自动配置类中定义：
+
+```java
+	@Bean
+	@ConditionalOnMissingBean(value = ErrorAttributes.class,
+                              search = SearchStrategy.CURRENT)
+	public DefaultErrorAttributes errorAttributes() {
+		return new DefaultErrorAttributes();
+	}
+```
+
+**如果我们没有提供ErrorAttributes的实例，SpringBoot默认提供一个DefaultErrorAttributes实例。**
+
+因此，我们就该知道如何去自定义异常数据属性：
+
+1. 实现ErrorAttributes接口。
+2. 继承DefaultErrorAttributes，本身已经定义对异常数据的处理，继承更具效率。
+
+定义方式如下：
+
+```java
+/**
+ * 自定义异常数据
+ * @author Summerday
+ */
+@Slf4j
+@Component
+public class MyErrorAttributes extends DefaultErrorAttributes {
+
+    @Override
+    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+        Map<String, Object> map = super.getErrorAttributes(webRequest, options);
+        if(map.get("status").equals(500)){
+            log.warn("服务器内部异常");
+        }
+        return map;
+    }
+}
+```
+
+## 四、自定义异常视图
+
+自定义视图的加载逻辑存在于BasicErrorController类的errorHtml方法中，用于返回一个ModelAndView对象，这个方法中，首先通过getErrorAttributes获取到异常数据，然后调用resolveErrorView去创建一个ModelAndView对象，只有创建失败的时候，用户才会看到默认的错误提示页面。
+
+```java
+@RequestMapping(produces = MediaType.TEXT_HTML_VALUE)
+public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+    HttpStatus status = getStatus(request);
+    Map<String, Object> model = Collections
+        .unmodifiableMap(
+        //ErrorAttributes # getErrorAttributes
+        getErrorAttributes(request, 
+                           getErrorAttributeOptions(request, MediaType.TEXT_HTML)));
+    response.setStatus(status.value());
+    // E
+    ModelAndView modelAndView = resolveErrorView(request, response, status, model);
+    return (modelAndView != null) ? modelAndView : new ModelAndView("error", model);
+}
+```
+
+DefaultErrorViewResolver类的resolveErrorView方法：
+
+```java
+@Override
+public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
+    // 以异常状态码作为视图名去locations路径中去查找页面
+    ModelAndView modelAndView = resolve(String.valueOf(status.value()), model);
+    // 如果找不到，以4xx，5xx series去查找
+    if (modelAndView == null && SERIES_VIEWS.containsKey(status.series())) {
+        modelAndView = resolve(SERIES_VIEWS.get(status.series()), model);
+    }
+    return modelAndView;
+}
+```
+
+那么如何自定义呢？和自定义异常数据相同，如果我们定义了一个ErrorViewResolver的实例，默认的配置就会失效。
+
+```java
+
+/**
+ * 自定义异常视图解析
+ * @author Summerday
+ */
+
+@Component
+public class MyErrorViewResolver extends DefaultErrorViewResolver {
+
+    public MyErrorViewResolver(ApplicationContext applicationContext, ResourceProperties resourceProperties) {
+        super(applicationContext, resourceProperties);
+    }
+
+    @Override
+    public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
+        return new ModelAndView("/hyh/resolve",model);
+    }
+}
+```
+
+此时，SpringBoot将会去/hyh目录下寻找resolve.html页面。
+
+## 五、@ControllerAdvice注解处理异常
+
+前后端分离的年代，后端往往需要向前端返回统一格式的json信息，以下为封装的AjaxResult对象：
+
+```java
+public class AjaxResult extends HashMap<String, Object> {
+    
+    //状态码
+    public static final String CODE_TAG = "code";
+    
+    //返回内容
+    public static final String MSG_TAG = "msg";
+    
+    //数据对象
+    public static final String DATA_TAG = "data";
+
+    private static final long serialVersionUID = 1L;
+
+    public AjaxResult() {
+    }
+
+    public AjaxResult(int code, String msg) {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+    }
+
+    public AjaxResult(int code, String msg, Object data) {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+        if (data != null) {
+            super.put(DATA_TAG, data);
+        }
+    }
+
+    public static AjaxResult ok() {
+        return AjaxResult.ok("操作成功");
+    }
+
+    public static AjaxResult ok(Object data) {
+        return AjaxResult.ok("操作成功", data);
+    }
+
+    public static AjaxResult ok(String msg) {
+        return AjaxResult.ok(msg, null);
+    }
+
+    public static AjaxResult ok(String msg, Object data) {
+        return new AjaxResult(HttpStatus.OK.value(), msg, data);
+    }
+
+    public static AjaxResult error() {
+        return AjaxResult.error("操作失败");
+    }
+
+    public static AjaxResult error(String msg) {
+        return AjaxResult.error(msg, null);
+    }
+
+    public static AjaxResult error(String msg, Object data) {
+        return new AjaxResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
+    }
+
+    public static AjaxResult error(int code, String msg) {
+        return new AjaxResult(code, msg, null);
+    }
+}
+```
+
+根据业务的需求不同，我们往往也需要自定义异常类，便于维护：
+
+```java
+/**
+ * 自定义异常
+ *
+ * @author Summerday
+ */
+public class CustomException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+    private Integer code;
+
+    private final String message;
+
+    public CustomException(String message) {
+        this.message = message;
+    }
+
+    public CustomException(String message, Integer code) {
+        this.message = message;
+        this.code = code;
+    }
+
+    public CustomException(String message, Throwable e) {
+        super(message, e);
+        this.message = message;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+}
+```
+
+@ControllerAdvice和@RestControllerAdvice这俩注解的功能之一，就是做到Controller层面的异常处理，而两者的区别，与@Controller和@RestController差不多。
+
+@ExceptionHandler指定需要处理的异常类，针对自定义异常，如果是ajax请求，返回json信息，如果是普通web请求，返回ModelAndView对象。
+
+```java
+/**
+ * 全局异常处理器
+ * @author Summerday
+ */
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private static final Logger log = 
+        LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+
+    @ExceptionHandler(CustomException.class)
+    public Object handle(HttpServletRequest request, CustomException e) {
+        AjaxResult info = AjaxResult.error(e.getMessage());
+        log.error(e.getMessage());
+        // 判断是否为ajax请求
+        if (isAjaxRequest(request)) {
+            return info;
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("custom"); // templates/custom.html
+        mv.addAllObjects(info);
+        mv.addObject("url", request.getRequestURL());
+        return mv;
+    }
+
+    private boolean isAjaxRequest(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+}
+```
+
+在Controller层，人为定义抛出异常：
+
+```java
+@RestController
+public class TestController {
+
+    @GetMapping("/ajax")
+    public AjaxResult ajax() {
+        double alpha = 0.9;
+        if (Math.random() < alpha) {
+            throw new CustomException("自定义异常!");
+        }
+        return AjaxResult.ok();
+    }
+}
+```
+
+最后，通过`/templates/custom.html`定义的动态模板页面展示数据：
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>自定义界面</title>
+    </head>
+    <body>
+        <p th:text="'msg -->'+ ${msg}"></p>
+        <p th:text="'code -->'+ ${code}"></p>
+        <p th:text="'url -->'+ ${url}"></p>
+    </body>
+</html>
+```
+
+## 源码下载
+
+本文内容均为对优秀博客及官方文档总结而得，原文地址均已在文中参考阅读处标注。最后，文中的代码样例已经全部上传至Gitee：https://gitee.com/tqbx/springboot-samples-learn。
 
 ## 参考阅读
 
