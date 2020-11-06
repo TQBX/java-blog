@@ -94,8 +94,8 @@ SpringBoot预定义了两个开箱即用的日志组：
 
 | Name | Loggers                                                      |
 | :--- | :----------------------------------------------------------- |
-| web  | `org.springframework.core.codec`, `org.springframework.http`, `org.springframework.web`, `org.springframework.boot.actuate.endpoint.web`, `org.springframework.boot.web.servlet.ServletContextInitializerBeans` |
-| sql  | `org.springframework.jdbc.core`, `org.hibernate.SQL`, `org.jooq.tools.LoggerListener` |
+| web  | `org.springframework.core.codec`,<br /> `org.springframework.http`, `org.springframework.web`, <br />`org.springframework.boot.actuate.endpoint.web`, <br />`org.springframework.boot.web.servlet.ServletContextInitializerBeans` |
+| sql  | `org.springframework.jdbc.core`, `org.hibernate.SQL`, <br />`org.jooq.tools.LoggerListener` |
 
 ```properties
 # pre-defined

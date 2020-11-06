@@ -73,9 +73,9 @@ H2提供了一个名为H2 Console的Web界面来查看数据。让我们在appli
 
 在程序运行过程中,访问:`http://localhost:8081/h2-console/`,这里的端口号,和server.port配置的端口号相同，默认是8080。
 
-![](img/h21.png)
+![](img/SpringBoot%E6%95%B4%E5%90%88H2%E6%95%B0%E6%8D%AE%E5%BA%93/h21.png)
 
 配置基本按照yml的就可以成功进入界面，如下：
 
-![image-20201028121156764](E:\1JavaBlog\项目相关\eblog\img\image-20201028121156764.png)
+![image-20201028121156764](img/SpringBoot%E6%95%B4%E5%90%88H2%E6%95%B0%E6%8D%AE%E5%BA%93/image-20201028121156764.png)
 
