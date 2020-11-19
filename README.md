@@ -66,7 +66,7 @@
 ### 四、IO流
 
 - [ 小白学Java：File类](Java基础/IO/md/小白学Java：File类)
-- [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：I/O流)
+- [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：IO流)
 - [ 小白学Java：RandomAccessFile](Java基础/IO/md/小白学Java：RandomAccessFile)
 
 
