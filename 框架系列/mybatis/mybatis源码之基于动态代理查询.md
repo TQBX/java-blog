@@ -61,7 +61,7 @@ MapperMethod的构造器，sqlCommand和methodSignature是他的两个静态内�
   }
 ```
 
-![image-20200418150245513](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418150245513.png)
+![image-20200418150245513](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E5%9F%BA%E4%BA%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9F%A5%E8%AF%A2/image-20200418150245513.png)
 
 二、接着执行MapperMethod对象的execute方法，其实源码还是通俗易懂的，无非就是按照不同的sql语句的类别进行不同的数据结果的封装，值得注意的是，insert，update和delete其实底层都是调用了update方法，但为了语义清晰，所以区分类别。
 
@@ -158,11 +158,11 @@ MapperMethod的构造器，sqlCommand和methodSignature是他的两个静态内�
 
 五、获取MappedStatement对象，该对象代表一个增删改查标签的详细信息。
 
-![image-20200418171239644](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418171239644.png)
+![image-20200418171239644](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E5%9F%BA%E4%BA%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9F%A5%E8%AF%A2/image-20200418171239644.png)
 
 六、默认执行CachingExecutor.query(ms,xxx,x)方法，获取boundsql，该对象包含sql的具体信息，创建缓存key。
 
-![image-20200425124505206](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425124505206.png)
+![image-20200425124505206](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E5%9F%BA%E4%BA%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9F%A5%E8%AF%A2/image-20200425124505206.png)
 
 七、先去二级缓存中查询数据，如果二级缓存中没有，则去一级缓存（localCache）中查询，接着数据库（queryFromDatabase）一条龙服务，这部分就不赘述了。最终调用的是Executor的doQuery方法，`list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);`。
 

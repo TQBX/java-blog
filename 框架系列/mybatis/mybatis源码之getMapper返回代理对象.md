@@ -26,7 +26,7 @@
   }
 ```
 
-![image-20200418112653674](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418112653674.png)
+![image-20200418112653674](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8BgetMapper%E8%BF%94%E5%9B%9E%E4%BB%A3%E7%90%86%E5%AF%B9%E8%B1%A1/image-20200418112653674.png)
 
 三、我们来看看getMapper方法具体的实现如何：
 
@@ -61,5 +61,5 @@
   }
 ```
 
-![image-20200418143656732](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418143656732.png)
+![image-20200418143656732](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8BgetMapper%E8%BF%94%E5%9B%9E%E4%BB%A3%E7%90%86%E5%AF%B9%E8%B1%A1/image-20200418143656732.png)
 

@@ -39,11 +39,11 @@
 
 缓存类的顶级接口Cache，里面定义了加入数据到缓存，从缓存中获取数据，清楚缓存等操作，通常mybatis会将namespace作为id，将CacheKey作为Map中的键，而map中的值也就是存储在缓存中的对象。
 
-![image-20200419131910284](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419131910284.png)
+![image-20200419131910284](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419131910284.png)
 
 而通过装饰器设计模式，将Cache的功能进行加强，在它的实现类中有着明显的体现：
 
-![Cache](E:\1JavaBlog\frameworks\mybatis\pic\Cache.png)
+![Cache](pic/Cache.png)
 
 PerpetualCache：是最基础的缓存类，采用HashMap实现，同时一级缓存使用的localCache就是该类型。
 
@@ -57,7 +57,7 @@ SynchronizedCache：同步的Cache，用synchronized关键字修饰所有方法�
 
 > 下图可以得知其执行链：SynchronizedCache -> LoggingCache -> SerializedCache -> LruCache -> PerpetualCache
 
-![image-20200419123622174](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419123622174.png)
+![image-20200419123622174](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419123622174.png)
 
 
 
@@ -179,7 +179,7 @@ resolveAlias方法，从源码中我们就可以猜测，我们之前通过`</ty
 
 boundsql对象的详细信息：
 
-![image-20200418171909622](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418171909622.png)
+![image-20200418171909622](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200418171909622.png)
 
 CacheKey对象的CreateKey操作：
 
@@ -288,7 +288,7 @@ CacheKey对象的CreateKey操作：
 
 这里学习一下二级缓存涉及的缓存类：TransactionCache，同样也是基于装饰者设计模式，对传入的Cache进行装饰，构建二级缓存事务缓冲区：
 
-![image-20200419154325264](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419154325264.png)
+![image-20200419154325264](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419154325264.png)
 
 CachingExecutor维护了一个TransactionCacheManager，即tcm，而这个tcm其实维护的就是一个key为Cache，value为TransactionCache包装过的Cache。而`tcm.getObject(cache, key)`的意思我们可以通过以下源码得知：
 
@@ -301,7 +301,7 @@ CachingExecutor维护了一个TransactionCacheManager，即tcm，而这个tcm其
 
 需要注意的是，getObject方法中将会把获取值的职责一路向后传递，直到最基础的perpetualCache，根据cachekey获取。
 
-![image-20200419152846031](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419152846031.png)
+![image-20200419152846031](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419152846031.png)
 
 最终获取到的值，如果为null，就需要把key加入未命中条目的缓存。
 
@@ -359,7 +359,7 @@ CachingExecutor维护了一个TransactionCacheManager，即tcm，而这个tcm其
 
 最后的最后，我们可以看到将刚才的未命中和待提交的数据都进行了相应的处理，这才是最终影响二级缓存中数据的操作，当然这中间也存在着职责链，就不赘述了。
 
-![image-20200419161713786](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419161713786.png)
+![image-20200419161713786](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419161713786.png)
 
 当然，除了commit，close也是一样的，因为最终调用的其实都是commit方法，同样也会操作缓存。
 
@@ -412,7 +412,7 @@ CachingExecutor维护了一个TransactionCacheManager，即tcm，而这个tcm其
     }
 ```
 
-![image-20200419162538542](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419162538542.png)
+![image-20200419162538542](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419162538542.png)
 
 二级缓存实现了SqlSession之间缓存数据的共享，是mapper映射级别的缓存。
 
@@ -471,7 +471,7 @@ if (list != null) {
     }
 ```
 
-![image-20200419164402662](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419164402662.png)
+![image-20200419164402662](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E7%BD%AE/image-20200419164402662.png)
 
 一级缓存默认是sqlSession级别地缓存，insert|delete|update|commit()和close()的操作的执行都会清空一级缓存。
 

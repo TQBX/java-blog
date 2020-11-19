@@ -46,7 +46,7 @@
 
 七、parseConfiguration方法相当于将里面每个元素的信息都单独封装到Configuration中。
 
-![image-20200418095909926](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418095909926.png)
+![image-20200418095909926](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418095909926.png)
 
 值得一提的是，我们之后要分析基于代理模式产生dao的代理对象涉及到mappers的封装，其实也在配置文件读取封装的时候就已经完成，也就是在parseConfiguration方法之中：`mapperElement(root.evalNode("mappers"));`。他的作用就是，读取我们主配置文件中`<mappers>`的元素内容，也就是我们配置的映射配置文件。
 
@@ -59,7 +59,7 @@
 
 `private void mapperElement(XNode parent)`方法将mappers配置下的信息获取，此处获取我们resources包下的com.smday.dao包名。
 
-![image-20200418123936750](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418123936750.png)
+![image-20200418123936750](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418123936750.png)
 
 接着就调用了configuration的addMappers方法，其实还是调用的是mapperRegistry。
 
@@ -71,9 +71,9 @@
 
 读到这里，我们就会渐渐了解MapperRegistry这个类的职责所在，接着来看，这个类中进行的一些工作，在每次添加mappers的时候，会利用ResolverUtil类查找类路径下的该包名路径下，是否有满足条件的类，如果有的话，就将Class对象添加进去，否则报错。
 
-![image-20200418125313685](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418125313685.png)
+![image-20200418125313685](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418125313685.png)
 
-![image-20200418125818344](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418125818344.png)
+![image-20200418125818344](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418125818344.png)
 
 紧接着，就到了一步比较重要的部分，当然只是我个人觉得，因为第一遍看的时候，我没有想到，这步居然可以封装许许多多的重要信息，我们来看一看：
 
@@ -145,11 +145,11 @@
   }
 ```
 
-![image-20200418135529157](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418135529157.png)
+![image-20200418135529157](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418135529157.png)
 
 可以看到，对映射文件解析之后，mappedStatements对象中出现了以下内容：
 
-![image-20200418131851000](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418131851000.png)
+![image-20200418131851000](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E6%A0%B9%E6%8D%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAsqlsessionfactory/image-20200418131851000.png)
 
 至此，主配置文件和映射配置文件的配置信息就已经读取完毕。
 

@@ -112,9 +112,9 @@ memoryStoreEvictionPolicy：当内存缓存达到最大，有新的element加入
 
 心存疑惑，遂debug查看了一波源码，发现如果配置第三方缓存库，创建的缓存是这样的：
 
-![image-20200421100320556](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200421100320556.png)
+![image-20200421100320556](img/mybatis%E6%95%B4%E5%90%88%E7%AC%AC%E4%B8%89%E6%96%B9%E7%BC%93%E5%AD%98/image-20200421100320556.png)
 
-![image-20200421100841405](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200421100841405.png)
+![image-20200421100841405](img/mybatis%E6%95%B4%E5%90%88%E7%AC%AC%E4%B8%89%E6%96%B9%E7%BC%93%E5%AD%98/image-20200421100841405.png)
 
 默认情况下copyOnread和copyOnWrite都是关闭的，操作的都是原对象的引用，而不是一份拷贝。
 
@@ -152,7 +152,7 @@ memoryStoreEvictionPolicy：当内存缓存达到最大，有新的element加入
     }
 ```
 
-![image-20200420231625071](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200420231625071.png)
+![image-20200420231625071](img/mybatis%E6%95%B4%E5%90%88%E7%AC%AC%E4%B8%89%E6%96%B9%E7%BC%93%E5%AD%98/image-20200420231625071.png)
 
 我们也可以通过测试，发现两次取出的对象完全相同，是同一份地址的引用。
 

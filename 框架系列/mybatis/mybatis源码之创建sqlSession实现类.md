@@ -27,7 +27,7 @@
 
 二、从configuration中获取environment、dataSource和transactionFactory信息，创建事务对象Transaction。
 
-![image-20200418103818736](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200418103818736.png)
+![image-20200418103818736](img/mybatis%E6%BA%90%E7%A0%81%E4%B9%8B%E5%88%9B%E5%BB%BAsqlSession%E5%AE%9E%E7%8E%B0%E7%B1%BB/image-20200418103818736.png)
 
 补充：后续看了一些博客，说是保证executor不为空，因为defaultExecutorType有可能为空。
 

@@ -79,7 +79,7 @@ xml配置注册插件
 
 # 二、测试插件
 
-![image-20200425170751034](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425170751034.png)
+![image-20200425170751034](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425170751034.png)
 
 # 三、源码分析
 
@@ -117,7 +117,7 @@ xml配置注册插件
 
 我们看到chain这个词应该并不会陌生，我们之前学习过的过滤器也存在类似的玩意，什么意思呢？我们以Executor为例，当创建Executor对象的时候，并不是直接new Executor然后返回：
 
-![image-20200425151603133](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425151603133.png)
+![image-20200425151603133](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425151603133.png)
 
 在返回之前，他进行了下面的操作：
 
@@ -144,7 +144,7 @@ executor = (Executor) interceptorChain.pluginAll(executor);
 
 那接下来，我们就成功进入我们自定义plugin的plugin方法：
 
-![image-20200425172555672](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425172555672.png)
+![image-20200425172555672](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425172555672.png)
 
 ```java
   //看看wrap方法干了点啥
@@ -229,11 +229,11 @@ getAllInterfaces(type, signatureMap)方法：确定是否为拦截对象
 
 确实，我们一路debug，遇到了Executor、ParameterHandler、ResultHandler都没有进行拦截，然而，当StatementHandler对象出现的时候，就出现了微妙的变化，当我们调用代理的方法必然会执行其invoke方法，不妨来看看：
 
-![image-20200425175122801](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425175122801.png)
+![image-20200425175122801](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425175122801.png)
 
 ok，此时进入了我们定义的intercept方法，感觉无比亲切。
 
-![image-20200425175309320](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425175309320.png)
+![image-20200425175309320](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425175309320.png)
 
 ```java
   //调度被代理对象的真实方法
@@ -283,7 +283,7 @@ ok，此时进入了我们定义的intercept方法，感觉无比亲切。
     }
 ```
 
-![image-20200425193621810](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200425193621810.png)
+![image-20200425193621810](img/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/image-20200425193621810.png)
 
 # 五、插件总结
 

@@ -63,7 +63,7 @@ insert  into `account`(`ID`,`UID`,`MONEY`) values (1,46,1000),(2,45,1000),(3,46,
 select u.*,a.ID as aid,a.UID,a.MONEY from account a,user u where a.UID = u.id;
 ```
 
-![image-20200417123433132](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417123433132.png)
+![image-20200417123433132](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417123433132.png)
 
 sql语句已经明了，那么我们在mybatis中如何去编写呢？可以确定的是，我们现在需要一个查询一个账户，这个账户不仅拥有自己的字段信息，而且还需要包含一个用户user的信息，我们可以有以下两种方法去完成：
 
@@ -103,7 +103,7 @@ public class Account {
     </select>
 ```
 
-![image-20200417124130345](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417124130345.png)
+![image-20200417124130345](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417124130345.png)
 
 ## 一对多关系
 
@@ -113,7 +113,7 @@ public class Account {
 select u.*,a.ID as aid,a.UID,a.MONEY from user u left join account a on a.UID = u.id;
 ```
 
-![image-20200417124839432](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417124839432.png)
+![image-20200417124839432](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417124839432.png)
 
 如上分析，一对一的关系可以采用resultMap进行结果集的映射，同样的，一对多当然也可以，只是使用的元素不同。
 
@@ -152,7 +152,7 @@ public class User implements Serializable {
     </select>
 ```
 
-![image-20200417130823367](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417130823367.png)
+![image-20200417130823367](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417130823367.png)
 
 ## 多对多关系
 
@@ -182,7 +182,7 @@ CREATE TABLE `user_role` (
 insert  into `user_role`(`UID`,`RID`) values (41,1),(45,1),(41,2);
 ```
 
-![image-20200417132202454](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417132202454.png)
+![image-20200417132202454](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417132202454.png)
 
 ok，三表建立之后，我们可以知道多对多的关系出现在：一个用户可以拥有多个角色，它既可以是校长，也可以是院长，并且一个角色可以被多个用户拥有，用户A和B都可以是院长。
 
@@ -190,7 +190,7 @@ ok，三表建立之后，我们可以知道多对多的关系出现在：一个
 
 【从User出发查询Role】
 
-![image-20200417134901027](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417134901027.png)
+![image-20200417134901027](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417134901027.png)
 
 ```java
 public class User implements Serializable {
@@ -230,11 +230,11 @@ public class User implements Serializable {
     </select>
 ```
 
-![image-20200417134838766](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417134838766.png)
+![image-20200417134838766](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417134838766.png)
 
 【从Role出发查找User】
 
-![image-20200417134932149](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417134932149.png)
+![image-20200417134932149](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417134932149.png)
 
 ```java
 public class Role implements Serializable {
@@ -270,4 +270,4 @@ public class Role implements Serializable {
     </select>
 ```
 
-![image-20200417135043226](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417135043226.png)
+![image-20200417135043226](img/mybatis%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/image-20200417135043226.png)

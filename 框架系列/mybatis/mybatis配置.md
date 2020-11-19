@@ -22,7 +22,7 @@
 
 # properties标签设置
 
-![image-20200415144218024](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415144218024.png)
+![image-20200415144218024](img/mybatis%E9%85%8D%E7%BD%AE/image-20200415144218024.png)
 
 在classpath下定义jdbc.properties文件
 
@@ -37,23 +37,23 @@ jdbc.password=123456
 
 详情见：[https://mybatis.org/mybatis-3/zh/configuration.html#settings](https://mybatis.org/mybatis-3/zh/configuration.html#settings)
 
-![image-20200419120601820](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419120601820.png)
+![image-20200419120601820](img/mybatis%E9%85%8D%E7%BD%AE/image-20200419120601820.png)
 
 # typeAliases类型别名设置
 
-![image-20200415144701359](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415144701359.png)
+![image-20200415144701359](img/mybatis%E9%85%8D%E7%BD%AE/image-20200415144701359.png)
 
 # environments设置
 
 environments可以配置多种环境，通过default属性指定使用环境。
 
-![image-20200415144856488](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415144856488.png)
+![image-20200415144856488](img/mybatis%E9%85%8D%E7%BD%AE/image-20200415144856488.png)
 
 # databaseIdProvider设置
 
-![image-20200419195604111](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200419195604111.png)
+![image-20200419195604111](img/mybatis%E9%85%8D%E7%BD%AE/image-20200419195604111.png)
 
 # mappers设置
 
-![image-20200415145153233](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200415145153233.png)
+![image-20200415145153233](img/mybatis%E9%85%8D%E7%BD%AE/image-20200415145153233.png)
 

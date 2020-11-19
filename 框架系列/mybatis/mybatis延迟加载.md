@@ -63,7 +63,7 @@
 
 【输出结果一】
 
-![image-20200417145254520](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417145254520.png)
+![image-20200417145254520](img/mybatis%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/image-20200417145254520.png)
 
 【进行测试二】
 
@@ -80,7 +80,7 @@
 
 【输出结果二】
 
-![image-20200417145341987](C:\Users\13327\AppData\Roaming\Typora\typora-user-images\image-20200417145341987.png)
+![image-20200417145341987](img/mybatis%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/image-20200417145341987.png)
 
 ## 【一对多关系延迟加载】
 
