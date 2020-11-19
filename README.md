@@ -1,76 +1,15 @@
-[TOC]
-
-# 天乔巴夏的【JavaBlog】
-
-之前文档结构过于混乱，故抽空进行了一波重构。为方便定位，特整理成目录，如下：
-
-## Java基础
-
-### 一、数据类型
-
-- [ Java基础语法（一）](Java基础/数据类型/Java基础语法（一）.md)
-- [ Java基础语法（二）](Java基础/数据类型/Java基础语法（二）.md)
-
-### 二、流程控制
-
-- [Java流程控制之（一）条件](Java基础/流程控制/Java流程控制之（一）条件)
-- [Java流程控制之（二）循环](Java基础/流程控制/Java流程控制之（二）循环)
-- [Java流程控制之（三）嵌套](Java基础/流程控制/Java流程控制之（三）嵌套)
-- [Java流程控制之（四）跳转](Java基础/流程控制/Java流程控制之（四）跳转)
-
-### 三、面向对象
-
-#### 封装
-
-- [Java封装及访问权限控制（一）](Java基础/面向对象/Java封装及访问权限控制（一）.md)
-- [Java封装及访问权限控制（二）](Java基础/面向对象/Java封装及访问权限控制（二）.md)
-
-#### 继承
-
-- [Java面向对象之继承](Java基础/面向对象/Java面向对象之继承.md)
-- [Java面向对象之构造器](Java基础/面向对象/Java面向对象之构造器.md)
-- [Java继承之方法重写](Java基础/面向对象/Java继承之方法重写.md)
-- [Java继承之再谈构造器](Java基础/面向对象/Java继承之再谈构造器.md)
-
-#### 多态
-
-- [Java多态之动态绑定](Java基础/面向对象/Java多态之动态绑定.md)
-- [Java多态之向上转型](Java基础/面向对象/Java多态之向上转型.md)
-- [Java多态之向下转型](Java基础/面向对象/Java多态之向下转型.md)
-
-#### 接口与抽象类
-
-- [Java面向对象之接口（一）](Java基础/面向对象/Java面向对象之接口（一）.md)
-- [Java面向对象之接口（二）](Java基础/面向对象/Java面向对象之接口（二）.md)
-- [Java之抽象类与抽象方法](Java基础/面向对象/Java之抽象类与抽象方法.md)
-- [浅谈Java的默认和静态方法](Java基础/面向对象/浅谈Java的默认和静态方法.md)
-- [浅谈Java中接口与抽象类的异同](Java基础/面向对象/浅谈Java中接口与抽象类的异同.md)
-
-#### API
-
-- [String类常用API](Java基础/面向对象/Java之String类常用API.md)
-- [Java之Object类](Java基础/面向对象/Java之Object类.md)
-
-#### 其他
-
-- 异常：[Java面向对象之异常](Java基础/面向对象/Java面向对象之异常.md)
-- 内部类：[小白学Java：内部类](Java基础/面向对象/小白学Java：内部类.md)
-- 包装类：[小白学Java：包装类](Java基础/面向对象/小白学Java：包装类.md)
-- 泛型：[小白学Java：泛型详解](Java基础/面向对象/小白学Java：泛型详解.md)
-- this关键字：[Java关键字之this](Java基础/面向对象/Java关键字之this.md)
-- super关键字：[Java之super关键字](Java基础/面向对象/Java之super关键字.md)
-- final关键字：[Java关键字之final详解](Java基础/面向对象/Java关键字之final详解.md)
-- 枚举：[Java：枚举类也就这么回事](Java基础/枚举类/md/Java：枚举类也就这么回事.md)
-- 反射：[Java的反射机制](Java基础/反射/Java的反射机制.md)
-
-### 四、IO流
-
-- [ 小白学Java：File类](Java基础/IO/md/小白学Java：File类)
-- [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：IO流)
-- [ 小白学Java：RandomAccessFile](Java基础/IO/md/小白学Java：RandomAccessFile)
 
 
-## MySQL专题
+# JavaBlog
+
+> Java学习之路笔记汇总，Gitee地址：https://gitee.com/tqbx/JavaBlog
+
+## 一、Java基础
+
+- [Java基础部分总结](Java基础/)
+
+
+## 二、MySQL专题
 
 - [SQL概述](数据库部分/MySQL/md/SQL概述.md)
 - [利用DML操作表中数据](数据库部分/MySQL/md/利用DML操作表中数据.md)
@@ -80,11 +19,10 @@
 - [DQL中的分组查询](/数据库部分/MySQL/md/DQL中的分组查询.md)
 - [MySQL事务学习](/数据库部分/MySQL/md/MySQL事务学习笔记.md)
 - [多表查询](/数据库部分/MySQL/md/多表查询.md)
-
 - [数据库约束](/数据库部分/MySQL/md/数据库约束.md)
 - [MySQL解决DOS命令窗口乱码问腿](/数据库部分/MySQL/md/MySQL解决DOS命令窗口乱码问腿.md)
 
-## 源码解析专题
+## 三、源码解析专题
 
 ### 集合源码系列
 
@@ -116,7 +54,7 @@
 
 - [源码：ThreadLocal类源码解析](面试相关/并发/ThreadLocal.md)
 
-## Java并发编程
+## 四、Java并发编程
 
 - [【Java并发编程】常见基础问题整理](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.md)
 - [【Java并发编程】线程的六种状态及转化](%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91/md/Java%EF%BC%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%AD%E7%A7%8D%E7%8A%B6%E6%80%81%E5%8F%8A%E8%BD%AC%E6%8D%A2.md)
@@ -131,7 +69,7 @@
 - [【Java并发编程】CountDownLatch，CyclicBarrier，Semphore，Exchanger](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/Java%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB.md)
 - [【Java并发编程】面试常考的ThreadLocal，超详细源码学习](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/ThreadLocal.md)
 
-## MyBatis专题
+## 五、MyBatis专题
 
 
 - [MyBatis入门](框架系列/mybatis/mybatis入门.md)
@@ -145,7 +83,7 @@
 - [MyBatis逆向工程配置](框架系列/mybatis/mabatis逆向工程配置.md)
 - [MyBatis查漏补缺](框架系列/mybatis/mybatis查漏补缺.md)
 
-## 计算机网络
+## 六、计算机网络
 
 - [啥是三次握手和四次挥手](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.md)
 - [TCP与UDP的区别](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB.md)
@@ -155,7 +93,7 @@
 - [分组交换网中的时延、丢包和吞吐量](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E4%B8%AD%E7%9A%84%E6%97%B6%E5%BB%B6%EF%BC%8C%E4%B8%A2%E5%8C%85%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F.md)
 - [计算机网络知识点总结](面试相关/计算机网络/计算机网络知识点总结.md)
 
-## JVM系列
+## 七、JVM系列
 
 - [JVM内存区域](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/jvm%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md)
 - [四种引用类型的特点](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E7%82%B9.md)
@@ -165,7 +103,7 @@
 - [JDK监控和故障处理工具](面试相关/JVM/JDK监控和故障处理工具.md)
 
 
-## SpringBoot专题
+## 八、SpringBoot专题
 
 - [SpringBoot与FreeMarker整合](框架系列/springboot/md/FreeMarker使用及SpringBoot整合.md)
 - [SpringBoot中Logback日志配置解析](框架系列/springboot/md/SpringBoot中Logback日志配置解析.md)
@@ -186,13 +124,34 @@
 - [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
 
 
-## SpringCloud专题
+## 九、SpringCloud专题
 
-- []()
+- [SpringCloud学习笔记（零）简介：官方文档翻译](微服务学习/SpringCloud学习笔记（零）简介：官方文档翻译.md)
+- [SpringCloud学习笔记（一）基础环境搭建](微服务学习/SpringCloud学习笔记（一）基础环境搭建.md)
+- [SpringCloud学习笔记（二）Eureka服务注册与发现](微服务学习/SpringCloud学习笔记（二）Eureka服务注册与发现.md)
+- [SpringCloud学习笔记（三）集群信息获取+服务列表信息获取](微服务学习/SpringCloud学习笔记（三）集群信息获取+服务列表信息获取.md)
 
+## 十、Linux专题
 
-## Linux专题
+- [目录结构及常用命令](linux学习系列/常用命令及目录结构.md)
+- [常用命令查漏补缺](linux学习系列/命令查漏补缺.md)
+- [用户及用户组的管理](linux学习系列/用户及用户组的管理.md)
+- [Linux文件的基本属性](linux学习系列/Linux文件的基本属性.md)
+- [修改运行级别.md](linux学习系列/运行级别.md)
+- [设置CentOS网卡开机自启](linux学习系列/设置CentOS网卡开机自启.md)
+- [搭建JavaEE环境](linux学习系列/搭建JavaEE环境.md)
+- [Linux系统部署nginx](linux学习系列/Linux系统部署nginx.md)
+- [vi和vim](linux学习系列/vi和vim.md)
+- [docker踩坑记录](linux学习系列/docker踩坑记录.md)
+- [docker踩坑第二弹](linux学习系列/docker踩坑第二弹.md)
+- [docker安装kibana](linux学习系列/docker安装kibana.md)
 
+## 十一、力扣刷题系列
 
-
-## 力扣刷题系列
+- [1 - 10题题解](力扣刷题系列/1-100/1-10.md)
+- [11 - 20题题解](力扣刷题系列/1-100/11-20.md)
+- [21 - 30题题解](力扣刷题系列/1-100/21-30.md)
+- [31 - 40题题解](力扣刷题系列/1-100/31-40.md)
+- [41 - 50题题解](力扣刷题系列/1-100/41-50.md)
+- [51 - 60题题解](力扣刷题系列/1-100/51-60.md)
+- [61 - 70题题解](力扣刷题系列/1-100/61-70.md)
