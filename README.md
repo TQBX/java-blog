@@ -2,12 +2,68 @@
 
 之前文档结构过于混乱，故抽空进行了一波重构。为方便定位，特整理成目录，如下：
 
+## Java基础
+
+### 数据类型
+
+- [ Java基础语法（一）](Java基础/数据类型/Java基础语法（一）.md)
+- [ Java基础语法（二）](Java基础/数据类型/Java基础语法（二）.md)
+
+### 流程控制
+
+- [Java流程控制之（一）条件](Java基础/流程控制/Java流程控制之（一）条件)
+- [Java流程控制之（二）循环](Java基础/流程控制/Java流程控制之（二）循环)
+- [Java流程控制之（三）嵌套](Java基础/流程控制/Java流程控制之（三）嵌套)
+- [Java流程控制之（四）跳转](Java基础/流程控制/Java流程控制之（四）跳转)
+
+### 面向对象
+
+#### 封装
+
+- [Java封装及访问权限控制（一）](Java基础/面向对象/Java封装及访问权限控制（一）.md)
+- [Java封装及访问权限控制（二）](Java基础/面向对象/Java封装及访问权限控制（二）.md)
+
+#### 继承
+
+- [Java面向对象之继承](Java基础/面向对象/Java面向对象之继承.md)
+- [Java面向对象之构造器](Java基础/面向对象/Java面向对象之构造器.md)
+- [Java继承之方法重写](Java基础/面向对象/Java继承之方法重写.md)
+- [Java继承之再谈构造器](Java基础/面向对象/Java继承之再谈构造器.md)
+
+#### 多态
+
+- [Java多态之动态绑定](Java基础/面向对象/Java多态之动态绑定.md)
+- [Java多态之向上转型](Java基础/面向对象/Java多态之向上转型.md)
+- [Java多态之向下转型](Java基础/面向对象/Java多态之向下转型.md)
+
+#### 接口与抽象类
+
+- [Java面向对象之接口（一）](Java基础/面向对象/Java面向对象之接口（一）.md)
+- [Java面向对象之接口（二）](Java基础/面向对象/Java面向对象之接口（二）.md)
+- [Java之抽象类与抽象方法](Java基础/面向对象/Java之抽象类与抽象方法.md)
+- [浅谈Java的默认和静态方法](Java基础/面向对象/浅谈Java的默认和静态方法.md)
+- [浅谈Java中接口与抽象类的异同](Java基础/面向对象/浅谈Java中接口与抽象类的异同.md)
+
+### IO流
+
+- [ 小白学Java：File类](Java基础/IO/md/小白学Java：File类)
+- [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：I/O流)
+- [ 小白学Java：RandomAccessFile](Java基础/IO/md/小白学Java：RandomAccessFile)
+
+### 其他
+
+- 异常：[Java面向对象之异常](Java基础/面向对象/Java面向对象之异常.md)
+- 内部类：[小白学Java：内部类](Java基础/面向对象/小白学Java：内部类.md)
+- 包装类：[小白学Java：包装类](Java基础/面向对象/小白学Java：包装类.md)
+- 泛型：[小白学Java：泛型详解](Java基础/面向对象/小白学Java：泛型详解.md)
+- this关键字：[Java关键字之this](Java基础/面向对象/Java关键字之this.md)
+- super关键字：[Java之super关键字](Java基础/面向对象/Java之super关键字.md)
+
 - [Java基础](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80)
   - [Java数组详解【for-each，Arrays】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%95%B0%E7%BB%84)
   - [Java流程控制【if-else，while，for，break，continue】](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6)
   - [Java反射](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E5%8F%8D%E5%B0%84/Java%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6.md)
   - [面向对象](https://gitee.com/tqbx/JavaBlog/tree/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
-    
     - 三大特性：
       - 封装
         - [Java封装及访问权限控制](https://gitee.com/tqbx/JavaBlog/blob/master/Java%E5%9F%BA%E7%A1%80/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/Java%E5%B0%81%E8%A3%85%E5%8F%8A%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89.md)
@@ -95,3 +151,18 @@
   - [ 应用层协议原理](https://gitee.com/tqbx/JavaBlog/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89.md)
   - [IP](https://gitee.com/tqbx/JavaBlog/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
   - [ 分组交换网中的时延、丢包和吞吐量](https://gitee.com/tqbx/JavaBlog/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E4%B8%AD%E7%9A%84%E6%97%B6%E5%BB%B6%EF%BC%8C%E4%B8%A2%E5%8C%85%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F.md)
+
+## MySQL专题
+
+## MyBatis专题
+
+## 计算机网络
+
+## 力扣刷题系列
+
+## SpringBoot专题
+
+## SpringCloud专题
+
+
+

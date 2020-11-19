@@ -1,16 +1,19 @@
 [TOC]
 
-详细文档地址：http://freemarker.foofun.cn/index.html
+## 本篇要点
 
-FreeMarker是什么？ 
+- 介绍FreeMark基本原理。
+- 介绍SpringBoot与FreeMarker快速整合。
+
+## FreeMarker是什么？ 
 
 - 一款模板引擎。即一种基于模板和要改变的数据， 并用来生成输出文本(HTML网页，电子邮件，配置文件，源代码等)的通用工具。
 
 - 在模板中，你可以专注于如何展现数据， 而在模板之外可以专注于要展示什么数据，体现就是：模板+ 数据模型 = 输出。
 
-![](http://freemarker.foofun.cn/figures/overview.png)
+![img](img/FreeMarker%E4%BD%BF%E7%94%A8%E5%8F%8ASpringBoot%E6%95%B4%E5%90%88/overview.png)
 
-# 快速开始
+## 快速开始
 
 1. pom.xml确定导入FreeMarker依赖包
 
@@ -38,7 +41,7 @@ spring:
 3. 在templates目录下放置`.ftl`文件，意为`freemarker templates layer`。
 4. 编写Controller，将模型存入request中：
 
-```html
+```java
 @Controller
 public class TestController{
 
@@ -73,15 +76,15 @@ public class TestController{
 </#list>
 ```
 
-# 模板一览
+## 模板一览
 
 `${...}`： FreeMarker将会输出真实的值来替换大括号内的表达式，被称为插值表达式。
 
 `<#../>`：FTL标签，以#开头，自定义标签则以@开头。
 
-## 常用指令
+### 常用指令
 
-### 条件指令：if、elseif、else
+#### 条件指令：if、elseif、else
 
 ```html
 <#if animals.python.price < animals.elephant.price>
@@ -93,7 +96,7 @@ public class TestController{
 </#if>
 ```
 
-### list指令
+#### list指令
 
 `list` 指令的一般格式为： `<#list sequence as loopVariable> repeatThis`。 `repeatThis` 部分将会在给定的 `sequence` 遍历时在每一项中重复， 从第一项开始，一个接着一个。在所有的重复中， `loopVariable` 将持有当前遍历项的值。 这个变量仅存在于 `<#list ...>` 和 `<#list>` 标签内。
 
@@ -131,7 +134,7 @@ public class TestController{
 </#list>
 ```
 
-### include指令
+#### include指令
 
 使用 `include` 指令， 我们可以在模板中插入其他文件的内容。
 
@@ -161,13 +164,13 @@ All Rights Reserved.
 </html>
 ```
 
-## 内建函数
+### 内建函数
 
 内建函数很像子变量(如果了解Java术语的话，也可以说像方法)， 它们并不是数据模型中的东西，是 FreeMarker 在数值上添加的。 为了清晰子变量是哪部分，使用 `?`(问号)代替 `.`(点)来访问它们。
 
 所有内建函数参考：http://freemarker.foofun.cn/ref_builtins.html
 
-## 处理不存在的变量
+### 处理不存在的变量
 
 一个不存在的变量和一个是`null`值的变量， 对于FreeMarker来说是一样的。
 
@@ -183,9 +186,9 @@ All Rights Reserved.
 <#if user??><h1>Welcome ${user}!</h1></#if>
 ```
 
-# 自定义指令
+## 自定义指令
 
-## 使用macro定义宏
+### 使用macro定义宏
 
 - 未带参数宏调用
 
@@ -220,7 +223,7 @@ All Rights Reserved.
         </@nest_test>
 ```
 
-## 使用TemplateDirectiveModel扩展。
+### 使用TemplateDirectiveModel扩展。
 
 这部分可以参考我发在码云上的代码：https://gitee.com/tqbx/springboot-samples-learn/tree/master/spring-boot-freemarker。
 
@@ -263,3 +266,10 @@ public class FreeMarkerConfig {
     </@strstr>
 ```
 
+## 源码下载
+
+本文内容均为对优秀博客及官方文档总结而得，原文地址均已在文中参考阅读处标注。最后，文中的代码样例已经全部上传至Gitee：https://gitee.com/tqbx/springboot-samples-learn，另有其他SpringBoot的整合哦。
+
+## 参考阅读
+
+- http://freemarker.foofun.cn/index.html
