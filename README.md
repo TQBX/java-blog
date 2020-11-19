@@ -69,20 +69,7 @@
 - [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：I/O流)
 - [ 小白学Java：RandomAccessFile](Java基础/IO/md/小白学Java：RandomAccessFile)
 
-## JavaWeb
 
-- [JavaWeb](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB)
-  - [前端部分：HTML + CSS + JS + JQuery + Ajax](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%89%8D%E7%AB%AF)
-  - [后端部分：Servlet 、Cookie、session、tomcat、request的api、Filter和Listener ](https://gitee.com/tqbx/JavaBlog/tree/master/JavaWeb%E6%B1%87%E6%80%BB/%E5%90%8E%E7%AB%AF)
-- 框架系列
-  - [Spring](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/Spring/md)
-  - [SpringMVC](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/springmvc/md)
-  - [Springboot](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/springboot)
-  - [mybatis](https://gitee.com/tqbx/JavaBlog/tree/master/%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97/mybatis)
-- 算法与数据结构
-  
-  - [力扣刷题系列](https://gitee.com/tqbx/JavaBlog/tree/master/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97)：包括二分专题、前缀和、剑指offer、动态规划、广搜深搜、链表、字符串等专题
-- [Linux](https://gitee.com/tqbx/JavaBlog/tree/master/linux%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97)
 
 ## MySQL专题
 
@@ -141,9 +128,26 @@
 
 ## SpringBoot专题
 
-- [](框架系列/springboot/md/)
+- [SpringBoot与FreeMarker整合](框架系列/springboot/md/FreeMarker使用及SpringBoot整合.md)
+- [SpringBoot中Logback日志配置解析](框架系列/springboot/md/SpringBoot中Logback日志配置解析.md)
+- [SpringBoot中整合权限管理框架shiro](框架系列/springboot/md/SpringBoot中整合权限管理框架shiro.md)
+- [SpringBoot中的异步任务](框架系列/springboot/md/SpringBoot中的异步任务.md)
+- [SpringBoot中的配置解析【Externalized Configuration】](框架系列/springboot/md/SpringBoot中配置解析.md)
+- [SpringBoot利用Aop巧妙打印日志信息](框架系列/springboot/md/SpringBoot利用Aop巧妙打印日志信息.md)
+- [SpringBoot在IDEA中实现热部署](框架系列/springboot/md/SpringBoot在IDEA中实现热部署.md)
+- [SpringBoot整合Docker快速部署](框架系列/springboot/md/SpringBoot整合Docker快速部署.md)
+- [SpringBoot整合H2数据库](框架系列/springboot/md/SpringBoot整合H2数据库.md)
+- [SpringBoot整合MybatisPlus](框架系列/springboot/md/SpringBoot整合MybatisPlus.md)
+- [SpringBoot整合Thymeleaf](框架系列/springboot/md/SpringBoot整合Thymeleaf.md)
+- [SpringBoot整合swagger-ui快速生成在线接口文档](框架系列/springboot/md/SpringBoot整合swagger-ui快速生成在线接口文档.md)
+- [SpringBoot文件上传](框架系列/springboot/md/SpringBoot文件上传.md)
+- [SpringBoot瘦身部署](框架系列/springboot/md/SpringBoot瘦身部署.md)
+- [SpringBoot优雅的参数校验BeanValidation](框架系列/springboot/md/SpringBoot的参数校验.md)
+- [SpringBoot统一异常处理](框架系列/springboot/md/SpringBoot统一异常处理.md)
+- [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
+
 
 ## SpringCloud专题
 
-
+- []()
 
