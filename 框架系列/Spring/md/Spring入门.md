@@ -2,10 +2,6 @@
 
 # Spring的概述
 
-先来一波醒目的spring模块图。
-
-![spring-overview](E:\2Java_sources\黑马\57.spring\spring\spring_day01\资料\spring-framework-5.0.2.RELEASE-docs\spring-framework-reference\images\spring-overview.png)
-
 Spring这个**轻量级的开源框架**的创建是用来代替更加重量级的企业级Java技术，以`控制反转（Inversion of Control ）`和`面向切面编程（Aspect-Oriented Programming）`为内核，提供了表现层Spring MVC和持久层Spring JDBC以及业务层事务管理等众多企业级的应用技术，还整合开源世界众多著名的第三方类库，成为使用最多的JavaEE企业应用开源框架。
 
 # Spring采取的策略
