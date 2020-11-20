@@ -132,6 +132,7 @@
 - [SpringCloud学习笔记（一）基础环境搭建](微服务学习/SpringCloud学习笔记（一）基础环境搭建.md)
 - [SpringCloud学习笔记（二）Eureka服务注册与发现](微服务学习/SpringCloud学习笔记（二）Eureka服务注册与发现.md)
 - [SpringCloud学习笔记（三）集群信息获取+服务列表信息获取](微服务学习/SpringCloud学习笔记（三）集群信息获取+服务列表信息获取.md)
+- [SpringCloud学习笔记（四）Eureka的自我保护机制](微服务学习/SpringCloud学习笔记（四）Eureka的自我保护机制.md)
 
 ## 十、Linux专题
 

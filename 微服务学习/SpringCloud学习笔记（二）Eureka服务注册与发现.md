@@ -2,6 +2,8 @@
 
 # Eureka服务注册与发现
 
+> Eureka2.0已经停更，但是学习它的思想还是有必要的，项目地址：https://github.com/Netflix/eureka
+
 ## 本篇要点
 
 - 学习服务注册与发现的概念。
