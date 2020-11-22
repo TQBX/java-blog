@@ -151,7 +151,8 @@
 - [SpringCloud学习笔记（七）Eureka，Consul，Zookeeper三个注册中心异同点](微服务学习/SpringCloud学习笔记（七）三个注册中心异同点.md)
 - [SpringCloud学习笔记（八）Ribbon负载均衡服务调用](微服务学习/SpringCloud学习笔记（八）Ribbon负载均衡.md)
 - [SpringCloud学习笔记（九）OpenFeign服务调用](微服务学习/SpringCloud学习笔记（九）OpenFeign服务调用.md)
-- [SpringCloud学习笔记（十）Hystrix断路器](微服务学习/SSpringCloud学习笔记（十）Hystrix断路器.md)
+- [SpringCloud学习笔记（十）Hystrix降级、熔断和图形化监控](微服务学习/SpringCloud学习笔记（十）Hystrix断路器.md)
+- [SpringCloud学习笔记（十一）Gateway网关](微服务学习/SpringCloud学习笔记（十一）服务网关Gateway.md)
 
 ## 十一、Linux专题
 
