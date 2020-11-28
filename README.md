@@ -137,6 +137,7 @@
 - [SpringBoot优雅的参数校验BeanValidation](框架系列/springboot/md/SpringBoot的参数校验.md)
 - [SpringBoot统一异常处理](框架系列/springboot/md/SpringBoot统一异常处理.md)
 - [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
+- [SpringBoot中使用JPA](框架系列/springboot/md/SpringBoot中使用JPA.md)
 
 
 ## 十、SpringCloud专题
@@ -153,6 +154,7 @@
 - [SpringCloud学习笔记（九）OpenFeign服务调用](微服务学习/SpringCloud学习笔记（九）OpenFeign服务调用.md)
 - [SpringCloud学习笔记（十）Hystrix降级、熔断和图形化监控](微服务学习/SpringCloud学习笔记（十）Hystrix断路器.md)
 - [SpringCloud学习笔记（十一）Gateway网关](微服务学习/SpringCloud学习笔记（十一）服务网关Gateway.md)
+- [SpringCloud学习笔记（十二）Spring Cloud Config服务配置](微服务学习/SpringCloud学习笔记（十二）SpringCloudConfig服务配置.md)
 
 ## 十一、Linux专题
 

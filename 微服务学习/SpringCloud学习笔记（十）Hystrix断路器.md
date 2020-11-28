@@ -460,7 +460,7 @@ SpringCloud中可以通过**Hystrix**实现熔断，Hystrix会监控微服务之
 
 ## Hystrix工作流程总结
 
-<img src="img/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89Hystrix%E6%96%AD%E8%B7%AF%E5%99%A8/hystrix-command-flow-chart.png" alt="hystrix-command-flow-chart"  />
+![](img/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89Hystrix%E6%96%AD%E8%B7%AF%E5%99%A8/hystrix-command-flow-chart.png)
 
 1. 构建 HystrixCommand【依赖的服务返回单个的结果】 or HystrixObservableCommand【依赖的服务返回多个操作结果】对象【1】。
 
