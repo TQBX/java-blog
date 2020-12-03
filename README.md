@@ -137,7 +137,8 @@
 - [SpringBoot优雅的参数校验BeanValidation](框架系列/springboot/md/SpringBoot的参数校验.md)
 - [SpringBoot统一异常处理](框架系列/springboot/md/SpringBoot统一异常处理.md)
 - [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
-- [SpringBoot中使用JPA](框架系列/springboot/md/SpringBoot中使用JPA.md)
+- [SpringBoot整合Spring Data JPA](框架系列/springboot/md/SpringBoot中使用JPA.md)
+- [SpringBoot使用SpringDataREST快速构建restful应用](框架系列/springboot/md/SpringBoot使用SpringDataREST快速构建restful应用.md)
 
 
 ## 十、SpringCloud专题
@@ -155,6 +156,8 @@
 - [SpringCloud学习笔记（十）Hystrix降级、熔断和图形化监控](微服务学习/SpringCloud学习笔记（十）Hystrix断路器.md)
 - [SpringCloud学习笔记（十一）Gateway网关](微服务学习/SpringCloud学习笔记（十一）服务网关Gateway.md)
 - [SpringCloud学习笔记（十二）Spring Cloud Config服务配置](微服务学习/SpringCloud学习笔记（十二）SpringCloudConfig服务配置.md)
+- [SpringCloud学习笔记（十三）Spring Cloud Bus消息总线](微服务学习/SpringCloud学习笔记（十三）SpringCloudBus消息总线.md)
+- [SpringCloud学习笔记（十四）SpringCloudStream消息驱动](微服务学习/SpringCloud学习笔记（十四）SpringCloudStream消息驱动.md)
 
 ## 十一、Linux专题
 
