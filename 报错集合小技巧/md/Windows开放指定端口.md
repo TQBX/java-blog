@@ -1,0 +1,33 @@
+[toc]
+
+## 一、打开控制面板，选择Window Defender防火墙
+
+![image-20201203235101782](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235101782.png)
+
+## 二、选择高级设置
+
+![image-20201203235131777](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235131777.png)
+
+## 三、右键入站规则，新建规则
+
+![image-20201203235212675](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235212675.png)
+
+## 四、选择创建的规则类型为：端口
+
+![image-20201203235303145](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235303145.png)
+
+## 五、配置开放端口
+
+![image-20201203235339614](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235339614.png)
+
+## 六、选择允许连接
+
+![image-20201203235402869](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235402869.png)
+
+## 七、选择应用规则
+
+![image-20201203235430422](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235430422.png)
+
+## 八、定义名称
+
+![image-20201203235453036](img/Windows%E5%BC%80%E6%94%BE%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/image-20201203235453036.png)

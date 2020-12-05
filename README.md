@@ -120,7 +120,10 @@
 
 ## 九、SpringBoot专题
 
+- [SpringBoot](框架系列/springboot/SpringBoot/SpringBoot.md)
+- [SpringBoot快速入门](框架系列/springboot/md/Springboot基础知识学习.md)
 - [SpringBoot与FreeMarker整合](框架系列/springboot/md/FreeMarker使用及SpringBoot整合.md)
+
 - [SpringBoot中Logback日志配置解析](框架系列/springboot/md/SpringBoot中Logback日志配置解析.md)
 - [SpringBoot中整合权限管理框架shiro](框架系列/springboot/md/SpringBoot中整合权限管理框架shiro.md)
 - [SpringBoot中的异步任务](框架系列/springboot/md/SpringBoot中的异步任务.md)
@@ -138,6 +141,7 @@
 - [SpringBoot统一异常处理](框架系列/springboot/md/SpringBoot统一异常处理.md)
 - [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
 - [SpringBoot整合Spring Data JPA](框架系列/springboot/md/SpringBoot中使用JPA.md)
+- [SpringBoot与定时任务](框架系列/springboot/md/SpringBoot定时任务.md)
 - [SpringBoot使用SpringDataREST快速构建restful应用](框架系列/springboot/md/SpringBoot使用SpringDataREST快速构建restful应用.md)
 
 
@@ -157,7 +161,11 @@
 - [SpringCloud学习笔记（十一）Gateway网关](微服务学习/SpringCloud学习笔记（十一）服务网关Gateway.md)
 - [SpringCloud学习笔记（十二）Spring Cloud Config服务配置](微服务学习/SpringCloud学习笔记（十二）SpringCloudConfig服务配置.md)
 - [SpringCloud学习笔记（十三）Spring Cloud Bus消息总线](微服务学习/SpringCloud学习笔记（十三）SpringCloudBus消息总线.md)
-- [SpringCloud学习笔记（十四）SpringCloudStream消息驱动](微服务学习/SpringCloud学习笔记（十四）SpringCloudStream消息驱动.md)
+- [SpringCloud学习笔记（十四）Spring Cloud Stream消息驱动](微服务学习/SpringCloud学习笔记（十四）SpringCloudStream消息驱动.md)
+- [SpringCloud学习笔记（十五）Spring Cloud Sleuth链路追踪](微服务学习/SpringCloud学习笔记（十五）SpringCloudSleuth链路追踪.md)
+- [SpringCloud Alibaba学习笔记：入门简介](微服务学习/SpringCloudAlibaba学习笔记：入门简介.md)
+- [SpringCloudAlibaba学习笔记：Nacos服务注册发现](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务注册发现.md)
+- [SpringCloudAlibaba学习笔记：Nacos服务配置中心](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务配置中心.md)
 
 ## 十一、Linux专题
 
