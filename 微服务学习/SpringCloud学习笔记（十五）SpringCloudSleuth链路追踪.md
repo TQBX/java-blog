@@ -90,6 +90,6 @@ spring:
 
 ![image-20201204215550223](img/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%E4%BA%94%EF%BC%89SpringCloudSleuth%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/image-20201204215550223.png)
 
-## [源码下载](https://tqbx.gitee.io/javablog/#/微服务学习/SpringCloud学习笔记（二）Eureka服务注册与发现?id=源码下载)
+## 源码下载
 
 本系列文章为《尚硅谷SpringCloud教程》的学习笔记【版本稍微有些不同，后续遇到bug再做相关说明】，主要做一个长期的记录，为以后学习的同学提供示例，代码同步更新到Gitee：[https://gitee.com/tqbx/spring-cloud-learning](https://gitee.com/tqbx/spring-cloud-learning)，并且以标签的形式详细区分每个步骤，这个系列文章也会同步更新。

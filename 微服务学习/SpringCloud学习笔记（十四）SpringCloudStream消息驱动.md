@@ -282,6 +282,6 @@ public class ReceiveMessageListenerController {
 
 加上group属性之后，就已经具备了消息持久化，演示也很简单，关闭消费者服务，生产者不断发送信息，重启消费者服务，发现启动之后，将宕机时的错过的消息消费。
 
-## [源码下载](https://tqbx.gitee.io/javablog/#/微服务学习/SpringCloud学习笔记（二）Eureka服务注册与发现?id=源码下载)
+## 源码下载
 
 本系列文章为《尚硅谷SpringCloud教程》的学习笔记【版本稍微有些不同，后续遇到bug再做相关说明】，主要做一个长期的记录，为以后学习的同学提供示例，代码同步更新到Gitee：[https://gitee.com/tqbx/spring-cloud-learning](https://gitee.com/tqbx/spring-cloud-learning)，并且以标签的形式详细区分每个步骤，这个系列文章也会同步更新。

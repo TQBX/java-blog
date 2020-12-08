@@ -211,6 +211,6 @@ public class ApplicationContextConfig {
 
 ![image-20201205235848405](img/SpringCloudAlibaba%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ANacos%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E9%85%8D%E7%BD%AE/image-20201205235848405.png)
 
-## [源码下载](https://tqbx.gitee.io/javablog/#/微服务学习/SpringCloud学习笔记（二）Eureka服务注册与发现?id=源码下载)
+## 源码下载
 
 本系列文章为《尚硅谷SpringCloud教程》的学习笔记【版本稍微有些不同，后续遇到bug再做相关说明】，主要做一个长期的记录，为以后学习的同学提供示例，代码同步更新到Gitee：[https://gitee.com/tqbx/spring-cloud-learning](https://gitee.com/tqbx/spring-cloud-learning)，并且以标签的形式详细区分每个步骤，这个系列文章也会同步更新。
