@@ -1,6 +1,7 @@
 [toc]
-# 小白学Java：I/O流
-> 流，表示任何有能力产生数据的数据源对象或者是有能力接收数据的接收端对象，它屏蔽了实际的I/O设备中处理数据的细节。
+> 什么是流？流表示任何有能力**产生数据的数据源对象或者是有能力接收数据的接收端对象**，它屏蔽了实际的I/O设备中处理数据的细节。
+>
+> IO流是实现输入输出的基础，它可以很方便地实现数据的输入输出操作，即读写操作。
 
 ## 基本分类
 
@@ -8,10 +9,10 @@
     - **输入流**：数据从外部流向程序，例如**从文件中读取数据**。
     - **输出流**：数据从程序流向外部，例如**向文件中写数据**。
 - **根据形式**
-    - **字符流**：字符类文件，如 txt、 java、 html。
-    - **字节流**：图片、视频、音频 。  
+    - **字符流**：字符类文件，【如 txt、 java、 html】，操作16位的字符。
+    - **字节流**：【图片、视频、音频】 ，操作8位的字节。
 - **根据功能**
-    - **节点流**：直接从数据源进行数据读写
+    - **节点流**：直接从/向数据源【如磁盘、网络】进行数据读写
     - **处理流**：封装其他的流，来提供增强流的功能。
 
 
@@ -20,7 +21,7 @@
 | 字符流 | Reader      | Writer       |
 | 字节流 | InputStream | OutputStream |
 
-- 上面四大基本流都是**抽象类**，都不能直接创捷对象。
+- 上面四大基本流都是**抽象类**，都不能直接创建实例对象。
 - 数据的来源/目的地：磁盘、网络、内存、外部设备。
 ## 发展史
 - java1.0版本中，I/O库中与输入有关的所有类都将继承`InputStream`，与输出有关的所有类继承`OutputStream`，用以操作二进制数据。
@@ -60,7 +61,6 @@
                 e.printStackTrace();
             }finally {
                 //无论关流成功与否，都是有意义的：标为垃圾对象，强制回收
-                
                 writer = null;
             }
         }
@@ -75,7 +75,7 @@
 ### 流中的异常处理
 
 - 无论流操作成功与否，关流操作都需要进行，所以需要**将关流操作放到finally代码块中**。
-- 为了让流对象再finally中以然能够使用，所以**需要将流对象放在try之外声明并且赋值为null**，然后在try之内进行实际的初始化过程。
+- 为了让流对象在finally中依然能够使用，所以**需要将流对象放在try之外声明并且赋值为null**，然后在try之内进行实际的初始化过程。
 - 在关流之前要判断流对象是否初始化成功，实际就是**判断流对象是否为null**。`writer!=null`时才执行关流操作。
 - 关流可能会失败，此时流依然会占用文件，所以需要将**流对象置为null**，标记为垃圾对象进行强制回收以释放文件。
 - 如果流有缓冲区，为了防止关流失败导致没有进行自动冲刷，所以需要手动冲刷一次，以防止有数据死在缓冲区而产生数据的丢失。
@@ -93,40 +93,25 @@ try(FileWriter writer = new FileWriter("D:\\c.txt")){
 ```
 
 ### 读取的基本结构
-处理异常的正确方式在输入的结构中已说明，这边就不进行繁杂的异常处理，执行直接向上抛出的不负责任的操作。
 ```java
     public static void main(String[] args) throws IOException {
         FileReader reader = new FileReader("D:\\b.txt");
+        //定义数组作为缓冲区
+        char[] cs = new char[5];
         //定义一个变量记录每次读取的字符
-        int m;
+        int hasRead;
         //读取到末尾为-1
-        while((m = reader.read())!=-1){
-           System.out.print(m);
+        while ((hasRead = reader.read(cs)) != -1) {
+            System.out.println(new String(cs, 0, hasRead));
         }
-        
         reader.close();
     }
 ```
-- 文件字符输入流没有缓冲区。
-- read方法用来从文件中读取字符，每次只读取一个。
+- read方法可以传入字符数组，每次读取一个字符数组的长度。
 - 定义变量m记录读取的字符，以达到末尾为终止条件。`m!=-1`时，终止循环。
 - 读取结束，执行关流操作。
 
-当然，每次读取一个字符，怪麻烦的，我们可以改进一下：
-
-```java
-
-    //定义数组作为缓冲区
-    char[] cs = new char[5];
-    //定义变量记录读取字符的个数
-    int len;
-    while ((len = reader.read(cs)) != -1) {
-        System.out.println(new String(cs, 0, len));
-    }
-    reader.close();
-```
-
-### 运用输入与输出
+### 运用输入与输出完成复制效果
 运用文件字符输入与输出的小小案例：
 ```java
 
@@ -134,10 +119,10 @@ public static void copyFile(FileReader reader, FileWriter writer) throws IOExcep
     //利用字符数组作为缓冲区
     char[] cs = new char[5];
     //定义变量记录读取到的字符个数
-    int m;
-    while((m = reader.read(cs))!=-1){
+    int hasRead;
+    while((hasRead = reader.read(cs)) != -1){
         //将读取到的内容写入新的文件中
-        writer.write(cs,0,m);
+        writer.write(cs, 0, hasRead));
 
     }
     reader.close();
@@ -162,18 +147,16 @@ public static void copyFile(FileReader reader, FileWriter writer) throws IOExcep
 ```java
     public static void main(String[] args) throws Exception{
         FileInputStream in = new FileInputStream("E:\\1myblog\\Node.png");
-
        //1.读取字节
-       int i = in.read();
        int i;
-       while((i=in.read())!=-1)
+       while((i = in.read()) ! =-1)
            System.out.println(i);
        //2.定义字节数组作为缓冲区
        byte[] bs = new byte[10];
        //定义变量记录每次实际读取的字节个数
        int len;
-       while((len = in.read(bs))!=-1){
-           System.out.println(new String(bs,0,len));
+       while((len = in.read(bs)) != -1){
+           System.out.println(new String(bs, 0, len));
        }
        in.close();
 
