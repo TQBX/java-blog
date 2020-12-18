@@ -3,6 +3,13 @@
 >
 > IO流是实现输入输出的基础，它可以很方便地实现数据的输入输出操作，即读写操作。
 
+## 本片要点
+
+- 介绍流的定义和基本分类。
+- 介绍文件字符流、字节流、转换流、合并流、打印流等使用。
+- 介绍序列化的意义。
+- 介绍两种自定义序列化方式。
+
 ## 基本分类
 
 - **根据方向**
@@ -206,7 +213,7 @@ public static void copyFile(FileReader reader, FileWriter writer) throws IOExcep
 
 例如，**BufferedReader本身就是Reader对象**，它接收了一个Reader对象构建自身，**自身提供缓冲区**和**其他新增方法**，通过减少磁盘读写次数来提高输入和输出的速度。
 
-![1dFLd0.png](https://s2.ax1x.com/2020/02/03/1dFLd0.png)
+![1dFLd0.png](img/小白学Java：IO流/1dFLd0.png)
 
 除此之外，字节流同样也存在缓冲流，分别是`BufferedInputStream`和`BufferedOutputStream`。
 
@@ -257,7 +264,7 @@ public static void copyFile(FileReader reader, FileWriter writer) throws IOExcep
 
 以`OutputStreamWriter为`例，构建该转换流时需要传入一个字节流，而写入的数据最开始是由字符形式给定的，也就是说该转换流实现了从字符向字节的转换，让两个不同的类在一起共同办事。
 
-![1dFxWF.png](https://s2.ax1x.com/2020/02/03/1dFxWF.png)
+![1dFxWF.png](img/小白学Java：IO流/1dFxWF.png)
 
 
 
@@ -369,6 +376,21 @@ public static void copyFile(FileReader reader, FileWriter writer) throws IOExcep
 - **序列化**：将对象转化为字节数组的过程。
 - **反序列化**：将字节数组还原回对象的过程。
 
+### 序列化的意义
+
+对象序列化的目标是将对象保存在磁盘中，或允许在网络中直接传输对象。对象序列化机制允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘上，通过网络将这种二进制流传输到另一个网络节点。其他程序一旦获得了这种流，都可以将这种二进制流恢复为原来的Java对象。
+
+让某个对象支持序列化的方法很简单，让它实现`Serializable`接口即可：
+
+```java
+public interface Serializable {
+}
+```
+
+这个接口没有任何的方法声明，只是一个标记接口，表明实现该接口的类是可序列化的。
+
+> 我们通常在Web开发的时候，JavaBean可能会作为参数或返回在远程方法调用中，如果对象不可序列化会出错，因此，JavaBean需要实现Serializable接口。
+
 ### 序列化对象
 创建一个Person类。
 ```java
@@ -431,19 +453,108 @@ public class ObjectOutputStreamDemo {
 - 如果一个对象要想被序列化，那么对应的类必须实现接口`serializable`，该接口没有任何方法，仅仅作为标记使用。
 - 被`static`或`transient`修饰的属性不会进行序列化。如果属性的类型没有实现`serializable`接口但是也没有用这两者修饰，会抛出`NotSerializableException`。
 - 在对象序列化的时候，版本号会随着对象一起序列化出去，在反序列化的时候，对象中的版本号和类中的版本号进行比较，如果版本号一致，则允许反序列化。如果不一致，则抛出`InvalidClassException`。
-- 集合允许被整体序列化  集合及其中元素会一起序列化出去。
+- 集合允许被整体序列化 ，集合及其中元素会一起序列化出去。
+- 如果对象的成员变量是引用类型，这个引用类型也需要是可序列化的。
+- 当一个可序列化类存在父类时，这些父类要么有无参构造器，要么是需要可序列化的，否则将抛出`InvalidClassException`的异常。
 
-关于**版本号**：
+### 关于版本号
+
 - 一个类如果允许被序列化，那么这个类中会产生一个版本号 `serialVersonUID`。
     - 如果没有手动指定版本号，那么在编译的时候自动根据当前类中的属性和方法计算一个版本号，也就意味着一旦类中的属性发生改变，就会重新计算新的，导致前后不一致。
     - 但是，手动指定版本号的好处就是，不需要再计算版本号。
-
 - 版本号的意义在于防止类产生改动导致已经序列化出去的对象无法反序列化回来。版本号必须用`static final`修饰，本身必须是`long`类型。
 
+### 自定义序列化的两种方法
 
+#### Serializable自定义
+
+```java
+// 实现writeObject和readObject两个方法
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Person implements Serializable {
+
+    private String name;
+    private int age;
+
+    // 将name的值反转后写入二进制流
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeObject(new StringBuffer(name).reverse());
+        out.writeInt(age);
+    }
+
+    // 将读取的字符串反转后赋给name
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        this.name = ((StringBuffer) in.readObject()).reverse().toString();
+        this.age = in.readInt();
+    }
+}
+```
+
+还有一种更加彻底的自定义机制，直接将序列化对象替换成其他的对象，需要定义`writeReplace`：
+
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Person implements Serializable {
+
+    private String name;
+    private int age;
+
+    private Object writeReplace(){
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add(age);
+        return list;
+    }
+}
+```
+
+#### Externalizable自定义
+
+Externalizable实现了Seriablizable接口，并规定了两个方法：
+
+```java
+public interface Externalizable extends java.io.Serializable {
+
+    void writeExternal(ObjectOutput out) throws IOException;
+
+    void readExternal(ObjectInput in) throws IOException, ClassNotFoundException;
+}
+
+```
+
+实现该接口，并给出两个方法的实现，也可以实现自定义序列化。
+
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Externalizable {
+
+    String name;
+    int age;
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(new StringBuffer(name).reverse());
+        out.writeInt(age);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.name = ((StringBuffer) in.readObject()).reverse().toString();
+        this.age = in.readInt();
+    }
+}
+```
+
+## 参考阅读
 
 ---
 
 写在最后：如果本文有叙述错误之处，还望评论区批评指正，共同进步。
 
-参考资料：《Java 编程思想》、《Java语言程序设计》、《大话设计模式》
+参考资料：《Java 编程思想》、《Java语言程序设计》、《大话设计模式》、《疯狂Java讲义》
