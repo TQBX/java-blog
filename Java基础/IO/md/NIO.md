@@ -69,6 +69,48 @@ Buffer的所有子类都提供了put和get方法，对应向Buffer存入数据�
 
 ## Channel
 
+Channel 类似于传统的流对象，但有些不同：
+
+- Channel 直接将指定文件的部分或全部直接映射 Buffer。
+- **程序不能直接访 Channel 中的数据，包括读取、写入都不行**，Channel只能与 Buffer 进行交互。意思是，程序要读数据时需要先通过Buffer从Channel中获取数据，然后从Buffer中读取数据。
+- Channel通常可以异步读写。
+
+Channel不应该通过构造器来直接创建，而是通过传统的节点InputStream、OutputStream的getChannel()方法来返回对应的Channel，或者通过RandomAccessFile对象的getChannel方法。
+
+Channel中最常用的三种方法：
+
+- map()：将Channel对应的部分或全部数据映射成ByteBuffer。
+- read()：从Buffer中读取数据。
+- write()：向Buffer中写入数据。
+
+下面是个简单的示例，通过RandomAccessFile的getChannel方法：
+
+```java
+    public static void main(String[] args) throws FileNotFoundException {
+
+        RandomAccessFile file = new RandomAccessFile("D://b.txt", "rw");
+        // 获取RandomAccessFile对应的channel
+        try (FileChannel fileChannel = file.getChannel()) {
+            ByteBuffer buf = ByteBuffer.allocate(48);
+            int byteRead = fileChannel.read(buf);
+            while(byteRead != -1){
+                System.out.println("read " + byteRead);
+                buf.flip();
+                while (buf.hasRemaining()){
+                    System.out.println((char) buf.get());
+                }
+                buf.clear();
+                byteRead = fileChannel.read(buf);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+```
+
+
+
 
 
 
