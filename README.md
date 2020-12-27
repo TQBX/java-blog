@@ -123,7 +123,6 @@
 - [SpringBoot](框架系列/springboot/SpringBoot/SpringBoot.md)
 - [SpringBoot快速入门](框架系列/springboot/md/Springboot基础知识学习.md)
 - [SpringBoot与FreeMarker整合](框架系列/springboot/md/FreeMarker使用及SpringBoot整合.md)
-
 - [SpringBoot中Logback日志配置解析](框架系列/springboot/md/SpringBoot中Logback日志配置解析.md)
 - [SpringBoot中整合权限管理框架shiro](框架系列/springboot/md/SpringBoot中整合权限管理框架shiro.md)
 - [SpringBoot中的异步任务](框架系列/springboot/md/SpringBoot中的异步任务.md)
@@ -141,8 +140,12 @@
 - [SpringBoot统一异常处理](框架系列/springboot/md/SpringBoot统一异常处理.md)
 - [SpringBoot项目部署到Linux服务器全流程](框架系列/springboot/md/SpringBoot项目部署到Linux服务器全流程.md)
 - [SpringBoot整合Spring Data JPA](框架系列/springboot/md/SpringBoot中使用JPA.md)
+- [SpringBoot中JPA的过滤查询Specifications](框架系列/springboot/md/SpringBoot中JPA的过滤查询Specifications.md)
 - [SpringBoot与定时任务](框架系列/springboot/md/SpringBoot定时任务.md)
 - [SpringBoot使用SpringDataREST快速构建restful应用](框架系列/springboot/md/SpringBoot使用SpringDataREST快速构建restful应用.md)
+- [SpringBoot整合任务调度框架Quartz](框架系列/springboot/md/SpringBoot整合任务调度框架Quartz.md)
+- [SpringBoot事件监听机制](框架系列/springboot/md/SpringBoot事件监听机制.md)
+- [SpringBoot使用Actuator服务监控](框架系列/springboot/md/SpringBoot使用Actuator服务监控.md)
 
 
 ## 十、SpringCloud专题
@@ -164,8 +167,9 @@
 - [SpringCloud学习笔记（十四）Spring Cloud Stream消息驱动](微服务学习/SpringCloud学习笔记（十四）SpringCloudStream消息驱动.md)
 - [SpringCloud学习笔记（十五）Spring Cloud Sleuth链路追踪](微服务学习/SpringCloud学习笔记（十五）SpringCloudSleuth链路追踪.md)
 - [SpringCloud Alibaba学习笔记：入门简介](微服务学习/SpringCloudAlibaba学习笔记：入门简介.md)
-- [SpringCloudAlibaba学习笔记：Nacos服务注册发现](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务注册发现.md)
-- [SpringCloudAlibaba学习笔记：Nacos服务配置中心](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务配置中心.md)
+- [SpringCloud Alibaba学习笔记：Nacos服务注册发现](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务注册发现.md)
+- [SpringCloud Alibaba学习笔记：Nacos服务配置中心](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务配置中心.md)
+- [SpringCloud Alibaba学习笔记：Nacos集群和持久化配置](微服务学习/SpringCloudAlibaba学习笔记：Nacos集群和持久化配置.md)
 
 ## 十一、Linux专题
 
@@ -200,3 +204,11 @@
 ## 十四、工具使用
 
 - [教你如何使用docsify快速部署优美的在线文档](其他/docsify.md)
+- [版本管理工具git的使用](工具集合/git/git使用.md)
+
+## 十五、中间件
+
+- [分布式消息处理kafka](中间件/kafka.md)
+- [任务调度框架Quartz](中间件/Quartz.md)
+- [Zookeeper](中间件/zookeeper)
+- nginx

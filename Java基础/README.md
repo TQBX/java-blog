@@ -81,14 +81,15 @@
 ## 四、IO流
 
 - [ 小白学Java：File类](Java基础/IO/md/小白学Java：File类)
-
 - [ 小白学Java：I/O流](Java基础/IO/md/小白学Java：IO流)
-
 - [ 小白学Java：RandomAccessFile](Java基础/IO/md/小白学Java：RandomAccessFile)
+- [ NIO](Java基础/IO/md/NIO.md)
 
 ## 五、Java8新增特性
 
 - [StreamAPI](Java基础/Java8/StreamAPI.md)
 - [Lambda](Java基础/Java8/Lambda表达式.md)
-- [Optional](Java基础/Java8/Optional.md)
+- [Lambda](Java基础/Java8/Optional.md)
+- [Java8新增集合骚操作](Java基础/Java8/Java8新增集合相关方法.md)
+- [日期API](Java基础/Java8/日期API.md)
 
