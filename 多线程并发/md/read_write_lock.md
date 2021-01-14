@@ -1,13 +1,170 @@
 [toc]
 
+## ReadWriteLock读写锁概述
 
-ReentrantLock是独占锁，某一时刻只有一个线程可以获取该锁，而实际上会存在很多**读多写少**的场景，ReentrantReadWriteLock采用读写分离的策略，允许多个线程同时获取读锁。
+我们之前说到，ReentrantLock是独占锁，某一时刻只有一个线程可以获取该锁，而实际上会存在很多**读多写少**的场景，而读操作本身并不会存在数据竞争问题，如果使用独占锁，可能会导致其中一个读线程使其他的读线程陷入等待，降低性能。
+
+针对这种读多写少的场景，读写锁应运而生。**读写锁允许同一时刻有多个读线程访问，但在写线程访问时，所有的读线程和其他写线程均被阻塞。**我们先来看看Java中的读写锁顶级接口吧，位于：`java.util.concurrent.locks`包下：
+
+```java
+public interface ReadWriteLock {
+    // 读锁
+    Lock readLock();
+	// 写锁
+    Lock writeLock();
+}
+
+```
+
+相信你会一下子就明白，读写锁其实就是维护了一对锁，一个写锁一个读锁，通过读写分离的策略，允许多个线程同时获取读锁，大大提高并发性。
+
+## ReentrantReadWriteLock架构总览
+
+ReentrantReadWriteLock是ReadWriteLock的实现，除了实现了`readLock()`和`writeLock()`两个方法之外，还提供了一些重要方法，我们待会会一一解析。
 
 ![](img/read_write_lock/1771072-20210104181351979-1702756388.png)
 
-ReentrantReadWriteLock内部维护了ReadLock和WriteLock两个内部类，他们都委托Sync实现具体功能。
+```java
+public class ReentrantReadWriteLock
+        implements ReadWriteLock, java.io.Serializable {
+    private static final long serialVersionUID = -6992448646407690164L;
+    /** 内部维护ReadLock */
+    private final ReentrantReadWriteLock.ReadLock readerLock;
+    /** 内部维护WriteL */
+    private final ReentrantReadWriteLock.WriteLock writerLock;
+    /** 读、写锁公用一个AQS的Sync的实例 */
+    final Sync sync;
+    
+	/** 默认使用非公平模式 */
+    public ReentrantReadWriteLock() {
+        this(false);
+    }
+    /** 初始化读锁和写锁实例 */
+    public ReentrantReadWriteLock(boolean fair) {
+        sync = fair ? new FairSync() : new NonfairSync();
+        readerLock = new ReadLock(this);
+        writerLock = new WriteLock(this);
+    }
 
-Sync继承自AQS，与ReentrantLock一样，也提供了公平与非公平两种实现，本篇以非公平锁实现为例了解其实现。
+    public ReentrantReadWriteLock.WriteLock writeLock() { return writerLock; }
+    public ReentrantReadWriteLock.ReadLock  readLock()  { return readerLock; }
+
+    /**
+     * AQS的实现
+     */
+    abstract static class Sync extends AbstractQueuedSynchronizer {   
+        // ...
+    }
+    
+     /**
+     * Sync 非公平版本的实现
+     */
+    static final class NonfairSync extends Sync {
+        private static final long serialVersionUID = -8159625535654395037L;
+        final boolean writerShouldBlock() {
+            return false; // writers can always barge
+        }
+        final boolean readerShouldBlock() {
+            return apparentlyFirstQueuedIsExclusive();
+        }
+    }
+
+    /**
+     * Sync 公平版本的实现
+     */
+    static final class FairSync extends Sync {
+        private static final long serialVersionUID = -2274990926593161451L;
+        final boolean writerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+        final boolean readerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+    }
+
+    /**
+     * 可以通过ReentrantReadWriteLock#readLock方法得到一个读锁实例
+     */
+    public static class ReadLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -5992448646407690164L;
+        private final Sync sync;
+        protected ReadLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+        //...
+    }
+
+    /**
+     * 可以通过ReentrantReadWriteLock#writeLock方法获得一个写锁实例
+     */
+    public static class WriteLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -4992448646407690164L;
+        private final Sync sync;
+        protected WriteLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+        //...
+    }
+```
+
+我们大概总结一下：
+
+- ReentrantReadWriteLock内部维护了ReadLock和WriteLock两个内部类，他们都委托Sync实现具体功能【Sync是AQS的实现，这个之前讲的非常清楚咯】。
+- 与ReentrantLock一样，也提供了公平与非公平两种实现：FairSync和NonfairSync，他们是Sync的实现类。
+- ReadLock和WriteLock实例可以通过`readLock()`和`writeLock()`两个方法获得。
+
+## 读写锁案例
+
+JavaDoc文档写的非常详细，给我们举了一个ReentrantReadWriteLock的使用例子，我们直接来看看：
+
+```java
+
+class CachedData {
+    Object data;
+    volatile boolean cacheValid;
+    // 创建读写锁实例
+    final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+
+    void processCachedData() {
+        // 获取读锁
+        rwl.readLock().lock();
+        // 缓存失效的情况
+        if (!cacheValid) { 
+            
+            // 释放掉读锁，必须！在获取写锁之前给读锁释放了
+            rwl.readLock().unlock();
+            // 获取写锁
+            rwl.writeLock().lock();
+
+            try {
+                // 重新检查状态，因为在等待写锁的过程中，可能前面有其他写线程执行过了
+                if (!cacheValid) { 
+                    data = ...
+                    cacheValid = true;
+                }
+                // 持有写锁的情况下，获取读锁的，称为 “锁降级”
+                rwl.readLock().lock();
+            } finally {
+                // 释放写锁，此时还剩一个读锁
+                rwl.writeLock().unlock(); 
+            }
+        }
+
+        try {
+            use(data);
+        } finally {
+            // 释放读锁
+            rwl.readLock().unlock();
+        }
+    }
+}
+```
+
+稍微总结一下，详细的在后面的解析部分：
+
+> ReentrantReadWriteLock读写锁分为读锁和写锁，读锁是共享锁，写锁是独占锁。
+>
+> 持有写锁的线程可以继续获取读锁，称为锁降级。
 
 ## Sync字段表示
 
@@ -456,3 +613,9 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
 ## 总结
 
 ReentrantReadWriteLock底层使用AQS实现，利用AQS的状态值的高16位表示获取到读锁的个数，低16位标识获取到写锁的线程的可重入次数，通过CAS对其进行操作实现读写分离，适用于读多写少的场景。
+
+
+
+## 参考阅读
+
+- [Java 读写锁 ReentrantReadWriteLock 源码分析](https://javadoop.com/post/reentrant-read-write-lock)
