@@ -9,8 +9,8 @@ Data Detinition Language，数据定义语言，定义了数据库的结构和�
 **定义数据库**
 
 ```sql
-create database xx;
-drop database xx;
+CREATE database xx;
+DROP database xx;
 ```
 
 **定义数据表**

@@ -3,31 +3,31 @@
 **查询列**
 
 ```sql
-select name from heros;
+SELECT name FROM heros;
 ```
 
 **查询多个列**
 
 ```sql
-select name, hp_max from heros;
+SELECT name, hp_max FROM heros;
 ```
 
 **查询所有列**
 
 ```sql
-select * from heros;
+SELECT * FROM heros;
 ```
 
 **起别名**
 
 ```sql
-select name as n, hp_max as hm from heros;
+SELECT name AS n, hp_max AS hm FROM heros;
 ```
 
 **查询常数**
 
 ```sql
-select '王者荣耀' as platform, name from heros;
+SELECT '王者荣耀' AS platform, name FROM heros;
 ```
 
 ![img](img/Untitled/41ed73cef49e445d64b8cb748a82c299.png)
@@ -35,13 +35,13 @@ select '王者荣耀' as platform, name from heros;
 **去除重复行**
 
 ```sql
-select distinct attack_range from heros;
+SELECT DISTINCT attack_range FROM heros;
 ```
 
 ![img](img/Untitled/e67c0d2f7b977cb0ff87891eb9adf615.png)
 
 ```sql
-select distinct attack_range, name from heros;
+SELECT DISTINCT attack_range, name FROM heros;
 ```
 
 ![img](img/Untitled/0105eb3f0b74d0ed5e6c2fafca38292a.png)
