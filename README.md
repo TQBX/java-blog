@@ -6,9 +6,10 @@
 >
 > 如果你也想拥有一个这样的知识文档，可以瞅瞅：[教你如何使用docsify快速部署优美的在线文档](其他/docsify.md)
 
-## 一、Java基础
+## 一、Java基础及面试相关
 
 - [Java基础部分总结](Java基础/)
+- [面试相关](面试相关/)
 
 
 ## 二、MySQL专题
@@ -22,7 +23,6 @@
 - [MySQL事务学习](/数据库部分/MySQL/md/MySQL事务学习笔记.md)
 - [多表查询](/数据库部分/MySQL/md/多表查询.md)
 - [数据库约束](/数据库部分/MySQL/md/数据库约束.md)
-- [MySQL解决DOS命令窗口乱码问腿](/数据库部分/MySQL/md/MySQL解决DOS命令窗口乱码问腿.md)
 
 ## 三、源码解析专题
 
@@ -235,3 +235,8 @@
 - [任务调度框架Quartz](中间件/Quartz.md)
 - [Zookeeper](中间件/zookeeper)
 - nginx
+
+
+
+
+
