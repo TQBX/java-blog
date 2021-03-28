@@ -1,3 +1,5 @@
+[toc]
+
 # SpringBoot的优点
 
 SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
