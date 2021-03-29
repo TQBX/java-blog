@@ -84,7 +84,7 @@ JDK1.8之后，方法区【hotSpot的永久代】被彻底移除【JDK1.7就已�
 
 1. **整个永久代有一个 JVM 本身设置固定大小上限，无法进行调整，而元空间使用的是直接内存，受本机可用内存的限制**，虽然元空间仍旧可能溢出【元空间溢出的错误：java.lang.OutOfMemoryError: MetaSpace】，但是比原来出现的几率会更小。
 
-2. 元空间里面存放的是类的元数据，这样加载多少类的元数据就不由MaxPermSize控制了，而由系统的实际可用空间来控制，加载的类更多。
+2. 元空间里面存放的是**类的元数据**，这样加载多少类的元数据就不由MaxPermSize控制了，而由系统的实际可用空间来控制，加载的类更多。
 3. 在 JDK8，合并 HotSpot 和 JRockit 的代码时, JRockit 从来没有一个叫永久代的东西, 合并之后就没有必要额外的设置这么一个永久代的地方了。
 
 #### 运行时常量池
@@ -186,6 +186,8 @@ GC roots对象有哪些？
 1. 虚拟机栈中的引用对象。
 2. 方法区 静态属性的引用对象。
 3. 方法区 常量引用的对象。
+
+为什么选他们作为roots：GC管理的主要区域是Java堆，一般情况下只针对堆进行垃圾回收。方法区、栈和本地方法区不被GC所管理，因而选择这些区域内的对象作为GC roots。
 
 ![image-20200524131718255](img/JVM知识点总结/13.png)
 
@@ -411,6 +413,36 @@ Shenandoah收集器
 ZGC收集器：与CMS中的ParNew和G1类似， 也采用标记复制算法，在zgc中出现stw的情况会更少。
 
 [[新一代垃圾回收器ZGC的探索与实践](https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html)](https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html)
+
+# 对象分配及Minor GC  Full GC
+
+1. 对象优先进入eden
+
+```
+    对象优先在eden区分配，
+    eden区没有足够空间时，触发 Minor GC
+    
+    虚拟机发起 【Minor GC】 = {  
+            情况1 ： eden 已使用内存 < suvivor内存
+                eden 内对象  转移到 suvivor内存
+            情况2 : eden 已使用内存 > suvivor内存
+                eden 内对象 转移到 老年代 
+    } 
+    
+    FULL GC 触发条件 = {
+            新生代对象总空间 > 老年代剩余连续空间 
+            Minor GC 平均晋升空间大小 > 老年代连续剩余空间，则触发FULL GC 
+    }
+```
+
+2. 大对象进入老年代：避免剩余较多内存空间时，直接出发GC。
+3. 长期存活对象进入老年代：
+
+```
+对象在Eden出生， 每经历一次minor GC 并被移动到survivor区，则age++
+年龄增加到一定程度(15岁)，则进入老年代。
+此外 当suvivor区中一般以上对象年龄相同，则>=该年龄的对象进入老年代。
+```
 
 # 类加载机制
 

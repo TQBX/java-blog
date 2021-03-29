@@ -7,16 +7,24 @@
 1. 实现对象的统一管理和配置：通过xml配置或java config或注解配置，beanfactory创建对象并存至容器中。
 2. 降低两个对象之间耦合度：通过xml文件||@Autowired注入对象，依赖注入，即使注入对象的构造方法发生改变，使用方也无需进行修改。
 
+ **IoC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件/注解即可，完全不用考虑对象是如何被创建出来的。**
+
+![SpringIOC初始化过程](img/Spring知识点总结/SpringIOC初始化过程.png)
+
+# Spring容器的启动全流程
+
+![](img/Spring知识点总结/流程.png)
+
 # AOP的作用及底层实现
 
-基于动态代理。
+**原理: 基于动态代理**
+
+1. JDK Proxy 生成 代理对象 = 被代理接口的实例
+2. CGlib【字节码】 生成 代理对象 = 被代理类的子类实例
 
 AOP 将 【事务处理、日志管理、权限控制等 】业务模块共同调用的非业务代码封装起来，从而减少系统重复代码，降低模块间的耦合度，使得代码更具有拓展性。
 
-```
-JDK Proxy 生成 代理对象 = 被代理接口的实例
-CGlib 生成 代理对象 = 被代理类的子类实例
-```
+**源码解析**
 
 > 以@AspectJ注解方式为例
 
@@ -26,6 +34,45 @@ CGlib 生成 代理对象 = 被代理类的子类实例
 - 通过判断是用JDK动态代理还是CGLIB创建不同的AopProxy，最后获取getProxy。
 
 ![](img/Spring知识点总结/aop.png)
+
+# jdk和cglib区别
+
+**实现原理**
+
+**1、JDK动态代理具体实现原理：**
+
+- 通过实现InvocationHandlet接口创建自己的调用处理器；
+- 通过为Proxy类指定ClassLoader对象和一组interface来创建动态代理；
+- 通过反射机制获取动态代理类的构造函数，其唯一参数类型就是调用处理器接口类型；
+- 通过构造函数创建动态代理类实例，构造时调用处理器对象作为参数参入；
+
+JDK动态代理是面向接口的代理模式，如果被代理目标没有接口那么Spring也无能为力，Spring通过Java的反射机制生产被代理接口的新的匿名实现类，重写了其中AOP的增强方法。
+
+**2、CGLib动态代理：**
+
+CGLib是一个强大、高性能的Code生产类库，可以实现运行期动态扩展java类，Spring在运行期间通过 CGlib继承要被动态代理的类，重写父类的方法，实现AOP面向切面编程。
+
+CGLIB库使用**ASM**(一个小型但快速的字节码操作框架)**转换现有的字节码并生成新类**，ASM使用类似SAX的解析器机制来实现高性能。
+
+**效率对比**
+
+[Spring AOP中的JDK和CGLib动态代理哪个效率更高？](https://blog.csdn.net/lisheng19870305/article/details/109680589?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&spm=1001.2101.3001.4242)
+
+理论上说：
+
+1、CGLib所创建的动态代理对象在实际运行时候的性能要比JDK动态代理高不少，有研究表明，大概要高10倍；
+
+2、但是CGLib在创建对象的时候所花费的时间却比JDK动态代理要多很多，有研究表明，大概有8倍的差距；
+
+3、因此，对于singleton的代理对象或者具有实例池的代理，因为无需频繁的创建代理对象，所以比较适合采用CGLib动态代理，反正，则比较适用JDK动态代理。
+
+> 经过测试：在1.6和1.7的时候，JDK动态代理的速度要比CGLib动态代理的速度要慢，但是并没有教科书上的10倍差距，在JDK1.8的时候，JDK动态代理的速度已经比CGLib动态代理的速度快很多了
+
+# SpringAOP 和AspectJ AOP有什么区别?
+
+spring AOP 基于代理，是 运行时增强。
+
+aspectj AOP基于字节码操作， 编译时增强.
 
 # Controller是单例还是多例，如何保证并发安全？
 
@@ -51,9 +98,17 @@ Controller默认是单例的，如果使用非静态的成员变量，可能会�
 
 > SpringBean是**由SpringIoC容器管理**的，是一个**被实例化，组装，并通过容器管理的对象**，可通过getBean()获取。**容器通过读取配置的元数据，解析成BeanDefinition，注册到BeanFactory中，加入到singletonObjects缓存池中**。
 
-# Spring容器的启动全流程
+# BeanFactory和FactoryBean的区别
 
-![](img/Spring知识点总结/流程.png)
+**BeanFactory**
+
+BeanFactory是SpringBean的容器顶级接口，**为容器定义了一套规范**，如getBean方法等。实现类包括：Spring默认的工厂类DefaultListableBeanFactory，ClassPathXmlApplicationContext上下文。
+
+**FactoryBean**
+
+该类是SpringIOC容器是**创建Bean的一种形式**，这种方式创建Bean会有加成方式，融合了简单的工厂设计模式于装饰器模式， 定义方法如：getObject()等。
+
+在传统bean创建复杂的时候，可以将复杂的初始化过程包装，让调用者无需关心具体实现细节。
 
 # Spring可以解决循环依赖的条件
 
