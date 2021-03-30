@@ -48,15 +48,27 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 - spring-boot-starter-data-jpa - 带有 Hibernate 的 Spring Data JPA；
 - spring-boot-starter-data-rest - 使用 Spring Data REST 公布简单的 REST 服务
 
-# SpringBoot核心注解
+# SpringBoot核心注解@SpringBootApplication 
 
 核心注解是@SpringBootApplication 由以下三种组成
 
-- @SpringBootConfiguration【其实就相当于@Configuration】：组合了 @Configuration 注解，实现配置文件的功能。
+- @SpringBootConfiguration【其实就相当于@Configuration】：组合了 @Configuration 注解，允许在上下文中注册额外的bean或导入其他的配置类。
 - @EnableAutoConfiguration：打开**自动配置**的功能。
 - @ComponentScan：Spring组件扫描。扫描被@Component标注的bean，注解默认会扫描该类所在的包下的所有的类。
 
+# SpringBoot自动配置的原理
 
+**什么是自动装配？**
+
+> SpringBoot 定义了一套接口规范，这套规范规定：SpringBoot 在启动时会扫描外部引用 jar 包中的`META-INF/spring.factories`文件，将文件中配置的类型信息加载到 Spring 容器（此处涉及到 JVM 类加载机制与 Spring 的容器知识），并执行类中定义的各种操作。对于外部 jar 来说，只需要按照 SpringBoot 定义的标准，就能将自己的功能装置进 SpringBoot。
+
+**实现原理**
+
+- @EnableAutoConfiguration导入AutoConfigurationImportSelector，加载自动装配类。
+  - 判断自动装配开关是否打开。`spring.boot.enableautoconfiguration=true`
+  - 获取`EnableAutoConfiguration`注解中的 `exclude` 和 `excludeName`。
+  - 获取需要自动装配的所有配置类，读取`META-INF/spring.factories`
+  - 再次筛选`@ConditionalOnXXX` 中的所有条件都满足，该类才会生效。
 
 # SpringBoot启动流程
 
@@ -65,11 +77,6 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 - 调run方法准备Environment，加载应用上下文（applicationContext），发布事件 很多通过listener实现
 
 - 创建spring容器， refreshContext（） ，实现starter自动化配置，spring.factories文件加载， bean实例化
-
-  #### SpringBoot自动配置的原理
-
-  - @EnableAutoConfiguration找到META-INF/spring.factories（需要创建的bean在里面）配置文件
-  - 读取每个starter中的spring.factories文件
 
 # 什么是@Conditional
 
