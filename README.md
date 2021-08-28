@@ -236,7 +236,9 @@
 - [Zookeeper](中间件/zookeeper)
 - nginx
 
+# 杂
 
+[其他](其他/tqbx函数极限、间断与连续.pdf)
 
 
 
