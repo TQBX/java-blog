@@ -68,3 +68,50 @@ win + r在任意位置打开cmd，执行`mvn -v`查看是否已经成功安装�
 ### IDEA配置
 
 ![image-20201123162011488](img/Maven%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/image-20201123162011488.png)
+
+## MAC环境Maven下载并配置
+
+### 下载maven
+
+maven下载地址：[https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)，选择`apache-maven-3.8.5-bin.tar.gz`。
+
+![image-20220418193456473](img/Maven安装配置/image-20220418193456473.png)
+
+解压至当前目录，将文件夹重命名为maven，移动文件夹至`/usr/local/maven`目录。
+
+```
+sudo mv /Users/huayuhao/Downloads/maven /usr/local/maven
+```
+
+### 配置环境变量
+
+打开终端输入命令
+
+```
+vim ~/.bash_profile
+```
+
+在vim中输入`i`进行编辑，写下以下内容
+
+```
+export MAVEN_HOME=/usr/local/maven
+export PATH=$MAVEN_HOME/bin:$PATH
+```
+
+点击`esc`键，接着输入`:wq`，意思是保存并退出
+
+接着使配置生效
+
+```
+source ~/.bash_profile
+```
+
+### 查看配置是否生效
+
+```
+mvn -v
+```
+
+![image-20220418194221921](img/Maven安装配置/image-20220418194221921.png)
+
+至此配置成功！
