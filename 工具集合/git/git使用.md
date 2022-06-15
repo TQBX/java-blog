@@ -236,3 +236,75 @@ git rm <file> # 从暂存区和工作区中删除文件
 git rm -f <file> # 如果删除之前修改过，并已经放到暂存区中，需要强制删除
 ```
 
+## Git Idea 操作
+
+### changelist
+
+一些不需要提交的代码，添加到another changelist
+
+![image-20220615224706915](img/git%E4%BD%BF%E7%94%A8/image-20220615224706915.png)
+
+### new branch
+
+右下角 master， 点击创建新的分支， checkout branch切换到新的分支。
+
+![image-20220615224814070](img/git%E4%BD%BF%E7%94%A8/image-20220615224814070.png)
+
+### 测试分支操作
+
+在master分支上commit之后，显示hyh-dev和master的区别
+
+![image-20220615225115456](img/git%E4%BD%BF%E7%94%A8/image-20220615225115456.png)
+
+切换到 hyh-dev分支，此时可以看到master分支的commit操作， 且此时当前正在hyh-dev分支上。
+
+![image-20220615225306277](img/git%E4%BD%BF%E7%94%A8/image-20220615225306277.png)
+
+并且在刚刚master提交的文件上， 加入不同内容， 以创建冲突， 此时点击update project。
+
+![image-20220615225546034](img/git%E4%BD%BF%E7%94%A8/image-20220615225546034.png)
+
+是没有任何反应的。（有可能是 master只是commit了， 并没有push， 后面再验证）
+
+先commit一下， 可以看到hyh-dev的commit记录。 再push一下。
+
+
+
+切换回master分支。也是可以正常push的。
+
+
+
+将hyh-dev分支上开发的代码合并到master上。首先切换到master分支上， 选择hyh-dev上的merge hyh-dev into master。
+
+![image-20220615230048633](img/git%E4%BD%BF%E7%94%A8/image-20220615230048633.png)
+
+此时产生冲突，可以选择接受任何一个， 也可以选择更加细致的解决冲突方法 Merge。
+
+![image-20220615230145596](img/git%E4%BD%BF%E7%94%A8/image-20220615230145596.png)
+
+解决冲突即可
+
+![image-20220615230348623](img/git%E4%BD%BF%E7%94%A8/image-20220615230348623.png)
+
+解决完冲突后，此时master处于commit状态， 接着push一下。
+
+![image-20220615230449318](img/git%E4%BD%BF%E7%94%A8/image-20220615230449318.png)
+
+ok，此时master已经提交至远端。而且master分支已经做出了修改。
+
+但是切换至hyh-dev后， 其实还并没有和master提交之后的同步起来。现在的状态是
+
+master的本地和远程都已经是修改后的模样， 但是hyh-dev和远端的hyh-dev都还是上一次push的状态。
+
+
+
+如果想要同步成master的模样 ， 就切换到hyh-dev分支， 然后merge master into hyh-dev，由于已经处理过一次冲突， 那么merge没什么问题。
+
+![image-20220615231122104](img/git%E4%BD%BF%E7%94%A8/image-20220615231122104.png)
+
+ok现在是commit状态， 最后将hyh-dev推到远端。
+
+![image-20220615231205586](img/git%E4%BD%BF%E7%94%A8/image-20220615231205586.png)
+
+此时该四个分支都已经是最新的状态了。
+
