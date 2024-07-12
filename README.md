@@ -2,8 +2,6 @@
 
 # JavaBlog
 
-> Java学习之路笔记汇总，Gitee地址：https://gitee.com/tqbx/JavaBlog
->
 > 如果你也想拥有一个这样的知识文档，可以瞅瞅：[教你如何使用docsify快速部署优美的在线文档](其他/docsify.md)
 
 ## 一、Java基础及面试相关
