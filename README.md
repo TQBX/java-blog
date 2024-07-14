@@ -1,28 +1,24 @@
-
-
 # JavaBlog
 
-> 如果你也想拥有一个这样的知识文档，可以瞅瞅：[教你如何使用docsify快速部署优美的在线文档](其他/docsify.md)
+> Java 后端开发 技术知识总结
 
-## 一、Java基础及面试相关
+## Java基础
 
 - [Java基础部分总结](Java基础/)
-- [面试相关](面试相关/)
 
+> 数据类型、面向对象、网络编程、反射、Java8、IO、JDBC、常用API、枚举
 
-## 二、MySQL专题
+## MySQL专题
 
-- [SQL概述](数据库部分/MySQL/md/SQL概述.md)
-- [利用DML操作表中数据](数据库部分/MySQL/md/利用DML操作表中数据.md)
-- [利用DDL操作数据库、表](/数据库部分/MySQL/md/操作数据库、表的DDL.md)
-- [利用DQL查询表中数据](/数据库部分/MySQL/md/利用DQL查询表中数据.md)
-- [利用DCL管理用户和控制权限](/数据库部分/MySQL/md/利用DCL管理用户和控制权限.md)
-- [DQL中的分组查询](/数据库部分/MySQL/md/DQL中的分组查询.md)
-- [MySQL事务学习](/数据库部分/MySQL/md/MySQL事务学习笔记.md)
-- [多表查询](/数据库部分/MySQL/md/多表查询.md)
-- [数据库约束](/数据库部分/MySQL/md/数据库约束.md)
+- [SQL必知必会](数据库部分/SQL必知必会/)
 
-## 三、源码解析专题
+> DBMS、DDL、DML、DQL、sql函数、过滤条件、聚集函数、子查询、SQL92和SQL99、视图、存储过程、事务处理、事务隔离、游标
+
+- [MySQL实战45讲](数据库部分/MySQL实战45讲/)
+
+> SQL查询语句和更新语句执行原理、事务隔离、索引、锁机制
+
+## 源码解析专题
 
 ### 集合源码系列
 
@@ -77,7 +73,7 @@
 - [Java并发包源码学习系列：同步组件CyclicBarrier源码解析](多线程并发/md/cyclic_barrier.md)
 - [Java并发包源码学习系列：同步组件Semaphore源码解析](多线程并发/md/semaphore.md)
 
-## 四、Java并发编程
+## Java并发编程
 
 - [【Java并发编程】常见基础问题整理](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.md)
 - [【Java并发编程】线程的六种状态及转化](%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91/md/Java%EF%BC%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%AD%E7%A7%8D%E7%8A%B6%E6%80%81%E5%8F%8A%E8%BD%AC%E6%8D%A2.md)
@@ -92,33 +88,16 @@
 - [【Java并发编程】CountDownLatch，CyclicBarrier，Semphore，Exchanger](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/Java%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB.md)
 - [【Java并发编程】面试常考的ThreadLocal，超详细源码学习](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%B9%B6%E5%8F%91/ThreadLocal.md)
 
-## 五、MyBatis专题
 
 
-- [MyBatis入门](框架系列/mybatis/mybatis入门.md)
-- [MyBatis配置](框架系列/mybatis/mybatis配置.md)
-- [MyBatis动态SQL语句](框架系列/mybatis/动态SQL语句.md)
-- [MyBatis官网学习settings](框架系列/mybatis/官网学习settings.md)
-- [MyBatis部分用法标签总结](框架系列/mybatis/mybatis部分用法标签总结.md)
-- [MyBatis多表查询](框架系列/mybatis/mybatis多表查询.md)
-- [MyBatis延迟加载](框架系列/mybatis/mybatis延迟加载.md)
-- [MyBatis整合第三方缓存](框架系列/mybatis/mybatis整合第三方缓存.md)
-- [MyBatis逆向工程配置](框架系列/mybatis/mabatis逆向工程配置.md)
-- [MyBatis查漏补缺](框架系列/mybatis/mybatis查漏补缺.md)
+## 计算机网络+操作系统
 
-## 六、计算机网络
-
-- [计算机网络复习重点！](计算机网络/复习重点.md)
-
-- [啥是三次握手和四次挥手](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.md)
-- [TCP与UDP的区别](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB.md)
-- [协议分层（因特网五层模型）及7层OSI参考模型](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE%E5%88%86%E5%B1%82%E5%8F%8Aosi%E6%A8%A1%E5%9E%8B.md)
-- [应用层协议原理](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89.md)
-- [IP学习笔记](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
-- [分组交换网中的时延、丢包和吞吐量](%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E4%B8%AD%E7%9A%84%E6%97%B6%E5%BB%B6%EF%BC%8C%E4%B8%A2%E5%8C%85%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F.md)
+- [【考研】计算机网络复习重点！](计算机网络/复习重点.md)
 - [计算机网络知识点总结](面试相关/计算机网络/计算机网络知识点总结.md)
 
-## 七、JVM系列
+- [【考研】操作系统复习重点！](操作系统/知识点总结.md)
+
+## JVM系列
 
 - [JVM内存区域](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/jvm%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md)
 - [四种引用类型的特点](%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/JVM/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E7%82%B9.md)
@@ -127,7 +106,7 @@
 - [虚拟机类加载机制](JVM%E7%B3%BB%E5%88%97/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.md)
 - [JDK监控和故障处理工具](面试相关/JVM/JDK监控和故障处理工具.md)
 
-## 八、Spring与SpringMVC
+## Spring与SpringMVC
 
 - [Spring入门介绍](框架系列/Spring/md/Spring入门)
 - [SpringMVC如何介绍Ajax的json参数](框架系列/springmvc/md/接收ajaxjson参数.md)
@@ -140,7 +119,7 @@
 - [SpringMVC拦截器入门](框架系列/springmvc/md/拦截器入门.md)
 - [SpringMVC入门踩坑集合](框架系列/springmvc/md/入门踩坑集合.md)
 
-## 九、SpringBoot专题
+## SpringBoot专题
 
 - [SpringBoot](框架系列/springboot/SpringBoot/SpringBoot.md)
 - [SpringBoot快速入门](框架系列/springboot/md/Springboot基础知识学习.md)
@@ -170,7 +149,7 @@
 - [SpringBoot使用Actuator服务监控](框架系列/springboot/md/SpringBoot使用Actuator服务监控.md)
 
 
-## 十、SpringCloud专题
+## SpringCloud专题
 
 - [SpringCloud学习笔记（零）简介：官方文档翻译](微服务学习/SpringCloud学习笔记（零）简介：官方文档翻译.md)
 - [SpringCloud学习笔记（一）基础环境搭建](微服务学习/SpringCloud学习笔记（一）基础环境搭建.md)
@@ -193,7 +172,21 @@
 - [SpringCloud Alibaba学习笔记：Nacos服务配置中心](微服务学习/SpringCloudAlibaba学习笔记：Nacos服务配置中心.md)
 - [SpringCloud Alibaba学习笔记：Nacos集群和持久化配置](微服务学习/SpringCloudAlibaba学习笔记：Nacos集群和持久化配置.md)
 
-## 十一、Linux专题
+## MyBatis专题
+
+
+- [MyBatis入门](框架系列/mybatis/mybatis入门.md)
+- [MyBatis配置](框架系列/mybatis/mybatis配置.md)
+- [MyBatis动态SQL语句](框架系列/mybatis/动态SQL语句.md)
+- [MyBatis官网学习settings](框架系列/mybatis/官网学习settings.md)
+- [MyBatis部分用法标签总结](框架系列/mybatis/mybatis部分用法标签总结.md)
+- [MyBatis多表查询](框架系列/mybatis/mybatis多表查询.md)
+- [MyBatis延迟加载](框架系列/mybatis/mybatis延迟加载.md)
+- [MyBatis整合第三方缓存](框架系列/mybatis/mybatis整合第三方缓存.md)
+- [MyBatis逆向工程配置](框架系列/mybatis/mabatis逆向工程配置.md)
+- [MyBatis查漏补缺](框架系列/mybatis/mybatis查漏补缺.md)
+
+## Linux专题
 
 - [目录结构及常用命令](linux学习系列/常用命令及目录结构.md)
 - [常用命令查漏补缺](linux学习系列/命令查漏补缺.md)
@@ -205,7 +198,7 @@
 - [Linux系统部署nginx](linux学习系列/Linux系统部署nginx.md)
 - [vi和vim](linux学习系列/vi和vim.md)
 
-## 十二、Docker专题
+## Docker专题
 
 - [docker踩坑记录](linux学习系列/docker踩坑记录.md)
 - [docker踩坑第二弹](linux学习系列/docker踩坑第二弹.md)
@@ -213,7 +206,7 @@
 - [docker安装Zookeeper](linux学习系列/docker安装zookeeper)
 - [docker安装Consul](linux学习系列/docker安装consul)
 
-## 十三、力扣刷题系列
+## 力扣刷题系列
 
 - [1 - 10题题解](力扣刷题系列/1-100/1-10.md)
 - [11 - 20题题解](力扣刷题系列/1-100/11-20.md)
@@ -224,23 +217,26 @@
 - [61 - 70题题解](力扣刷题系列/1-100/61-70.md)
 - [71 - 80题题解](力扣刷题系列/1-100/71-80.md)
 
-## 十四、工具使用
+## 工具使用
 
 - [教你如何使用docsify快速部署优美的在线文档](others/docsify.md)
 - [版本管理工具git的使用](工具集合/git/git使用.md)
 
-## 十五、中间件
+## 中间件
 
 - [分布式消息处理kafka](中间件/kafka.md)
 - [任务调度框架Quartz](中间件/Quartz.md)
 - [Zookeeper](中间件/zookeeper)
 - nginx
 
-## 十六、操作系统
+## 【就是学！】
 
-- [操作系统知识点总结](操作系统/知识点总结.md)
+[面试相关](面试相关/)
 
 # 杂
 
+- [JWT](others/jwt.md)
+
 - [考研备考经验分享](others/learn.md)
+- [密码学期末复习笔记](others/passwd.md)
 
