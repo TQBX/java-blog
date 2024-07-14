@@ -106,6 +106,10 @@
 - [虚拟机类加载机制](JVM%E7%B3%BB%E5%88%97/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.md)
 - [JDK监控和故障处理工具](面试相关/JVM/JDK监控和故障处理工具.md)
 
+## Bug排查记录
+
+- [实习期间的Bug排查](项目笔记/实习项目.md)
+
 ## Spring与SpringMVC
 
 - [Spring入门介绍](框架系列/Spring/md/Spring入门)

@@ -174,8 +174,6 @@ redis通过MULTI、EXEC、WATCH等命令来实现事务功能。
 - 事中：本地echache缓存+hystrix限流&降级，避免Mysql崩掉。
 - 事后：利用redis持久化机制保存的数据尽快恢复缓存。
 
-![](img/redis.png)
-
 # 缓存穿透
 
 大量请求的key根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。
