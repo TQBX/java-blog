@@ -231,7 +231,12 @@
 - [分布式消息处理kafka](中间件/kafka.md)
 - [任务调度框架Quartz](中间件/Quartz.md)
 - [Zookeeper](中间件/zookeeper)
+- [RabbitMQ](中间件/RabbitMQ.md)
 - nginx
+
+## 架构设计
+
+- [DDD领域驱动设计](系统架构/领域驱动设计.md)
 
 # 杂
 
