@@ -8,7 +8,13 @@
 
 > 数据类型、面向对象、网络编程、反射、Java8、IO、JDBC、常用API、枚举
 
-## MySQL专题
+## 数据库专题
+
+> Redis MySQL
+
+- [Redis部分总结](Redis/redis学习.md)
+
+> Redis原理+应用
 
 - [SQL必知必会](数据库部分/SQL必知必会/)
 
