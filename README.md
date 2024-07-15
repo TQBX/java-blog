@@ -233,10 +233,6 @@
 - [Zookeeper](中间件/zookeeper)
 - nginx
 
-## 【就是学！】
-
-[面试相关](面试相关/)
-
 # 杂
 
 - [JWT](others/jwt.md)
