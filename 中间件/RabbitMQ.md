@@ -58,25 +58,99 @@ RabbitMQ常用的交换器类型有四种
 
 基本概念：
 
-1. broker
-2. 
+1. broker：每个节点运行的服务程序
+2. master queue和mirror queue：每个队列都分为一个主队列master queue和若干个mirror queue（备份）主挂了，镜像顶上去提升为master
+
+集群中有两个节点，每个节点有一个broker，每个broker负责本机上队列的维护，并且borker之间可以互相通信。
+
+![图片](img/RabbitMQ/640-20240715215041599.png)
+
+对于消费队列，如下图有两个consumer消费队列A，这两个consumer连在了集群的不同机器上。RabbitMQ集群中的任何一个节点都拥有集群上所有队列的元信息，所以连接到集群中的任何一个节点都可以，主要区别在于有的consumer连在master queue所在节点，有的连在非master queue节点上。
+
+因为mirror queue要和master queue保持一致，故需要同步机制，正因为一致性的限制，导致所有的读写操作都必须都操作在master queue上（想想，为啥读也要从master queue中读？和数据库读写分离是不一样的），然后由master节点同步操作到mirror queue所在的节点。即使consumer连接到了非master queue节点，该consumer的操作也会被路由到master queue所在的节点上，这样才能进行消费。
 
 ## 高级特性
 
 ### 1. 过期时间
 
+TTL：一条消息在队列中的最大存活时间
 
+RabbitMQ，可以对消息和队列设置TTL，（如果消息进入队列之后，队列到了ttl还没有被消费，消息变成死信dead-letter，自动清除），不设置表示不会过期
 
 ### 2. 消息确认
 
+保证消息从队列可靠地到达消费者
+
+消费者订阅队列时，指定autoAck参数为false，rabbit会等到消费消费者回复的确认信号，收到确认信号之后才从内存或者磁盘中删除消息。（如果是true，自动确认模式，rabbitmq只管发，不管有没有真正被消费）
+
+消息确认机制！autoAck = false
+
 ### 3. 持久化
 
-### 4. 死信队列
+持久化 也是保证消息可靠性的， 防止异常情况下丢失数据
 
-### 5. 延迟队列
+rabbitmq的持久化分为三个部分：
 
-## 特性分析
+1. 交换器持久化：如果不持久化，重启服务后，相关交换器元数据丢失，消息不回发送到这个交换器了。
+2. 队列持久化：durable=true，声明队列时，保证其本身的元数据不会因异常情况而丢失，但是不能保证内部所存储的消息不会丢失。
+3. 消息持久化：可以将所有消息都持久化，但是影响性能，因为磁盘写入速度比内存写入慢的多
 
+### 4. 死信队列 Dead-Letter Queue
 
+当一个消息在一个队列中变成死信后，能重新发送到另一个交换器中，这个交换器叫死信交换器，和交换器绑定的队列叫死信队列。
+
+消息变成死信的几种情况：
+
+- 消息被拒绝
+- 消息过期
+- 队列达到最大长度
+
+**死信队列有什么用**？当发生异常的时候，消息不能够被消费者正常消费，被加入到了死信队列中。后续的程序可以根据死信队列中的内容分析当时发生的异常，进而改善和优化系统。
+
+### 5. 延迟队列 Lazy Queue
+
+消费者延迟消费信息，当消息发送后，等待特定时间后，消费者才能拿到这个消息进行消费。
+
+使用场景：延迟消费、延迟重试
+
+## （重要）特性分析
+
+为什么Rabbit支持这些特性：
+
+1. 支持消息路由：不同的交换器支持不同的消息路由
+2. 消息时序：支持延迟队列，过期时间ttl
+3. 容错处理：交付重试、死信交换器（dlx）处理消息故障
+4. 伸缩：master queue和mirror queue
+5. 持久化：不太好，因为消费过的消息会被马上删除
+6. 高吞吐（一般）：所有请求的执行在master queue，单机性能达不到10w级别
+
+为什么不支持：
+
+1. 消息有序（不支持）：消息消费失败，重新回队列，重新消费
+2. 消息回溯（不支持）：消息不支持永久保存
 
 # 实战！
+
+docker compose安装rabbitmq
+
+```yml
+# 命令执行 docker-compose -f docker-compose-environment.yml up -d
+version: '3.9'
+services:
+  rabbitmq:
+    image: rabbitmq:3.12.9
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672" # AMQP 协议端口
+      - "15672:15672" # 管理界面端口
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    command: rabbitmq-server
+    volumes:
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+```
+
+
+
