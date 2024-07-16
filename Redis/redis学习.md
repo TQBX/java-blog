@@ -60,7 +60,7 @@ Redis或memcached：
 6. 客户端缓存、减少对Redis服务器的访问频率
 7. 内存分配器优化 jemalloc， tcmalloc
 
-![why-Redis-so-fast](img/Redis%E5%AD%A6%E4%B9%A0/why-Redis-so-fast-TbWX24ja.jpeg)
+![why-Redis-so-fast](img/Redis%E5%AD%A6%E4%B9%A0/why-Redis-so-fast-TbWX24ja.png)
 
 # Redis线程模型
 
