@@ -49,16 +49,15 @@ Redis或memcached：
 
 # Redis为什么这么快？
 
-1. 基于内存，内存访问速度>>磁盘
-2. IO多路复用技术+单线程事件循环、避免多线程上下文切换和锁竞争问题
-3. 数据结构都对内存做了优化：比如：动态数组，跳表等
+1. 基于内存，内存访问速度>>磁盘，并且利用自定义内存分配器jemalloc有效处理内存 
+2. 非阻塞IO多路复用技术为中心的事件驱动程序设计模型，读写请求不阻塞其他操作。
+3. 数据结构都对内存做了优化：比如：小值编码等
    1. SDS紧凑型字符串表示 string（动态string）
    2. 压缩列表zip list：list，sorted set
    3. 跳表skiplist：zset
 4. 持久化操作也是异步的，不回阻塞主线程读写
 5. 管道技术，一次性发送多个命令，减少网络往返
 6. 客户端缓存、减少对Redis服务器的访问频率
-7. 内存分配器优化 jemalloc， tcmalloc
 
 ![why-Redis-so-fast](img/Redis%E5%AD%A6%E4%B9%A0/why-Redis-so-fast-TbWX24ja.png)
 

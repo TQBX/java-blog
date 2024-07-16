@@ -89,7 +89,7 @@
 
 - [StreamAPI](Java基础/Java8/StreamAPI.md)
 - [Lambda](Java基础/Java8/Lambda表达式.md)
-- [Lambda](Java基础/Java8/Optional.md)
+- [Optional](Java基础/Java8/Optional.md)
 - [Java8新增集合骚操作](Java基础/Java8/Java8新增集合相关方法.md)
 - [日期API](Java基础/Java8/日期API.md)
 
