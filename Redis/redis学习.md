@@ -67,18 +67,41 @@ Redis或memcached：
 
 Redis内部使用文件事件处理器`filter event handler`，这个**文件处理器是单线程**的，因此Redis被称为单线程的模型。
 
-**采用IO多路复用机制同时监听多个socket，根据socket上的事件来选择对应的事件处理器进行处理**。
+为什么选择**单线程网络模型**？因为CPU通常不会成为性能瓶颈，瓶颈往往是内存和网络，因此单线程就够了。
 
-文件处理器的四部分：
+![img](img/redis%E5%AD%A6%E4%B9%A0/single-threaded-redis.png)
 
-- 多个socket
-- IO多路复用程序
-- 文件事件分派器
-- 事件处理器（连接应答处理器，命令请求处理器，命令回复处理器）
+Redis1.0到6.0之前，核心网络模型是：单Reactor模型：**采用epoll/select/kqueue等IO多路复用技术同时监听多个socket，在单线程的事件循环中不断去处理事件（客户端请求），最后回写响应数据到客户端**。本质就是：I/O多路复用 + 非阻塞I/O
 
 多个socket可能会并发产生不同的操作，每个操作对应不同的文件事件，但是IO多路复用程序会监听多个socket，会将socket产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。
 
-Redis6.0之后引入多线程来处理网络请求，提高网络IO读写性能。
+对于那些想利用多核优势提升性能的用户来说，redis官方给出的解决方案是：在同一个机器上多跑几个redis实例，事实上，为了保证高可用，往往利用redis分布式集群多节点和数据分片负载均衡来提升性能和保证高可用。
+
+！！！实际上，参考文章：[Redis真的是单线程？](https://strikefreedom.top/archives/multiple-threaded-network-model-in-redis)
+
+上面说的单线程的是网络模型，实际上，redis4.0开始就引入了多线程处理异步任务，来处理一些比较耗时的命令，将命令异步化，避免阻塞单线程的事件循环。（例子，超大key删除，会导致单线程阻塞好几秒，阻塞其他事件！）
+
+**于是，redis 4.0之后加入一些非阻塞的命令：unlink，flushall async， flushdb async**
+
+# 为什么引入多线程？
+
+之前选择单线程是因为CPU不是性能瓶颈，内存和网络才是，但是现在I/O瓶颈越来越明显。Redis 的单线程模式会导致系统消耗很多 CPU 时间在网络 I/O 上从而降低吞吐量，要提升 Redis 的性能有两个方向：
+- 优化网络I/O模块
+- 提高机器内存读写的速度（依赖硬件，难）
+
+I/O怎么优化：
+- 零拷贝（什么是零拷贝） or DPDK（旁路网卡I/O绕过内核协议栈）（不适配or太复杂）
+- 利用多核！！！性价比最高的方案！因此！引入多线程IO
+
+Redis6.0之后在网络模型中实现I/O多线程，提高网络IO读写性能。从Reactor进化为Multi-Reactors模式：
+
+![img](img/redis%E5%AD%A6%E4%B9%A0/multi-reactors.png)
+
+从单线程事件循环 变成：多个线程（sub reactors）各自维护一个独立的事件循环，由main reactor负责接收新连接并分发给sub reactors去独立处理，最后sub reactors回写响应给客户端。
+
+> 缺陷：在 Redis 的多线程方案中，I/O 线程任务仅仅是通过 socket 读取客户端请求命令并解析，却没有真正去执行命令，所有客户端命令最后还需要回到主线程去执行，因此对多核的利用率并不算高，而且每次主线程都必须在分配完任务之后忙轮询等待所有 I/O 线程完成任务之后才能继续执行其他逻辑。
+>
+> Redis 目前的多线程方案更像是一个折中的选择：既保持了原系统的兼容性，又能利用多核提升 I/O 性能。
 
 # Redis和memcached的区别/为什么不用m
 
@@ -219,13 +242,13 @@ Redisson 的延迟队列 RDelayedQueue 是基于 Redis 的 SortedSet 来实现�
 
 Redisson 使用 `zrangebyscore` 命令扫描 SortedSet 中过期的元素，然后将这些过期元素从 SortedSet 中移除，并将它们加入到就绪消息列表中。就绪消息列表是一个阻塞队列，有消息进入就会被监听到。这样做可以避免对整个 SortedSet 进行轮询，提高了执行效率。
 
-# Redis设置过期时间功能
+# Redis过期策略
 
-一般来说，像验证码，token等登录信息都会有时间限制，按照传统数据库的处理方式，可能就需要自己去判断是否已经过期，这样会影响一部分项目性能。
+redis用于缓存，既然是缓存，就是用的内存，内存是宝贵的，不可能用来当存储工具用。那么写入数据太多了咋办？这就涉及到过期策略，redis是怎么处理过期数据的？
 
 而Redis拥有设置过期时间的功能，在set key的时候，设置一个expire time，通过这个过期时间指定key存活时间。
 
-Redis删除key的两种方式：
+**Redis的过期策略：定期删除 + 惰性删除**
 
 - 定期删除：<u>每隔100ms随机抽取一些设置了过期时间的key，检查他们是否过期，如果过期就删除</u>。注：随机抽取是为了防止key数量过多而导致的cpu负载。
 
@@ -233,11 +256,158 @@ Redis删除key的两种方式：
 
 假如我们设置了大量过期时间的key，定期删除时漏掉了许多key，系统也没有及时去查这个key，那么将会导致一种严重的情况：**大量过期的key堆积在内存中，导致Redis内存耗尽**。
 
-这时就需要用到Redis的内存淘汰机制。
+这时就需要用到Redis的**内存淘汰**机制。
 
 # Redis提供数据淘汰策略
 
-- volatile-lru：从已设置过期时间的数据集中挑选最近最少使用的数据，淘汰之。
+- **volatile-lru：从已设置过期时间的数据集中挑选最近最少使用的数据，淘汰之。**
+
+> 手写一个lru算法！！！
+>
+> 单链表思路：
+>
+> 1. 维护一个链表，头部表示最晚访问的，尾部表示最先访问的（先走）
+> 2. 移除操作：移除尾部即可
+> 3. 添加操作：加入的key存在，更新一下value，扔到头部（移除当前的，在头部加入新的），如果key不存在，就新创建一个，加入到头部，加入之后，如果cap超过了阈值，就移除尾部
+>
+> 这个思路没问题，但是可以优化：
+>
+> 1. 可以用双向链表快速找到某个节点的前向节点，快速删除节点
+> 2. 可以用map存储每个key 和对应的node
+>
+> ```java
+> import java.util.HashMap;  
+> import java.util.Map;  
+>   
+> class ListNode {  
+>     int key;  
+>     int value;  
+>     ListNode prev;  
+>     ListNode next;  
+>   
+>     ListNode(int k, int v) {  
+>         key = k;  
+>         value = v;  
+>     }  
+> }  
+>   
+> class LRUCache {  
+>     private int capacity;  
+>     private Map<Integer, ListNode> map;  
+>     private ListNode head;  
+>     private ListNode tail;  
+>   
+>     public LRUCache(int capacity) {  
+>         this.capacity = capacity;  
+>         map = new HashMap<>();  
+>         head = new ListNode(0, 0);  //虚拟头节点
+>         tail = new ListNode(0, 0);  //虚拟尾节点
+>         head.next = tail;  
+>         tail.prev = head;  
+>     }  
+>   
+>     public int get(int key) {  
+>         ListNode node = map.get(key);  
+>         if (node == null) {  
+>             return -1; // key not found  
+>         }  
+>         // move node to head  
+>         moveToHead(node);  
+>         return node.value;  
+>     }  
+>   
+>     public void put(int key, int value) {  
+>         ListNode node = map.get(key);  
+>         if (node == null) {  
+>             // new key-value pair  
+>             ListNode newNode = new ListNode(key, value);  
+>             // add to map  
+>             map.put(key, newNode);  
+>             // add to linked list  
+>             addToHead(newNode);  
+>             if (map.size() > capacity) {  
+>                 // remove tail  
+>                 removeNode(tail.prev);  
+>             }  
+>         } else {  
+>             // update value  
+>             node.value = value;  
+>             // move node to head  
+>             moveToHead(node);  
+>         }  
+>     }  
+>   
+>     private void addToHead(ListNode node) {  
+>         node.prev = head;  
+>         node.next = head.next;  
+>         head.next.prev = node;  
+>         head.next = node;  
+>     }  
+>   
+>     private void removeNode(ListNode node) {  
+>         map.remove(node.key);  
+>         node.prev.next = node.next;  
+>         node.next.prev = node.prev;  
+>     }  
+>   
+>     private void moveToHead(ListNode node) {  
+>         removeNode(node);  
+>         addToHead(node);  
+>     }  
+> }  
+>   
+> // Example usage  
+> public class Main {  
+>     public static void main(String[] args) {  
+>         LRUCache cache = new LRUCache(2);  
+>   
+>         cache.put(1, 1);  
+>         cache.put(2, 2);  
+>         System.out.println(cache.get(1));       // returns 1  
+>         cache.put(3, 3);                        // evicts key 2  
+>         System.out.println(cache.get(2));       // returns -1 (not found)  
+>         cache.put(4, 4);                        // evicts key 1  
+>         System.out.println(cache.get(1));       // returns -1 (not found)  
+>         System.out.println(cache.get(3));       // returns 3  
+>         System.out.println(cache.get(4));       // returns 4  
+>     }  
+> }
+> 
+> ```
+>
+> 当然了，其实可以继承LinkedHashMap简易操作
+>
+> ```java
+> public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+>     private int capacity;
+> 
+>     /**
+>      * 传递进来最多能缓存多少数据
+>      *
+>      * @param capacity 缓存大小
+>      */
+>     public LRUCache(int capacity) {
+>         super(capacity, 0.75f, true);
+>         this.capacity = capacity;
+>     }
+> 
+>     /**
+>      * 如果map中的数据量大于设定的最大容量，返回true，再新加入对象时删除最老的数据
+>      *
+>      * @param eldest 最老的数据项
+>      * @return true则移除最老的数据
+>      */
+>     @Override
+>     protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+>         // 当 map中的数据量大于指定的缓存个数的时候，自动移除最老的数据
+>         return size() > capacity;
+>     }
+> }
+> 
+> ```
+
+
+
 - volatile-ttl：从已设置过期时间的数据集中挑选将要过期的数据淘汰。
 - volatile-random：从已设置过期时间的数据集中任意选择数据淘汰。
 - allkeys-lru：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的key。（最常用）
