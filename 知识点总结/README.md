@@ -5,7 +5,7 @@
 - [Redis](知识点总结/Redis知识点总结.md)
 - [设计模式](知识点总结/设计模式知识点总结.md)
 - [MySQL](知识点总结/MySQL知识点总结.md)
-- [Mybatis](知识点总结/Mybatis知识点总结.md)
+- [MyBatis](知识点总结/MyBatis知识点总结.md)
 - [Spring](知识点总结/Spring知识点总结.md)
 - [SpringMVC](知识点总结/SpringMVC知识点总结.md)
 - [SpringBoot](知识点总结/Springboot知识点总结.md)
@@ -14,5 +14,7 @@
 - [分布式微服务](知识点总结/分布式微服务知识点总结.md)
 - [消息队列](知识点总结/消息队列知识点总结.md)
 - [Kafka](知识点总结/Kafka知识点总结.md)
+- [Docker](知识点总结/Docker知识点.md)
+- [Linux](知识点总结/Linux知识点.md)
 - [场景](知识点总结/场景题总结.md)
 
