@@ -17,7 +17,8 @@
 
 ## 迭代器设计模式
 针对以上种种，我充满了好奇，于是在复杂的继承关系里画了又画，最终才渐渐理清集合中所谓迭代器模式的体现，暂时以**ArrayList**为例：
-![1pqbX4.png](https://s2.ax1x.com/2020/01/18/1pqbX4.png)
+
+![1pqbX4.png](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8E%9F%E6%9D%A5%E6%98%AF%E8%BF%99%E4%B9%88%E5%9B%9E%E4%BA%8B/1pqbX4.png)
 
 - 定义了一个**迭代器的接口Iterator**，里面定义了迭代器的功能，但并没有提供实现。
 - 定义了一个**聚集接口Iterable**，里面的iterator()抽象方法，表明返回一个针对类型T的迭代器。此时将Iterable和Iterator联系了起来。
@@ -29,7 +30,7 @@
 - `hasNext():boolean` 判断下一个元素还有没有，有就是true。
 - `next(): E` 返回序列中的下一个元素。
 
-![1pqLnJ.png](https://s2.ax1x.com/2020/01/18/1pqLnJ.png)
+![1pqLnJ.png](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8E%9F%E6%9D%A5%E6%98%AF%E8%BF%99%E4%B9%88%E5%9B%9E%E4%BA%8B/1pqLnJ.png)
 
 通过查看源码，我发现，在这个Itr这个实现类中，定义了两个指针：`cursor`和`lastRet`。（还有个属性为expectedModCount初始化为ArrayList的版本号modCount，这部分与fail-fast机制相关，之后会再提）而cursor初始为0，与**专门用来和集合元素数目size做比较的**。而lastRet初始化为-1，如果成功执行next操作，将会加1变成0，也就是上面说的“下一个元素”可想而知，可以把lastRet认为是**初始化为第一个元素之前的指针**，和将要返回的值的索引相同，这样会好记一些。
 

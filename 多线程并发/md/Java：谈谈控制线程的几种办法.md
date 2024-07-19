@@ -94,7 +94,8 @@ Java中有两类线程：**用户线程(User Thread)** 和 **守护线程(Daemon
     }
 ```
 测试结果如下：
-![151gPS.png](https://s2.ax1x.com/2020/02/10/151gPS.png)
+
+![151gPS.png](img/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95/151gPS.png)
 
 当前程序中，除了main主线程外没有其他非守护线程的线程了，因此，main线程结束之后，所有守护线程也将结束。
 
@@ -169,17 +170,17 @@ t2.start();
 
 ### stop()
 
-![15175T.png](https://s2.ax1x.com/2020/02/10/15175T.png)
+![15175T.png](img/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95/15175T.png)
 
 
 ### resume
 
-![151oV0.png](https://s2.ax1x.com/2020/02/10/151oV0.png)
+![151oV0.png](img/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95/151oV0.png)
 
 
 ### suspend
 
-![151R2Q.png](https://s2.ax1x.com/2020/02/10/151R2Q.png)
+![151R2Q.png](img/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95/151R2Q.png)
 
 ## 中断三兄弟
 
@@ -193,7 +194,8 @@ t2.start();
 - 如果这个线程由于wait()，join()，sleep()等方法陷入等待状态时，**它的中断状态将被清除**（也就是true重新变为false)，而且会收到一个`InterruptedException`。
 
 但是我按照下面代码测试了一下，join()和sleep()都能成功检验，但是wait()检验不出，不知问题出在哪，评论区大神求助！！
-![1514rn.png](https://s2.ax1x.com/2020/02/10/1514rn.png)
+
+![1514rn.png](img/Java%EF%BC%9A%E8%B0%88%E8%B0%88%E6%8E%A7%E5%88%B6%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%8A%9E%E6%B3%95/1514rn.png)
 
 下面这俩目前还没有接触到，以后有机会做总结：
 - 如果这个线程由于`java.nio.channels.InterruptibleChannel`中的IO操作发生阻塞，线程还将收到一个`ClosedByInterruptException`。
@@ -257,7 +259,6 @@ t2.start();
         two.cancel();
     }
 ```
-
 
 
 

@@ -25,8 +25,10 @@ public class TestData {
 }
 ```
 编译结果如下：
-![1O2w5Q.png](https://s2.ax1x.com/2020/02/13/1O2w5Q.png)
-![1O2KED.png](https://s2.ax1x.com/2020/02/13/1O2KED.png)
+
+![1O2w5Q.png](img/Java%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E9%97%B4%E6%AD%A3%E7%A1%AE%E9%80%9A%E4%BF%A1/1O2w5Q.png)
+
+![1O2KED.png](img/Java%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E9%97%B4%E6%AD%A3%E7%A1%AE%E9%80%9A%E4%BF%A1/1O2KED.png)
 
 虽然同步方法和代码块的实现细节不同，但是归根结底：JVM对于方法或者代码块的实现是**基于对Monitor对象的进入和退出操作**。
 
@@ -41,11 +43,8 @@ public class TestData {
 - 获得锁，锁计数加一。失去锁，计数减一。计数为0，即为释放锁。**释放锁的操作将会唤醒阻塞在同步队列中的的线程**，使其重新获得尝试对monitor的获取。
 
 下图源自《Java并发编程得艺术》4-2
-![1O2nHO.png](https://s2.ax1x.com/2020/02/13/1O2nHO.png)
 
-
-
----
+![1O2nHO.png](img/Java%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E9%97%B4%E6%AD%A3%E7%A1%AE%E9%80%9A%E4%BF%A1/1O2nHO.png)
 
 新Java内存模型中提供了比锁更加轻量级的通信机制，它增强了volatile的内存语义，让volatile拥有和锁一样的语义：告知程序任何对volatile修饰变量的访问都要从共享内存中获取，对它的改变必须同步刷新回共享内存，**保证了线程对变量访问的可见性**。
 
@@ -69,7 +68,8 @@ public class TestData {
 
 `notify()` : 当前线程通知一个在**该对象**上等待的另一线程，被唤醒的线程从等待队列（WAITING)被移动到同步队列(BLOCKED)中，意思是被唤醒的线程不会立即执行，需要等当前线程释放锁之后，并且在同步队列中的线程得到了锁才能执行。
 `notifyAll()` ：当前线程**通知所有等待在该对象上的线程**，将所有在等待队列中的线程全部移到同步队列中。
-![1O2MUe.png](https://s2.ax1x.com/2020/02/13/1O2MUe.png)
+
+![1O2MUe.png](img/Java%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E9%97%B4%E6%AD%A3%E7%A1%AE%E9%80%9A%E4%BF%A1/1O2MUe.png)
 
 假设A和B需要获取**同一把锁**，A进入之后，B进入同步队列，陷入阻塞（BLOCKED)。
 

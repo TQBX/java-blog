@@ -4,7 +4,8 @@ Vector是JDK1.0中的集合，是集合中的老大哥，其中大部分的方�
 从JDK1.2开始，Vector类被改进以实现List接口，让它成为Java集合框架的一员，如果不需要线程安全，建议使用ArrayList，效率更高。
 ## Vector继承体系
 还是按照惯例，先看看它的继承图，当然这张图是基于JDK1.8的。
-![1SwsaV.png](https://s2.ax1x.com/2020/01/17/1SwsaV.png)
+
+![1SwsaV.png](img/Vector%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/1SwsaV.png)
 
 - 可以看出来它和`ArrayList`一样，继承了`AbstractList`，实现`List`接口。
 - 实现了`RandomAccess`接口，支持随机访问。

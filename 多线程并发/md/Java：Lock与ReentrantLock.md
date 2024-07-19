@@ -2,11 +2,12 @@
 
 话不多说，我们直接来看官方文档对Lock接口相关概念及功能的描述，今天又是看英文文档，翻译理解的一天。
 # 一、Lock继承关系
-![39VQFe.png](https://s2.ax1x.com/2020/02/16/39VQFe.png)
+![39VQFe.png](img/Java%EF%BC%9ALock%E4%B8%8EReentrantLock/39VQFe.png)
 
 # 二、官方文档解读
-![39VlJH.png](https://s2.ax1x.com/2020/02/16/39VlJH.png)
-![39V8SA.png](https://s2.ax1x.com/2020/02/16/39V8SA.png)
+![39VlJH.png](img/Java%EF%BC%9ALock%E4%B8%8EReentrantLock/39VlJH.png)
+
+![39V8SA.png](img/Java%EF%BC%9ALock%E4%B8%8EReentrantLock/39V8SA.png)
 
 # 三、Lock接口方法解读
 > void lock()

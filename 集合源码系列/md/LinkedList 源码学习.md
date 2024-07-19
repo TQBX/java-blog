@@ -2,10 +2,11 @@
 # LinkedList 源码学习
 本篇为集合源码学习系列的`LinkedList`学习部分，如有叙述不当之处，还望评论区批评指正！
 ## LinkedList继承体系
-![lz2W5R.png](https://s2.ax1x.com/2020/01/17/lz2W5R.png)
+![lz2W5R.png](img/LinkedList%20%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/lz2W5R.png)
 
 LinkedList和ArrayList一样，都实现了List接口，都代表着列表结构，都有着类似的add，remove，clear等操作。与ArrayList不同的是，LinkedList底层基于**双向链表**，**允许不连续地址的存储**，通过节点之间的相互引用建立联系，通过节点存储数据。
-![lz2Ra9.png](https://s2.ax1x.com/2020/01/17/lz2Ra9.png)
+
+![lz2Ra9.png](img/LinkedList%20%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/lz2Ra9.png)
 
 ## LinkedList核心源码
 既然是基于节点的，那么我们来看看节点在**LinkedList**中是怎样的存在：
@@ -304,7 +305,9 @@ LinkedList和ArrayList一样，都实现了List接口，都代表着列表结构
 ```
 ## Deque相关操作
 我们还知道，LinkedList还继承了**Deque**接口，让我们能够操作队列一样操作它，下面是截取不完全的一些方法：
-![lz2hP1.png](https://s2.ax1x.com/2020/01/17/lz2hP1.png)
+
+![lz2hP1.png](img/LinkedList%20%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/lz2hP1.png)
+
 我们从中挑选几个分析一下，几个具有迷惑性方法的差异,比如下面这四个：
 
 ```java

@@ -84,7 +84,8 @@ for (Iterator i=list.iterator(); i.hasNext();)
     }
 ```
 - 测试效果想当的明显
-![1ieRPI.png](https://s2.ax1x.com/2020/01/20/1ieRPI.png)
+- 
+![1ieRPI.png](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%A5%87%E6%80%AA%E7%9A%84RandomAccess/1ieRPI.png)
 
 我们可以发现：
 - 对于支持随机访问的列表（如ArrayList），for循环＋下标索引的方式和迭代器循环遍历的方式访问数组元素，差别不是很大，在加大数量时，for循环遍历的方式更快一些。
@@ -108,7 +109,7 @@ public static void display(List<?> list){
 ```
 继续进行测试：
 
-![1iefRP.png](https://s2.ax1x.com/2020/01/20/1iefRP.png)
+![1iefRP.png](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%A5%87%E6%80%AA%E7%9A%84RandomAccess/1iefRP.png)
 
 事实上，集合工具类`Collections`中有许多操作集合的方法，我们随便举一个从前往后填充集合的方法：
 

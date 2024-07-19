@@ -96,7 +96,7 @@ class TDemo extends Thread{
 
 我们通过输出结果可以看到，调用start()方法，系统会把run()方法当成线程执行体处理，主线程和我们创建的线程将并发执行。但如果单纯调用run()方法，系统会把线程对象当成一个普通的对象，run()方法也只是普通对象方法的一部分，是**主线程的一部分**。
 
-![1R4UJg.png](https://s2.ax1x.com/2020/02/08/1R4UJg.png)
+![1R4UJg.png](img/Java%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/1R4UJg.png)
 
 
 ### 实现Runnable接口

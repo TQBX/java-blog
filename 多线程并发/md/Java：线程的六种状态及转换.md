@@ -17,8 +17,8 @@
 | TERMINATED    | 线程完成执行，**终止状态**                                   |
 
 下图源自《Java并发编程艺术》图4-1
-![1hDGN9.png](https://s2.ax1x.com/2020/02/09/1hDGN9.png)
 
+![1hDGN9.png](img/Java%EF%BC%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%AD%E7%A7%8D%E7%8A%B6%E6%80%81%E5%8F%8A%E8%BD%AC%E6%8D%A2/1hDGN9.png)
 
 ## 一、新建状态(NEW)
 即用**new关键字**新建一个线程，这个线程就处于**新建状态**。

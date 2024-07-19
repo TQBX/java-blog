@@ -1,7 +1,7 @@
 # ArrayList源码学习
 本文基于JDK1.8版本，对集合中的巨头**ArrayList**做一定的源码学习，将会参考大量资料，在文章后面都将会给出参考文章链接，本文用以巩固学习知识。
 ## ArrayList的继承体系
-![lXRhsH.png](https://s2.ax1x.com/2020/01/15/lXRhsH.png)
+![lXRhsH.png](img/ArrayList%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/lXRhsH.png)
 
 **ArrayList**继承了**AbstracList**这个抽象类，还实现了**List**接口，提供了添加、删除、修改、遍历等功能。至于其他接口，以后再做总结。
 
