@@ -255,7 +255,9 @@ JDK1.8之后采用`CAS + Synchronized`的方式来保证并发安全。
 
 - 我们先试想一下，我们想得到比n大的最小2次幂只需要**在最高位的前一位置1，后面全置0**就ok了吧。如0101代表的是5，1000就符合我们的需求为8。
 - 我们再传入更大的数，为了写着方便，这里就以8位为例：
+
   ![img](img/concurrent_hashmap/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTc3MTA3Mi8yMDIwMDEvMTc3MTA3Mi0yMDIwMDEyNzIwNDcwNTYyMC0yMDQyMDg3NjQ0LnBuZw.png)
+
 - 第一步`int n = cap -1`这一步其实是为了防止cap本身为2的幂次的情况，如果没有这一步的话，在一顿操作之后，会出现翻倍的情况。比如传入为8，算出来会是16，所以事先减去1，保证结果。
 - 最后n<0的情况的判定，排除了传入容量为0的情况。
 - n>=MAXIMUM_CAPACITY的情况的判定，排除了移位和或运算之后全部为1的情况。
