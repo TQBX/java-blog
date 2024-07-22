@@ -73,7 +73,7 @@ Redis内部使用文件事件处理器`filter event handler`，这个**文件处
 
 Redis1.0到6.0之前，核心网络模型是：单Reactor模型：**采用epoll/select/kqueue等IO多路复用技术同时监听多个socket，在单线程的事件循环中不断去处理事件（客户端请求），最后回写响应数据到客户端**。本质就是：I/O多路复用 + 非阻塞I/O（事件派发）
 
-> [阻塞IO和非阻塞IO的区别](Java基础/IO/md/NIO-BIO-AIO.md)，用户态和内核态，select+poll（只通知用户进程有socket就绪，不具体告诉是哪个，需要遍历确定） 和 epoll（通知+直接把socket写入用户进程）的区别
+> [阻塞IO和非阻塞IO的区别](Java基础/IO/md/NIO-BIO-AIO.md)，用户态和内核态，select和poll（只通知用户进程有socket就绪，不具体告诉是哪个，**都需要遍历**确定，区别在于select数组存储socket连接文件描述符，容量固定，而poll是链表存储） 和 epoll（通知+直接把socket写入用户进程）的区别
 
 多个socket可能会并发产生不同的操作，每个操作对应不同的文件事件，但是IO多路复用程序会监听多个socket，会将socket产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。
 

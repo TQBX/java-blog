@@ -169,3 +169,28 @@ TransactionDefinition.PROPAGATION_NOT_SUPPORTED： 以非事务方式运行，�
 TransactionDefinition.PROPAGATION_NEVER： 以非事务方式运行，如果当前存在事务，则抛出异常
 ```
 
+# Spring用到了哪些设计模式
+
+工厂模式 beanfactory
+
+原型模式 prototype bean
+
+单例模式 singleton bean
+
+构造器模式 beandefinitionbuilder
+
+适配器模式 adapter
+
+访问者模式 property accessor
+
+装饰器模式 bean wrapper
+
+代理模式 aop
+
+观察者模式 application listener
+
+策略模式 strategy
+
+模版方法模式 abstractpplicationcontent
+
+责任链模式 chainfactory

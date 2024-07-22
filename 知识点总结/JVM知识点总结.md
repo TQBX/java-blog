@@ -641,6 +641,22 @@ protected Class<?> loadClass(String name, boolean resolve)
 2. **如果父加载器为null，则默认使用启动类加载器作为父加载器**。
 3. 如果父加载器加载失败，抛出`ClassNotFoundException`异常，才调用自己的findClass方法。
 
+# 什么是STW
+
+stop the world：垃圾回收算法执行过程中，需要将jvm内存冻结的一种状态。
+
+在stw状态下，java所有的线程都是停止执行的（GC线程除外），native方法可以执行，但是不能和jvm交互
+
+**GC各种算法优化的重点，就是减少STW！**
+
+# JVM参数有哪些？
+
+1. 标准指令：-开头，所有hotspot都支持的参数， java -help
+2. 非标准指令：-X开头，可以用java -X打印，限定hotspot
+3. 不稳定参数：-XX开头，特定的hotspot，变化非常大
+
+![image-20240722225705059](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240722225705059.png)
+
 # 参考
 
 - 《深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第三版》
