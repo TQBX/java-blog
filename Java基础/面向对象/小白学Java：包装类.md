@@ -6,15 +6,19 @@
 
 ## 包装类的继承关系
 先看一波包装类型的继承图：
-![5423a2bd53c0e24e6a68adc7d8c46202.png](en-resource://database/7057:1)
+
+![img](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB/4a3c32a1b71bd8c0099dd40ed251a8a2.png)
 
 数值类型都直接继承于父类**Number类**，非数值类型**Character**和**Boolean**直接继承于**Object类**。
 
 除此之外，包装类型的名字也非常好记，除了`int->Integer`和`char->Character`两个比较特殊之外，其他都是基本数据类型的首字母改为大写即可,如：`byte->Byte`。
 
 通过查看官方文档，我们可以发现，数值类型继承的Number类其实是一个抽象类，那么可想而知，该类中的抽象方法已经在这几个数值类型中得到实现，看一波：
-![f046004020f993eeb0fe9741cfa13b8b.png](en-resource://database/7063:1)
-很明显，除了最后一个serialVersionUID（这个以后再总结），其他的方法在数值型包装类中都存在，可以通过这些方法将对象“转换”为基本类型的数值。
+
+![img](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB/6aa4b29f87e3fbbc815c068b66f18657.png)
+
+很明显，除了最后一个serialVersionUID（这个以后再总结)，其他的方法在数值型包装类中都存在，可以通过这些方法将对象“转换”为基本类型的数值。
+
 ## 创建包装类实例
 我们再来看看包装类型的构造器，我们再查看所有包装类之后，发现：
 - 所有的包装类型都**不存在无参构造器**。
@@ -47,11 +51,15 @@ int i = 5;
 Integer in = i; 
 ```
 我们利用debug调试工具设上断点，发现在执行`Integer in = i; `时，将会自动调用下面的方法：
-![45b1e9520df3ea2c190d94aab1f650b7.png](en-resource://database/7169:1)
+
+![img](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB/6c6c594b8226122da6b14f6a5cab6447.png)
 
 继续深究其底层实现，我们发现**IntegerCache**其实是**Integer**包装类的一个内部类，我们进入**IntegerCache**一探究竟：
-![1804112eb10fc1f8ff8170e4ffa87019.png](en-resource://database/7171:1)
-我们会发现所有的整数类型的（包括Character）包装类里都有类似的玩意儿，所以大致运行的规则应该大致相同，在这里就总结几点不太一样的：
+
+![img](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB/71b197cf58f7e3323e32ba031c36324c.png)
+
+我们会发现所有的整数类型的（包括Character)包装类里都有类似的玩意儿，所以大致运行的规则应该大致相同，在这里就总结几点不太一样的：
+
 - 只有Integer包装类才可以更改缓存大小。
 - **Character容量只有128**。
 浮点数类型包装类并不存在缓存机制，是因为在一定的范围内，该类型的数值并不是有限的。
@@ -77,7 +85,8 @@ Integer in = 5;
 int i = in;
 ```
 自动拆箱相对来说就稍微简单一点了，我们还是利用debug工具，发现上面的代码将会自动调用下面的方法
-![bda39dbdb824f19df5878028fb22d942.png](en-resource://database/7173:1)
+
+![img](img/%E5%B0%8F%E7%99%BD%E5%AD%A6Java%EF%BC%9A%E5%8C%85%E8%A3%85%E7%B1%BB/e60687efbecbcdd27b1923d14a11cb85.png)
 
 ## 包装类型的比较
 ### "=="比较
