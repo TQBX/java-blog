@@ -588,6 +588,125 @@ JDK1.8之后，方法区【hotSpot的永久代】被彻底移除【JDK1.7就已�
 
 > 方法执行完毕后相应的栈帧也会出栈并释放内存空间，也会出现 StackOverFlowError 和 OutOfMemoryError 两种错误。
 
+# 对象创建流程和内存分配
+
+## 创建流程
+
+![image-20240726005259414](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240726005259414.png)
+
+## 对象内存分配方式
+
+有两种，不同收集器不同：
+
+1. 指针碰撞，内存地址是连续的（young），serial和parnew收集器
+2. 空闲列表，内存地址不连续（old），CMS和mark-sweep收集器
+
+![image-20240726005756527](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240726005756527.png)
+
+## 内存分配安全问题
+
+**问题发生**：分配内存的时候，jvm给A线程分配内存过程中，指针未修改，此时B线程同时使用了同样一块内存
+
+**JVM两种解决办法**：
+
+1. CAS乐观锁 + 失败重试 保证更新操作的原子性
+2. TLAB本地线程分配缓冲（Thread Local Allocation Buffer）：为每个线程预先分配一块内存
+
+JVM在第一次给线程中的对象分配内存时，**首先使用CAS进行TLAB的分配**。当对象大于TLAB中的剩余内存或TLAB的内存已用尽时，再采用上述的CAS进行内存分配。
+
+![image-20240726010131554](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240726010131554.png)
+
+## 对象怎么样才能进入老年代
+
+内存担保机制！
+
+### 对象内存分配
+
+- 新生代：新对象大多数默认进入eden
+- 进入老年代的4种情况：
+  - 存活年龄太大，默认超过15次【-XX：MaxTenuringThreshold】
+  - **动态年龄判断**：minorGC之后，发现Survivor区中的一批对象的总大小大于这块Survivor的50%，就会将此时大于等于这批对象年龄最大值的所有对象，直接放入老年代
+    - Survivor区中有一批对象，年龄分别为年龄1+年龄2+年龄n的多个对象，对
+      象总和大小超过了Survivor区域的50%，此时就会把年龄n及以上的对象都放入老年
+      代（一半以上对象年龄相同）
+    - **为什么？**希望长期存活的对象，尽早进入老年代
+    - -XX：TargetSurvivorRatio
+  - 大对象直接进入老年代：需要是Serial和ParNew
+    - 比如字符串or数组
+    - -XX：PretenureSizeThreshold一半设置1M
+    - **为什么？**避免大对象分配内存时的复制操作降低效率，避免eden和survivor区的复制
+  - minorGC后，存活对象太多无法放入Survivor
+
+### **空间担保机制**
+
+当新生代无法分配内存的时候，我们想把新生代的对象转移到老年代，然后把新对象放入腾空的新生代。此时就需要内存担保机制。
+
+- MinorGC前，判断老年代可用内存是否小于新生代对象全部对象大小，如果小于则继续判断
+- 判断老年代可用内存大小是否小于之前每次MinorGC后进入老年代的对象平均大小
+  - 如果是，则会进行一次FullGC，判断是否放得下，放不下OOM
+  - 如果否，则会进行一些MinorGC：
+    - MinorGC后，剩余存活对象小于Survivor区大小，直接进入Survivor区
+    - MinorGC后，剩余存活对象大于Survivor区大小，但是小于老年代可用内存，直接进入老年代
+    - MinorGC后，剩余存活对象大于Survivor区大小，也大于老年代可用内存，进行FullGC
+    - FullGC之后，任然没有足够内存存放MinorGC的剩余对象，就会OOM
+
+![image-20240726011851793](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240726011851793.png)
+
+1. 对象优先进入eden
+
+```
+    对象优先在eden区分配，
+    eden区没有足够空间时，触发 Minor GC
+    
+    虚拟机发起 【Minor GC】 = {  
+            情况1 ： eden 已使用内存 < suvivor内存
+                eden 内对象  转移到 suvivor内存
+            情况2 : eden 已使用内存 > suvivor内存
+                eden 内对象 转移到 老年代 
+    } 
+    
+    FULL GC 触发条件 = {
+            新生代对象总空间 > 老年代剩余连续空间 
+            Minor GC 平均晋升空间大小 > 老年代连续剩余空间，则触发FULL GC 
+    }
+```
+
+2. 大对象进入老年代：避免剩余较多内存空间时，直接出发GC。
+3. 长期存活对象进入老年代：
+
+```
+对象在Eden出生， 每经历一次minor GC 并被移动到survivor区，则age++
+年龄增加到一定程度(15岁)，则进入老年代。
+此外 当suvivor区中一般以上对象年龄相同，则>=该年龄的对象进入老年代。
+```
+
+> 1. 当Eden区存储不下新分配的对象时，会触发minorGC
+> 2. GC之后，还存活的对象，按照正常逻辑，需要存入到Survivor区。
+> 3. 当无法存入到Survivor时，此时会触发担保机制
+> 4. 发生内存担保时，需要将Eden区GC之后还存活的对象放入老年代。后来的新对象或者数组放入Eden区。
+
+### 常用参数
+
+```shell
+-XX:NewRatio=2 新生代与老年代比值
+-XX:SurvivorRatio=8 新生代中，Eden与两个Survivor区域比值
+-XX:+PrintGCDetails 打印详细GC日志
+-XX:PretenureSizeThreshold 对象超过多大直接在老年代分配，默认值为0，不限制
+```
+
+# 对象的内存布局：堆中，对象里面都有啥？
+
+```
+32位对象：markword 32bit（4bytes） + 4 bytes类型指针 = 8byte对象头
+32位数组：markword 32bit（4bytes） + 4 bytes类型指针 + 4bytes = 12byte对象头
+64位对象：markword 64bit（8bytes） + 4 bytes类型指针 = 12byte对象头
+64位数组：markword 64bit（8bytes） + 4 bytes类型指针 + 4bytes = 16byte对象头
+
+# 如果是指针未压缩的情况，在原有的大小基础上加4字节
+```
+
+
+
 # 四种引用类型及特点
 
 ##  强引用
@@ -868,34 +987,6 @@ ZGC收集器：与CMS中的ParNew和G1类似， 也采用标记复制算法，�
 [[新一代垃圾回收器ZGC的探索与实践](https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html)](https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html)
 
 # 对象分配及Minor GC  Full GC
-
-1. 对象优先进入eden
-
-```
-    对象优先在eden区分配，
-    eden区没有足够空间时，触发 Minor GC
-    
-    虚拟机发起 【Minor GC】 = {  
-            情况1 ： eden 已使用内存 < suvivor内存
-                eden 内对象  转移到 suvivor内存
-            情况2 : eden 已使用内存 > suvivor内存
-                eden 内对象 转移到 老年代 
-    } 
-    
-    FULL GC 触发条件 = {
-            新生代对象总空间 > 老年代剩余连续空间 
-            Minor GC 平均晋升空间大小 > 老年代连续剩余空间，则触发FULL GC 
-    }
-```
-
-2. 大对象进入老年代：避免剩余较多内存空间时，直接出发GC。
-3. 长期存活对象进入老年代：
-
-```
-对象在Eden出生， 每经历一次minor GC 并被移动到survivor区，则age++
-年龄增加到一定程度(15岁)，则进入老年代。
-此外 当suvivor区中一般以上对象年龄相同，则>=该年龄的对象进入老年代。
-```
 
 
 
