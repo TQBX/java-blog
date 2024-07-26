@@ -15,15 +15,24 @@
 
 ## 二、Spring的MVC运行流程
 
+## JSP视图阶段
+
 ![](img/SpringMVC%E6%B5%81%E7%A8%8B/mvc.png)
 
 1. 用户请求发送给DispatcherServlet，DispatcherServlet调用HandlerMapping处理器映射器；
-
 2. HandlerMapping根据xml或注解找到对应的处理器，生成处理器对象【其实返回的是一个执行器链：包含handler和多个拦截器Interceptor】返回给DispatcherServlet；
 3. DispatcherServlet会调用相应的HandlerAdapter；
 4. HandlerAdapter经过适配调用具体的处理器去处理请求，生成ModelAndView返回给DispatcherServlet
 5. DispatcherServlet将ModelAndView传给ViewReslover解析生成View返回给DispatcherServlet；
 6. DispatcherServlet根据View进行渲染视图，最后响应给用户。
+
+## 前后端分离阶段（接口开发，异步请求）
+
+![image-20240727004924001](img/SpringMVC%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240727004924001.png)
+
+![image-20240727004820732](img/SpringMVC%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240727004820732.png)
+
+
 
 ## 三、SpringMVC常用注解
 

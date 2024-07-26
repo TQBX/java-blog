@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>天乔巴夏</title>
+  <title>天乔巴夏的学习之路</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+<!--      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">-->
+<!---->
+<!--      <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>-->
+<!--      <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>-->
   <style>
     /* 定义文字变大的样式 */
     body {
@@ -21,7 +25,17 @@
       <a href="https://blog.csdn.net/Sky_QiaoBa_Sum">CSDN</a> -->
     </nav>
   <div id="app">Please wait ..</div>
+
   <script>
+<!--      var gitalk = new Gitalk({-->
+<!--          clientID: 'Ov23liyc6oaOW6pVE5HE',-->
+<!--          clientSecret: 'd139b5ca6cb200f5256d21878e6a05a72af8985b',-->
+<!--          repo: 'repo name, eg: promptulate',  // 存放评论的仓库-->
+<!--          owner: 'eg: Undertone0809',  // 仓库的创建者，-->
+<!--          admin: ['eg: Undertone0809'], // 如果仓库有多个人可以操作，那么在这里以数组形式写出-->
+<!--          title: `Document comment ${location.hash.match(/#(.*?)([?]|$)/)[1]}`,-->
+<!--          id: location.hash.match(/#(.*?)([?]|$)/)[1],  // 存放评论的仓库-->
+<!--      })-->
     // 离线支持
     if (typeof navigator.serviceWorker !== 'undefined') {
         navigator.serviceWorker.register('sw.js')
@@ -30,16 +44,17 @@
       name: '天乔巴夏',
       // repo: 'https://github.com/TQBX',
       maxLevel: 4,//最大支持渲染的标题层级
+      subMaxLevel: 2,
       //封面,_coverpage.md
       // coverpage: true,
       auto2top: true,//切换页面后是否自动跳转到页面顶部
       search: {
         //maxAge: 86400000, // 过期时间，单位毫秒，默认一天
         paths: 'auto',
-        placeholder: '搜索',
-        noData: '找不到结果',
+        placeholder: '🔍 Type to search ',
+        noData: '😞 No Results! ',
         // 搜索标题的最大程级, 1 - 6
-        depth: 3,
+        depth: 6,
       },
       // 字数统计
       count: {
@@ -47,6 +62,11 @@
         fontsize: '0.9em',
         color: 'rgb(90,90,90)',
         language: 'chinese'
+      },
+      pagination: {
+        previousText: 'PREVIOUS',
+        nextText: 'NEXT',
+        crossChapter: true
       },
       logo: './img/logo.jpg',
     }
