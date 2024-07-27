@@ -44,6 +44,34 @@ Spring中的bean是单例的，默认是 `@Scope("Singleton")`
 
 解决：加上public即可
 
+## final、static修饰的方法
+
+问题：aop创建代理，在代理类中实现事务功能，final方法无法被重写
+
+解决：去掉final和static
+
+## 没有被Spring管理
+
+问题：类没有被Spring管理，自然不会生效 
+
+解决：@Component
+
+## 表不支持事务
+
+问题：有些存储引擎不支持事务，比如myisam
+
+解决：找支持的
+
+## 方法内部调用
+
+问题：A方法调用了@Transactional注解的B方法，没有用到代理对象
+
+解决：1. 内部调用改为外部调用  2使用编程式事务  3使用AopContext.currentProxy得到代理
+
+# Spring事务传播机制
+
+
+
 # IOC
 
 控制反转，将创建对象的控制权交给spring框架。
