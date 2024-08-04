@@ -224,13 +224,13 @@ select * from t_user where id = 5; -- 还是没有数据，但就是插不进去
 
 ## 隔离性怎么保证？
 
-MVCC 和 排他锁（如果一个事务获取了一个数据行的排他锁，其他的事务就不能再获取）
+加锁 or MVCC 都可以实现，有些数据库不支持MVCC就加锁，加锁容易读写阻塞。
 
 ### MVCC
 
 多版本并发控制，维护一个数据的多个版本，使得读写操作没有冲突。
 
-MVCC的具体实现，依赖于数据库记录中的：隐式字段、undo log日志、readView
+MVCC的具体实现，依赖于数据库记录中的：隐式字段（事务id，回滚指针，行id）、undo log日志、readView
 
 ![image-20240726235250413](img/MySQL%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240726235250413.png)
 
@@ -250,18 +250,64 @@ MVCC的具体实现，依赖于数据库记录中的：隐式字段、undo log�
     READ UNCOMMITTED 总是【读取最新】数据行 ，与MVCC的版本快照机制不符
     SERIALIZABLE 则 对读取的【数据行】都加锁 ，与MVCC 尽可能避免加锁的原则不符
     
-【undolog】 记录数据行的某个历史版本，undolog以链表形式存在
+【undolog】 记录数据行的某个历史版本，undolog以链表形式存在（版本链）
 
-RC 是读取 最新版本的 undolog
-RR 是读取 某一指定老版本的undolog
+RC 是读取 最新版本的 undolog，每次select都会获取一次read view
+RR 是读取 某一指定老版本的undolog，只在第一次select时会获取一次read view
 
 【三个字段】
 row_id: 隐含的自增id，数据库默认为该行记录生成的唯一隐式主键
 trx_id: 用来存储每次对某条聚簇索引记录进行修改的时候的事务id。
 roll_pointer: 回滚指针，配合undolog，指向上一版本
+
+【Read view】
+多个事务对同一个行记录进行更新会产生多个历史快照，存在undolog里面。readview帮助事务 找到 需要读取哪个版本的行记录（解决可见性问题）
+
+保存了当前事务开启时所有活跃（还未提交）的事务列表（其实就是 保存了 不应该让该事务看到的其他事务id列表）
+
+readview存储的几个属性：
+	1. 当前正活跃的事务id集合trx_ids
+	2. trx_ids的最大id 
+	3. trx_ids的最小id 
+	4. 创建这个readview的事务id
+
+readview规则：
+	假设当前有事务creator_trx_id想要读取某行记录，这行记录的事务id是trx_id，出现以下情况：
+	1. trx_id < 活跃事务的最小事务id，该行记录在活跃事务之前就提交，该行记录 对 该事务 可见
+	2. trx_id > 活跃事务的最大事务id，该行记录在活跃事务之后才创建，该行记录 对 该事务 不可见
+	3. 活跃事务的最小事务id < trx_id < 活跃事务的最大事务id，该行记录所在事务id在目前creator_trx_id事务创建的时候，可能还处于活跃状态，因此需要在trx_ids集合遍历：
+		【trx_id存在于集合中】：事务trx_id还处于活跃状态，不可见
+		【不存在】：证明事务已经提交，可见
+		
+【查询一条记录时，系统如何通过多版本并发控制，找到该记录】
+1. 获取事务的id
+2. 获取readview
+3. 查询得到的数据，和readview中的事务ids进行比较
+4. 如果不符合readview规则，就需要从undo log中获取历史快照
+5. 返回符合规则的数据
+
+总结：MVCC = undolog（保存了历史快照） + readview（判断当前版本的数据是否可见）
 ```
 
 ![image-20210327151321694](img/MySQL%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20210327151321694.png)
+
+## InnoDB 如何解决幻读的？
+
+在可重复读的情况下，InnoDB 可以通过 Next key 锁 + MVCC 来解决幻读问题
+
+幻读案例：
+
+1. 同时开始事务A和B，先在事务A中进行某个条件范围的查询，使用排他锁读取`select * from player where height > 2.08 for update`
+2. 在事务B中增加一条符合该条件范围的数据，进行提交`insert into player values...; commit;`
+3. 然后在事务A中再次查询该条件范围的数据，发现结果集中多出一条符合条件的数据
+
+为什么会出现幻读？
+
+- 在RC隔离级别下，innodb只采用记录锁record lock
+
+如何解决？
+
+- 在RR级别下，innodb采用next-key机制，解决幻读问题
 
 # 索引
 
@@ -485,7 +531,7 @@ SELECT ... FOR SHARE;  # S 锁 MySQL8.0
 SELECT ... FOR UPDATE; # X 锁 MySQL8.0
 ```
 
-# 意向锁
+## 意向锁
 
 > InnoDB支持多粒度锁定，允许事务在行锁和表锁同时存在。
 >
@@ -512,59 +558,33 @@ InnoDB存储引擎支持的意向锁，是表级锁，设计目的是：在一�
 
 在Innodb默认的隔离级别repeatable-read下，行锁默认使用的是next-key lock。但是如果操作的索引是唯一索引或主键，innodb会对next key lock进行优化，将其降级为record lock，仅锁住索引本身，而不是范围
 
-## 锁的粒度（行、表、页、记录、间隙、临键）
-
-锁整个表，下一个事务访问该表时，需要等前一个事务释放锁才可以。
-
-> 当索引失效时，行锁会升级为表锁。
-
-特点：粒度大，易冲突。
-
-### 行锁
-
-锁某一行或多行。
-
-特点：粒度小，不容易冲突，相比表锁支持的并发要高。
-
-`select * from tab where id = 1 for update`
-
-### 记录锁 record lock
-
-是行锁的一种，记录锁锁住的范围只是表中的某一条记录。
-
-加了记录锁后，可以避免重复读和脏读的问题。
-
-### 页锁
-
-锁粒度介于表锁和行锁之间，一次锁定相邻的一组记录。
-
-特点：开销和加锁事件介于表锁和行锁之间；会出现死锁；并发度一般。
-
-### 间隙锁 gap lock
-
-属于行锁的一种，间隙锁是在事务加锁后其锁住的是表记录的**某一个区间**，当表的相邻id之间出现空隙则会形成一个区间，遵循左开右闭原则。
-
-例如：数据有id = 1， 3，5，7四条数据，在查找1-7范围的数据，1-7都会被加上锁，2，4，6不在这些记录中，就是所谓的间隙。
-
-间隙锁只会出现在RR的事务级别中，防止幻读问题。
-
-### 临键锁 next-key-lock
-
-属于行锁的一种，它是innodb的行锁默认算法：是**记录锁record lock和间隙锁gap lock的结合**，通过在index上加lock实现：
-
-1. 如果index为唯一索引，降级为record lock。
-2. 如果是普通索引，为next-key lock。
-3. 如果没有index，则直接锁住全表，即表锁。
-
-临键锁会把查询出来的记录锁住，同时也会把该范围查询内的所有间隙空间也锁住，且将相邻的下一个区间也锁住。意思是，加了next-key-lock后，返回区间内数据不允许被修改和插入。
-
-临键锁的存在，使得Mysql在RR级别就可以解决脏读、重复读、幻读的问题。
-
 ## 悲观锁和乐观锁
 
 乐观锁：并不会真正去锁某行的记录，通过版本号实现
 
-被关锁：上面行锁、表锁都是悲观锁
+悲观锁：上面行锁、表锁都是悲观锁
+
+## 当前读和快照读
+
+什么是快照读？ 读取的是**快照数据**！
+
+```sql
+select * from player where ...
+```
+
+什么是当前读？读取**最新数据**，而不是版本历史数据。
+
+加锁的select  或者是 增删改
+
+```sql
+select * from player lock in share mode;
+select * from player for update;
+insert into player values ...;
+delete from player where ...;
+update player set ...;
+```
+
+
 
 # MySQL日志
 
