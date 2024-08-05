@@ -309,6 +309,8 @@ readview规则：
 
 - 在RR级别下，innodb采用next-key机制，解决幻读问题
 
+  
+
 # 索引
 
 ## 索引类型
