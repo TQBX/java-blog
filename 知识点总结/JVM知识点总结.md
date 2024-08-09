@@ -1248,6 +1248,26 @@ stop the world：垃圾回收算法执行过程中，需要将jvm内存冻结的
 
 ![image-20240722225705059](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240722225705059.png)
 
+## 实际操作中，怎么设置堆内存大小？
+
+- -Xms：初始堆内存， XX：InitialHeapSize
+- -Xmx：最大堆内存，XX：MaxHeapSize
+- -Xmn：新生代大小
+- -XX:NewRatio=：老年代 / 新生代
+- -XX:MaxNewSize=：新声代最大大小
+- -XX:SurvivorRatio=：Survivor / Eden
+- **-XX:+UseSerialGC、-XX:+UseParallelGC、-XX:+UseConcMarkSweepGC、-XX:+UseG1GC**：这些参数分别用于选择串行、并行、并发标记清扫或G1垃圾收集器。
+
+## 实际项目中，新生代和老年代的比例一般设置多少？
+
+-XX：NewRatio比例来调整
+
+默认情况下，新生代 ： 老年代 = 1: 2，也就是 ratio = 2
+
+- 如果年轻代垃圾收集频繁，可以增加年轻代的大小，降低ratio
+
+- 如果老年代垃圾收集成为瓶颈，增加老年代的大小，提高ratio
+
 # JDK变化
 
 ![image-20240808172137348](img/JVM%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/image-20240808172137348.png)

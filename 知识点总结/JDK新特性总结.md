@@ -48,9 +48,31 @@ ZGC 转正 java -XX:+UseZGC className
 
 # Java19
 
-虚拟线程
+虚拟线程：轻量级线程
+
+lua、python里叫 Coroutine， go里面叫Goroutine，协程！
+
+java中之前：平台线程，是对操作系统线程的包装，需要在用户空间和内核空间进行上下文切换，线程数量由操作系统线程数量决定。
+
+thread per request，servlet容器为每个请求都创建一个thread处理请求，比如读取数据库，需要网络IO，cpu空闲，但是线程并没有被释放。高并发情况下，cpu使用率低，但是占用线程多！
+
+线程资源被耗尽，无法处理请求了，但是cpu使用率还是很低。
+
+线程池只是减少创建和销毁的开销，并不会提升上限，上限由操作系统决定。
+
+为了提高并发量，采用异步编程（非阻塞模型）处理，学习成本高，不便于调试维护。
+
+虚拟线程应运而生。
+
+以平台线程为载体的轻量级线程，占用资源更少。
+
+Thread.ofVirtual().start()
+
+<img src="img/JDK%E6%96%B0%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/image-20240809185832649.png" alt="image-20240809185832649" style="zoom:50%;" />
 
 虚拟线程（Virtual Thread-）是 JDK 而不是 OS 实现的轻量级线程(Lightweight Process，LWP），许多虚拟线程共享同一个操作系统线程，虚拟线程的数量可以远大于操作系统线程的数量。
+
+![image-20240809185909415](img/JDK%E6%96%B0%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/image-20240809185909415.png)
 
 虚拟线程在其他多线程语言中已经被证实是十分有用的，比如 Go 中的 Goroutine、Erlang 中的进程。
 
