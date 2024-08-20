@@ -48,7 +48,7 @@ SpringBoot官网：[https://spring.io/projects/spring-boot](https://spring.io/pr
 - spring-boot-starter-data-jpa - 带有 Hibernate 的 Spring Data JPA；
 - spring-boot-starter-data-rest - 使用 Spring Data REST 公布简单的 REST 服务
 
-# （*）核心注解@SpringBootApplication 
+# 🌟核心注解@SpringBootApplication 
 
 核心注解是@SpringBootApplication 由以下三种组成
 
